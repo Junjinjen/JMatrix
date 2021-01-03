@@ -4,26 +4,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger\Logger.h">
       <Filter>Logger</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Network\NetworkClient.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Network\NetworkServer.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PipeManagement\Pipe\Pipe.h">
-      <Filter>PipeManagement\Pipe</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PipeManagement\PipeManager\PipeManager.h">
-      <Filter>PipeManagement\PipeManager</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PipeManagement\Pipe\Pipe.cpp">
-      <Filter>PipeManagement\Pipe</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PipeManagement\PipeManager\PipeManager.cpp">
-      <Filter>PipeManagement\PipeManager</Filter>
-    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

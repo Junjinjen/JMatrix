@@ -47,7 +47,7 @@ void MockClient::SetMaxPackageSize(size_t size)
     maxAcceptablePackageSize_ = size;
 }
 
-std::vector<junjinjen_matrix::firmware::pipe_management::byte_string>& MockClient::GetOutput()
+std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string>& MockClient::GetOutput()
 {
     return outputMessages_;
 }
@@ -105,7 +105,7 @@ size_t MockClient::Write(void* data, size_t length)
         length = maxAcceptablePackageSize_;
     }
 
-    outputMessages_.push_back(junjinjen_matrix::firmware::pipe_management::byte_string(reinterpret_cast<const uint8_t*>(data), length));
+    outputMessages_.push_back(junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string(reinterpret_cast<const uint8_t*>(data), length));
     return length;
 }
 

@@ -27,6 +27,11 @@ bool MockServer::Initialize(uint16_t port)
 
 void MockServer::Stop()
 {
+    for (size_t i = 0; i < clients_.size(); i++)
+    {
+        delete clients_.front();
+        clients_.pop();
+    }
 }
 
 bool MockServer::HasNewClient()

@@ -13,6 +13,9 @@
     <ClCompile Include="Mocks\Network\Server\MockServer.cpp">
       <Filter>Mocks\Server</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\PipeManagerTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h">

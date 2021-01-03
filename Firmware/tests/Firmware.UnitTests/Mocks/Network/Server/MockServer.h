@@ -1,10 +1,10 @@
 #pragma once
-#include "Network/NetworkServer.h"
-#include "Network/NetworkClient.h"
+#include "NetworkPipeline/Network/NetworkServer.h"
+#include "NetworkPipeline/Network/NetworkClient.h"
 #include <queue>
 
-using junjinjen_matrix::firmware::network::NetworkServer;
-using junjinjen_matrix::firmware::network::NetworkClient;
+using junjinjen_matrix::firmware::network_pipeline::network::NetworkServer;
+using junjinjen_matrix::firmware::network_pipeline::network::NetworkClient;
 
 class MockServer : public NetworkServer
 {

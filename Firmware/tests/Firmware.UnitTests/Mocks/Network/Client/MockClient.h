@@ -1,10 +1,10 @@
 #pragma once
-#include "Network/NetworkClient.h"
-#include "PipeManagement/Pipe/Pipe.h"
+#include "NetworkPipeline/Network/NetworkClient.h"
+#include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
 #include <vector>
 #include <string>
 
-using junjinjen_matrix::firmware::network::NetworkClient;
+using junjinjen_matrix::firmware::network_pipeline::network::NetworkClient;
 
 class MockClient : public NetworkClient
 {
@@ -18,7 +18,7 @@ public:
 	std::string GenerateMessage(const std::string& msg);
 
 	void SetMaxPackageSize(size_t size);
-	std::vector<junjinjen_matrix::firmware::pipe_management::byte_string>& GetOutput();
+	std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string>& GetOutput();
 
 	virtual bool DataAvaible() override;
 
@@ -30,7 +30,7 @@ public:
 	virtual size_t Read(void* buffer, size_t buffLength) override;
 	virtual size_t Write(void* data, size_t length) override;
 private:
-	std::vector<junjinjen_matrix::firmware::pipe_management::byte_string> outputMessages_;
+	std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string> outputMessages_;
 	std::vector<std::string> messagesBuffer_;
 	bool isClosed_;
 	bool isConnected_;
