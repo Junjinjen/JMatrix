@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Tests\PipeUnitTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Mocks\Logger\DebugLogger.cpp">
+      <Filter>Mocks\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Mocks\Network\Client\MockClient.cpp">
+      <Filter>Mocks\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Mocks\Network\Server\MockServer.cpp">
+      <Filter>Mocks\Server</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mocks\Logger\DebugLogger.h">
+      <Filter>Mocks\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Mocks\Network\Client\MockClient.h">
+      <Filter>Mocks\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Mocks\Network\Server\MockServer.h">
+      <Filter>Mocks\Server</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Mocks">
+      <UniqueIdentifier>{bdcb73d1-5398-4d78-8c0d-63ee82434c25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{69842384-a7e5-46f3-a341-cee303b507cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\Logger">
+      <UniqueIdentifier>{06ff53ac-10e1-4f83-b127-614f30c8f751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\Client">
+      <UniqueIdentifier>{342d4e52-b449-49ce-b131-83090ac7e8d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mocks\Server">
+      <UniqueIdentifier>{f3a4da74-f72e-4a46-8d81-e2fe3642df17}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
