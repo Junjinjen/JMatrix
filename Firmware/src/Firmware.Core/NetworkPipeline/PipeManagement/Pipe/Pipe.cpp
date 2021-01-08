@@ -19,7 +19,7 @@ namespace junjinjen_matrix
 					Close();
 				}
 
-				bool Pipe::IsConnected()
+				bool Pipe::IsConnected() const
 				{
 					if (!isClosed_)
 					{

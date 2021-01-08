@@ -4,30 +4,53 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger\Logger.h">
       <Filter>Logger</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h">
+      <Filter>NetworkPipeline\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h">
+      <Filter>NetworkPipeline\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.h">
+      <Filter>NetworkPipeline\PipeManagement\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h">
+      <Filter>NetworkPipeline\PipeManagement\PipeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Services\ServiceProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskRegistrator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp">
+      <Filter>NetworkPipeline\PipeManagement\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp">
+      <Filter>NetworkPipeline\PipeManagement\PipeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">
       <UniqueIdentifier>{5381c4be-ec17-459b-9fb3-8254efaf8f41}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Network">
-      <UniqueIdentifier>{8def2146-246a-4cb1-998e-b89db0aefd69}</UniqueIdentifier>
+    <Filter Include="NetworkPipeline">
+      <UniqueIdentifier>{3ac27d58-2a75-44ab-aeeb-b34aea0b7a14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PipeManagement">
+    <Filter Include="NetworkPipeline\PipeManagement">
       <UniqueIdentifier>{223adefb-447c-43dc-9886-b0eafe214456}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PipeManagement\Pipe">
+    <Filter Include="NetworkPipeline\PipeManagement\Pipe">
       <UniqueIdentifier>{58d988ed-9c1d-4e2e-a5dd-5057c29d2d2a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PipeManagement\PipeManager">
+    <Filter Include="NetworkPipeline\PipeManagement\PipeManager">
       <UniqueIdentifier>{9141168a-a545-445f-8ed7-1777662972ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetworkPipeline\Network">
+      <UniqueIdentifier>{8def2146-246a-4cb1-998e-b89db0aefd69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

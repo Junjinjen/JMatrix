@@ -19,9 +19,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskRegistrator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Services\ServiceProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
   </ItemGroup>
 </Project>

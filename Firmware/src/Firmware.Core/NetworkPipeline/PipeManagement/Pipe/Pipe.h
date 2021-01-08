@@ -22,7 +22,7 @@ namespace junjinjen_matrix
 					Pipe(std::shared_ptr<Logger> logger, std::unique_ptr<NetworkClient> client);
 					~Pipe();
 
-					bool IsConnected();
+					bool IsConnected() const;
 					void Close();
 
 					bool HasNewMessage();
