@@ -18,7 +18,6 @@ namespace junjinjen_matrix
 					PipeManager(std::shared_ptr<Logger> logger, std::unique_ptr<NetworkServer> server);
 					~PipeManager();
 
-					bool Initialize(uint16_t port);
 					void Stop();
 
 					bool HasNewPipe();

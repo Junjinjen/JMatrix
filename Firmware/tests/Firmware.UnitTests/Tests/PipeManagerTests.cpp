@@ -12,26 +12,6 @@ namespace UnitTestsJMatrix
 	TEST_CLASS(PipeManagerUnitTests)
 	{
 	public:
-		TEST_METHOD(Initialize_WhenServerInitializationSuccess_ReturnsTrue)
-		{
-			// Arrange
-			auto [server, pipeManager] = ConfigureTestPipeManager();
-			server->SetInitializationResult(true);
-
-			// Act / Assert
-			Assert::IsTrue(server->Initialize(0));
-		}
-
-		TEST_METHOD(Initialize_WhenServerInitializationFails_ReturnsFalse)
-		{
-			// Arrange
-			auto [server, pipeManager] = ConfigureTestPipeManager();
-			server->SetInitializationResult(false);
-
-			// Act / Assert
-			Assert::IsFalse(server->Initialize(0));
-		}
-
 		TEST_METHOD(HasNewPipe_WhenServerHasNewClient_ReturnsTrue)
 		{
 			// Arrange

@@ -18,20 +18,6 @@ namespace junjinjen_matrix
 					Stop();
 				}
 
-				bool PipeManager::Initialize(uint16_t port)
-				{
-					logger_->Log("Initializing pipe manager");
-
-					if (!server_->Initialize(port))
-					{
-						logger_->Log("Unable to initialize pipe manager: Server initialization error");
-						return false;
-					}
-
-					isStopped_ = false;
-					return true;
-				}
-
 				void PipeManager::Stop()
 				{
 					if (!isStopped_)
