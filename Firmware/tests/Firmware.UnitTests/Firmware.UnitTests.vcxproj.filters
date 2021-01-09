@@ -16,6 +16,7 @@
     <ClCompile Include="Tests\PipeManagerTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\TaskManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h">

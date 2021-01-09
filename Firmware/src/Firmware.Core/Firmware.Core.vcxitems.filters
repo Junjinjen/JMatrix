@@ -16,11 +16,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h">
       <Filter>NetworkPipeline\PipeManagement\PipeManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Services\ServiceProvider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskRegistrator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp">
@@ -32,6 +32,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

@@ -1,5 +1,10 @@
 #include "DebugLogger.h"
 
+DebugLogger::~DebugLogger()
+{
+	Log("Logger stopped");
+}
+
 void DebugLogger::Log(const std::string& msg) const
 {
 	std::wstring tmp(msg.begin(), msg.end());

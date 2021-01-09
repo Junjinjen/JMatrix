@@ -24,6 +24,7 @@
     <ClCompile Include="Mocks\Network\Server\MockServer.cpp" />
     <ClCompile Include="Tests\PipeManagerTests.cpp" />
     <ClCompile Include="Tests\PipeUnitTests.cpp" />
+    <ClCompile Include="Tests\TaskManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h" />
