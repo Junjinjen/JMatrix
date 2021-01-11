@@ -16,6 +16,7 @@ namespace junjinjen_matrix
 				void InvalidTask::Execute()
 				{
 					pipe_->SendMessage("Invalid task name");
+					Stop();
 				}
 			}
 		}
