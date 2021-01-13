@@ -3,6 +3,7 @@
 #include "Utilities/ByteString/ByteString.h"
 #include "NetworkPipeline/Network/NetworkServer.h"
 #include <queue>
+#include <cstring>
 
 namespace junjinjen_matrix
 {

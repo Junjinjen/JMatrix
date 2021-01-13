@@ -25,7 +25,7 @@ namespace junjinjen_matrix
 					return it->second(logger, pipe);
 				}
 
-				return CreateInvalidTask(logger, std::move(pipe));
+				return CreateInvalidTask(logger, pipe);
 			}
 
 			inline std::map<std::string, task_creator_t>& TaskFactory::GetMap()

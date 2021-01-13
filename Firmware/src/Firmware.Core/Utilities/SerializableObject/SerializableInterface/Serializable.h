@@ -14,8 +14,8 @@ namespace junjinjen_matrix
 					class Serializable
 					{
 					public:
-						void Serialize(std::basic_ostream<uint8_t>& stream) const;
-						bool Deserialize(std::basic_istream<uint8_t>& stream);
+						virtual void Serialize(std::basic_ostream<uint8_t>& stream) const = 0;
+						virtual bool Deserialize(std::basic_istream<uint8_t>& stream) = 0;
 					};
 				}
 			}

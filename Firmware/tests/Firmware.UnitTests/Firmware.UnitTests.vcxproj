@@ -22,9 +22,9 @@
     <ClCompile Include="Mocks\Logger\DebugLogger.cpp" />
     <ClCompile Include="Mocks\Network\Client\MockClient.cpp" />
     <ClCompile Include="Mocks\Network\Server\MockServer.cpp" />
-    <ClCompile Include="Tests\PipeManagerTests.cpp" />
-    <ClCompile Include="Tests\PipeUnitTests.cpp" />
-    <ClCompile Include="Tests\TaskManagerTests.cpp" />
+    <ClCompile Include="Tests\PipeManagement\PipeManagerTests.cpp" />
+    <ClCompile Include="Tests\PipeManagement\PipeUnitTests.cpp" />
+    <ClCompile Include="Tests\TaskManagement\TaskManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h" />

@@ -25,7 +25,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteString\ByteString.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\ContainerFactory\ContainerFactory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\ArrayContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\BufferArrayContainer\BufferArrayContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\ObjectArrayContainer\ObjectArrayContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\PrimitiveArrayContainer\PrimitiveArrayContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\PrimitiveArrayContainer\PrimitiveArrayContainersDefinitions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\Container.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ContainerType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\BufferValueContainer\BufferValueContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\ObjectValueContainer\ObjectValueContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\PrimitiveValueContainer\PrimitiveContainersDefinitions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\PrimitiveValueContainer\PrimitiveValueContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\SerializableObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\SerializableInterface\Serializable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\ValueContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
@@ -34,5 +48,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\ContainerFactory\ContainerFactory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\BufferArrayContainer\BufferArrayContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ArrayContainer\ObjectArrayContainer\ObjectArrayContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\Container.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\BufferValueContainer\BufferValueContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\ValueContainer\ObjectValueContainer\ObjectValueContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\SerializableObject.cpp" />
   </ItemGroup>
 </Project>

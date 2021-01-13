@@ -28,7 +28,7 @@ namespace junjinjen_matrix
 				{
 					if ((*it)->HasNewMessage())
 					{
-						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&(*it)->GetNewMessage()[0]), logger_, std::move(*it));
+						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&(*it)->GetNewMessage()[0]), logger_, *it);
 						newTasks_.push_back(std::move(task));
 						it = newPipes_.erase(it);
 					}

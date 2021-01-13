@@ -1,7 +1,7 @@
 #include "CppUnitTest.h"
 #include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
-#include "../Mocks/Logger/DebugLogger.h"
-#include "../Mocks/Network/Client/MockClient.h"
+#include "../../Mocks/Logger/DebugLogger.h"
+#include "../../Mocks/Network/Client/MockClient.h"
 #include <tuple>
 
 #undef SendMessage
@@ -9,7 +9,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::network_pipeline::pipe_management;
 
-namespace UnitTestsJMatrix
+namespace JunjinjenMatrixUnitTests
 {
 	TEST_CLASS(PipeUnitTests)
 	{

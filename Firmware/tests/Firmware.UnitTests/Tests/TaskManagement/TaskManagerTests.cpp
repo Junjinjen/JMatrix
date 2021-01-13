@@ -1,13 +1,13 @@
 #include "CppUnitTest.h"
 #include "TaskManagement/TaskManager/TaskManager.h"
-#include "../Mocks/Network/Server/MockServer.h"
-#include "../Mocks/Network/Client/MockClient.h"
-#include "../Mocks/Logger/DebugLogger.h"
+#include "../../Mocks/Network/Server/MockServer.h"
+#include "../../Mocks/Network/Client/MockClient.h"
+#include "../../Mocks/Logger/DebugLogger.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::task_management;
 
-namespace UnitTestsJMatrix
+namespace JunjinjenMatrixUnitTests
 {
 	TEST_CLASS(TaskManagerUnitTests)
 	{

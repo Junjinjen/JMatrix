@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Tests\PipeUnitTests.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="Mocks\Logger\DebugLogger.cpp">
       <Filter>Mocks\Logger</Filter>
     </ClCompile>
@@ -13,10 +10,13 @@
     <ClCompile Include="Mocks\Network\Server\MockServer.cpp">
       <Filter>Mocks\Server</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\PipeManagerTests.cpp">
+    <ClCompile Include="Tests\PipeManagement\PipeManagerTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\TaskManagerTests.cpp" />
+    <ClCompile Include="Tests\PipeManagement\PipeUnitTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\TaskManagement\TaskManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h">
