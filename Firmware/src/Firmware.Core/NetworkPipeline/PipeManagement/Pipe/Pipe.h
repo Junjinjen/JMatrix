@@ -1,7 +1,7 @@
 #pragma once
 #include "Logger/Logger.h"
+#include "Utilities/ByteString/ByteString.h"
 #include "NetworkPipeline/Network/NetworkServer.h"
-#include <cstring>
 #include <queue>
 
 namespace junjinjen_matrix
@@ -14,7 +14,7 @@ namespace junjinjen_matrix
 			{
 				using logger::Logger;
 				using network::NetworkClient;
-				using byte_string = std::basic_string<uint8_t>;
+				using utilities::byte_string::byte_string;
 
 				class Pipe
 				{
