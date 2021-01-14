@@ -10,54 +10,65 @@ namespace junjinjen_matrix
 			{
 				namespace container
 				{
-					Container::Container(container_type type)
-						: type_(type)
+					const std::string& Container::GetName() const
 					{
+						return name_;
 					}
 
-					bool Container::IsDefined() const
+					void Container::SetName(const std::string& name)
 					{
-						return container::IsDefined(type_);
+						name_ = name;
 					}
 
-					bool Container::IsArray() const
+					void Container::SetName(std::string&& name)
 					{
-						return container::IsArray(type_);
+						name_ = std::move(name);
 					}
 
-					bool Container::IsObject() const
+					std::unique_ptr<std::basic_istream<uint8_t>> Container::GetReadStream() const
 					{
-						return container::IsObject(type_);
+						return std::unique_ptr<std::basic_istream<uint8_t>>(new std::basic_istringstream<uint8_t>(data_));
 					}
 
-					bool Container::IsBuffer() const
+					std::unique_ptr<std::basic_ostream<uint8_t>> Container::GetWriteStream() const
 					{
-						return container::IsBuffer(type_);
+						return std::unique_ptr<std::basic_ostream<uint8_t>>(new std::basic_ostringstream<uint8_t>(data_));
 					}
 
-					bool Container::IsBoolean() const
+					bool Container::Serialize(std::basic_ostream<uint8_t>& stream) const
 					{
-						return container::IsBoolean(type_);
+						size_t nameSize = name_.size();
+						stream.write((uint8_t*)&nameSize, sizeof(size_t));
+						stream.write((uint8_t*)&name_[0], nameSize);
+
+						size_t dataSize = data_.size();
+						stream.write((uint8_t*)&dataSize, sizeof(size_t));
+						stream.write(&data_[0], dataSize);
+
+						return stream.good();
 					}
 
-					bool Container::IsInt32() const
+					bool Container::Deserialize(std::basic_istream<uint8_t>& stream)
 					{
-						return container::IsInt32(type_);
-					}
+						size_t nameSize;
+						if (!stream.read((uint8_t*)&nameSize, sizeof(size_t)))
+						{
+							return false;
+						}
 
-					bool Container::IsInt64() const
-					{
-						return container::IsInt64(type_);
-					}
+						name_.resize(nameSize);
+						stream.read((uint8_t*)&name_[0], nameSize);
 
-					bool Container::IsPrimitiveType() const
-					{
-						return container::IsPrimitiveType(type_);
-					}
+						size_t dataSize;
+						if (!stream.read((uint8_t*)&dataSize, sizeof(size_t)))
+						{
+							return false;
+						}
 
-					void Container::Serialize(std::basic_ostream<uint8_t>& stream) const
-					{
-						stream.write((uint8_t*)&type_, sizeof(container_type));
+						data_.resize(dataSize);
+						stream.read(&data_[0], dataSize);
+
+						return stream.good();
 					}
 				}
 			}

@@ -83,7 +83,7 @@
       <ForcedIncludeFiles>$(ProjectDir)__vm\.Firmware.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__ESP8266_esp8266__;__ESP8266_ESP8266__;_VMDEBUG=1;__ets__;ICACHE_FLASH;NONOSDK22x_190703=1;F_CPU=80000000L;LWIP_OPEN_SRC;TCP_MSS=536;LWIP_FEATURES=1;LWIP_IPV6=0;ARDUINO=108013;ARDUINO_ESP8266_WEMOS_D1MINI;ARDUINO_ARCH_ESP8266;FLASHMODE_DIO;ESP8266;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>

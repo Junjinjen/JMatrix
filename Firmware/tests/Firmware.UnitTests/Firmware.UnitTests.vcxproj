@@ -24,6 +24,7 @@
     <ClCompile Include="Mocks\Network\Server\MockServer.cpp" />
     <ClCompile Include="Tests\PipeManagement\PipeManagerTests.cpp" />
     <ClCompile Include="Tests\PipeManagement\PipeUnitTests.cpp" />
+    <ClCompile Include="Tests\SerializableObject\SerializableObjectTests.cpp" />
     <ClCompile Include="Tests\TaskManagement\TaskManagerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +111,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
