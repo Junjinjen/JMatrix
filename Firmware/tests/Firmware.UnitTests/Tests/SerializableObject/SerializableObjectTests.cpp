@@ -1,8 +1,9 @@
 #include "CppUnitTest.h"
-#include "Utilities/SerializableObject/Converters/ValueConverter/ValueConverter.h"
+#include "Utilities/SerializableObject/SerializableObject.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::utilities::serializable_object::converters;
+using namespace junjinjen_matrix::firmware::utilities::serializable_object;
 
 namespace JunjinjenMatrixUnitTests
 {
@@ -33,14 +34,16 @@ namespace JunjinjenMatrixUnitTests
 	public:
 		TEST_METHOD(HasNewTasks_WhenPipeManagerHasNewPipeWithMessage_ReturnsTrue)
 		{
-			ValueConverter<std::string> a;
-			std::string tt = "Hello world";
+			SerializableObject a;
 
-			std::basic_stringstream<uint8_t> ss;
-			a.TrySetValue(ss, tt);
+			a.TrySetValue("Int", 13);
+			char* ty = (char*)"Hello world";
+			a.TrySetValue("String", ty);
 
-			std::string tta;
-			a.TryGetValue(ss, tta);
+			int bbb;
+			std::string ccc;
+			a.TryGetValue("Int", bbb);
+			a.TryGetValue("String", ccc);
 		}
 	};
 }

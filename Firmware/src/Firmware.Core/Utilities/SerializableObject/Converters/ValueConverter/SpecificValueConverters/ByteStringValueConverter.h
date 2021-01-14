@@ -1,4 +1,5 @@
 #pragma once
+#include "Utilities/ByteString/ByteString.h"
 #include "Utilities/SerializableObject/Converters/ValueConverter/ValueConverterClassDefenition.h"
 
 namespace junjinjen_matrix
@@ -11,19 +12,21 @@ namespace junjinjen_matrix
 			{
 				namespace converters
 				{
-					template<typename T>
-					using only_if_string =
-						enable_if_t<std::is_same<std::string, T>::value>;
+					using utilities::byte_string::byte_string;
 
 					template<typename T>
-					class ValueConverter<T, only_if_string<T>>
+					using only_if_byte_string =
+						enable_if_t<std::is_same<byte_string, T>::value>;
+
+					template<typename T>
+					class ValueConverter<T, only_if_byte_string<T>>
 					{
 					public:
 						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T& value)
 						{
 							size_t size = value.size();
 							stream.write((uint8_t*)&size, sizeof(size_t));
-							stream.write((uint8_t*)&value[0], size);
+							stream.write(&value[0], size);
 							return stream.good();
 						}
 
@@ -36,7 +39,7 @@ namespace junjinjen_matrix
 							}
 
 							value.resize(size);
-							stream.read((uint8_t*)&value[0], size);
+							stream.read(&value[0], size);
 							return stream.good();
 						}
 					};

@@ -25,14 +25,19 @@ namespace junjinjen_matrix
 						name_ = std::move(name);
 					}
 
-					std::unique_ptr<std::basic_istream<uint8_t>> Container::GetReadStream() const
+					const byte_string& Container::GetData() const
 					{
-						return std::unique_ptr<std::basic_istream<uint8_t>>(new std::basic_istringstream<uint8_t>(data_));
+						return data_;
 					}
 
-					std::unique_ptr<std::basic_ostream<uint8_t>> Container::GetWriteStream() const
+					void Container::SetData(const byte_string& str)
 					{
-						return std::unique_ptr<std::basic_ostream<uint8_t>>(new std::basic_ostringstream<uint8_t>(data_));
+						data_ = str;
+					}
+
+					void Container::SetData(byte_string&& str)
+					{
+						data_ = std::move(str);
 					}
 
 					bool Container::Serialize(std::basic_ostream<uint8_t>& stream) const

@@ -24,8 +24,9 @@ namespace junjinjen_matrix
 						void SetName(const std::string& name);
 						void SetName(std::string&& name);
 
-						std::unique_ptr<std::basic_istream<uint8_t>> GetReadStream() const;
-						std::unique_ptr<std::basic_ostream<uint8_t>> GetWriteStream() const;
+						const byte_string& GetData() const;
+						void SetData(const byte_string& str);
+						void SetData(byte_string&& str);
 
 						virtual bool Serialize(std::basic_ostream<uint8_t>& stream) const override;
 						virtual bool Deserialize(std::basic_istream<uint8_t>& stream) override;
