@@ -414,7 +414,7 @@ namespace JunjinjenMatrixUnitTests
 		}
 
 		template<typename T>
-		inline void AddToVector(std::vector<uint8_t>& vector, std::basic_string<T>& string)
+		inline void AddToVector(std::vector<uint8_t>& vector, std::basic_string<T> string)
 		{
 			vector.insert(vector.end(), string.begin(), string.end());
 		}

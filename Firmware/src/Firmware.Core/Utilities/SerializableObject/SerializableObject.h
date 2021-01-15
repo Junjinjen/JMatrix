@@ -78,7 +78,7 @@ namespace junjinjen_matrix
 					}
 
 					template<typename T>
-					bool TrySetArray(const std::string& name, const T* values, size_t count)
+					bool TrySetArray(const std::string& name, const T* values, int32_t count)
 					{
 						ArrayConverter<T> converter;
 						Container container = GetOrCreateContainerByName(name);

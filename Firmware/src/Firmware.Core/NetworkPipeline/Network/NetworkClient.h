@@ -18,8 +18,8 @@ namespace junjinjen_matrix
 					virtual bool Connected() = 0;
 					virtual void Close() = 0;
 
-					virtual size_t Read(void* buffer, size_t buffLength) = 0;
-					virtual size_t Write(void* data, size_t length) = 0;
+					virtual int32_t Read(void* buffer, int32_t buffLength) = 0;
+					virtual int32_t Write(void* data, int32_t length) = 0;
 				};
 			}
 		}

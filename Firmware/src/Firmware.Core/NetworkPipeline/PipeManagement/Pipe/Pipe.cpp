@@ -76,14 +76,14 @@ namespace junjinjen_matrix
 
 					logger_->Log(std::string("Sending message through pipe: [") + reinterpret_cast<const char*>(&message[0]) + "]");
 
-					size_t msgSize = message.size();
-					size_t size = msgSize + sizeof(size_t);
+					int32_t msgSize = message.size();
+					int32_t size = msgSize + sizeof(int32_t);
 					auto buffer = new uint8_t[size];
 
-					std::memcpy(buffer, &msgSize, sizeof(size_t));
-					std::memcpy(buffer + sizeof(size_t), &message[0], msgSize);
+					std::memcpy(buffer, &msgSize, sizeof(int32_t));
+					std::memcpy(buffer + sizeof(int32_t), &message[0], msgSize);
 
-					size_t left = size;
+					int32_t left = size;
 					while (left > 0 && client_->Connected())
 					{
 						left -= client_->Write(&buffer[size - left], left);
@@ -102,21 +102,21 @@ namespace junjinjen_matrix
 				{
 					if (client_->DataAvaible())
 					{
-						if (readSize_ < sizeof(size_t))
+						if (readSize_ < sizeof(int32_t))
 						{
-							readSize_ += client_->Read((uint8_t*)&messageSize_ + readSize_, sizeof(size_t) - readSize_);
+							readSize_ += client_->Read((uint8_t*)&messageSize_ + readSize_, sizeof(int32_t) - readSize_);
 						}
 
-						if (readSize_ >= sizeof(size_t))
+						if (readSize_ >= sizeof(int32_t))
 						{
 							if (currentMessage_.size() != messageSize_)
 							{
 								currentMessage_.resize(messageSize_);
 							}
 
-							readSize_ += client_->Read(&currentMessage_[readSize_ - sizeof(size_t)], messageSize_ - (readSize_ - sizeof(size_t)));
+							readSize_ += client_->Read(&currentMessage_[readSize_ - sizeof(int32_t)], messageSize_ - (readSize_ - sizeof(int32_t)));
 
-							if (readSize_ == messageSize_ + sizeof(size_t))
+							if (readSize_ == messageSize_ + sizeof(int32_t))
 							{
 								messages_.emplace(&currentMessage_[0], messageSize_);
 								messageSize_ = 0;

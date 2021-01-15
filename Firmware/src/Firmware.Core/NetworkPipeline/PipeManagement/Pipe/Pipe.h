@@ -40,8 +40,8 @@ namespace junjinjen_matrix
 
 					std::queue<byte_string> messages_;
 
-					size_t readSize_;
-					size_t messageSize_;
+					int32_t readSize_;
+					int32_t messageSize_;
 					byte_string currentMessage_;
 				};
 			}

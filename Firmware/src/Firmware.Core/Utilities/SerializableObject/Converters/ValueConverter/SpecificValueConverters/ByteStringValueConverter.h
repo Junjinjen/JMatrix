@@ -24,16 +24,16 @@ namespace junjinjen_matrix
 					public:
 						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T& value)
 						{
-							size_t size = value.size();
-							stream.write((uint8_t*)&size, sizeof(size_t));
+							int32_t size = value.size();
+							stream.write((uint8_t*)&size, sizeof(int32_t));
 							stream.write(&value[0], size);
 							return stream.good();
 						}
 
 						bool TryGetValue(std::basic_istream<uint8_t>& stream, T& value)
 						{
-							size_t size;
-							if (!stream.read((uint8_t*)&size, sizeof(size_t)))
+							int32_t size;
+							if (!stream.read((uint8_t*)&size, sizeof(int32_t)))
 							{
 								return false;
 							}

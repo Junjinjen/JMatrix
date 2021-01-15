@@ -74,7 +74,7 @@ void MockClient::Close()
     messagesBuffer_.clear();
 }
 
-size_t MockClient::Read(void* buffer, size_t buffLength)
+int32_t MockClient::Read(void* buffer, int32_t buffLength)
 {
     size_t size = 0;
     if (!messagesBuffer_.empty())
@@ -98,7 +98,7 @@ size_t MockClient::Read(void* buffer, size_t buffLength)
     return size;
 }
 
-size_t MockClient::Write(void* data, size_t length)
+int32_t MockClient::Write(void* data, int32_t length)
 {
     if (length > maxAcceptablePackageSize_)
     {

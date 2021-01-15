@@ -27,8 +27,8 @@ public:
 
 	virtual void Close() override;
 
-	virtual size_t Read(void* buffer, size_t buffLength) override;
-	virtual size_t Write(void* data, size_t length) override;
+	virtual int32_t Read(void* buffer, int32_t buffLength) override;
+	virtual int32_t Write(void* data, int32_t length) override;
 private:
 	std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string> outputMessages_;
 	std::vector<std::string> messagesBuffer_;

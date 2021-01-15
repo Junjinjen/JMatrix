@@ -42,12 +42,12 @@ namespace junjinjen_matrix
 
 					bool Container::Serialize(std::basic_ostream<uint8_t>& stream) const
 					{
-						size_t nameSize = name_.size();
-						stream.write((uint8_t*)&nameSize, sizeof(size_t));
+						int32_t nameSize = name_.size();
+						stream.write((uint8_t*)&nameSize, sizeof(int32_t));
 						stream.write((uint8_t*)&name_[0], nameSize);
 
-						size_t dataSize = data_.size();
-						stream.write((uint8_t*)&dataSize, sizeof(size_t));
+						int32_t dataSize = data_.size();
+						stream.write((uint8_t*)&dataSize, sizeof(int32_t));
 						stream.write(&data_[0], dataSize);
 
 						return stream.good();
@@ -55,8 +55,8 @@ namespace junjinjen_matrix
 
 					bool Container::Deserialize(std::basic_istream<uint8_t>& stream)
 					{
-						size_t nameSize;
-						if (!stream.read((uint8_t*)&nameSize, sizeof(size_t)))
+						int32_t nameSize;
+						if (!stream.read((uint8_t*)&nameSize, sizeof(int32_t)))
 						{
 							return false;
 						}
@@ -64,8 +64,8 @@ namespace junjinjen_matrix
 						name_.resize(nameSize);
 						stream.read((uint8_t*)&name_[0], nameSize);
 
-						size_t dataSize;
-						if (!stream.read((uint8_t*)&dataSize, sizeof(size_t)))
+						int32_t dataSize;
+						if (!stream.read((uint8_t*)&dataSize, sizeof(int32_t)))
 						{
 							return false;
 						}

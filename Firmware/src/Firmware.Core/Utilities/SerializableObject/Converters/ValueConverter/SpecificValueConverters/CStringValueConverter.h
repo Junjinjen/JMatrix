@@ -22,8 +22,8 @@ namespace junjinjen_matrix
 					public:
 						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T value)
 						{
-							size_t size = strlen(value);
-							stream.write((uint8_t*)&size, sizeof(size_t));
+							int32_t size = strlen(value);
+							stream.write((uint8_t*)&size, sizeof(int32_t));
 							stream.write((uint8_t*)&value[0], size);
 							return stream.good();
 						}
