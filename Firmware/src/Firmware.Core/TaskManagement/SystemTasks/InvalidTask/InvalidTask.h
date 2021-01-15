@@ -1,6 +1,8 @@
 #pragma once
 #include "TaskManagement/Task/Task.h"
 #include "TaskManagement/TaskFactory/TaskRegistrator.h"
+#include "Utilities/ByteString/ByteString.h"
+#include "rapidjson/document.h"
 
 namespace junjinjen_matrix
 {
@@ -10,6 +12,8 @@ namespace junjinjen_matrix
 		{
 			namespace system_tasks
 			{
+				using utilities::byte_string::byte_string_buffer;
+
 				class InvalidTask : public Task
 				{
 				public:

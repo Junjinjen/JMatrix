@@ -22,18 +22,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskRegistrator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteString\ByteString.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\SerializableInterface\Serializable.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\Container.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\SerializableObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ArrayConverter\ArrayConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\FundamentalValueConverter\FundamentalValueConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\SerializableValueConverter\SerializableValueConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\SpecificValueConverters\StringValueConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\ValueConverterClassDefenition.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\ValueConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\SpecificValueConverters\ByteStringValueConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\SpecificValueConverters\CStringValueConverter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\Converters.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp">
@@ -46,8 +34,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\SystemTasks\InvalidTask\InvalidTask.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Container\Container.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\SerializableObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

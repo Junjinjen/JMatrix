@@ -71,7 +71,6 @@ void MockClient::Close()
 {
     isClosed_ = true;
     isConnected_ = false;
-    messagesBuffer_.clear();
 }
 
 int32_t MockClient::Read(void* buffer, int32_t buffLength)

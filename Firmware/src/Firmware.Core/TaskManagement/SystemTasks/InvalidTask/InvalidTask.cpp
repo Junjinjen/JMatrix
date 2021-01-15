@@ -15,7 +15,18 @@ namespace junjinjen_matrix
 
 				void InvalidTask::Execute()
 				{
-					pipe_->SendMessage("Invalid task name");
+					rapidjson::Document document;
+					document.SetObject();
+
+					rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+					document.AddMember("success", false, allocator);
+					document.AddMember("message", "Invalid task name", allocator);
+
+					byte_string_buffer stringBuffer;
+					rapidjson::Writer<byte_string_buffer> writer(stringBuffer);
+					document.Accept(writer);
+
+					pipe_->SendMessage(stringBuffer.GetString());
 					Stop();
 				}
 			}

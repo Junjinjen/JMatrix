@@ -77,13 +77,13 @@ namespace junjinjen_matrix
 					logger_->Log(std::string("Sending message through pipe: [") + reinterpret_cast<const char*>(&message[0]) + "]");
 
 					int32_t msgSize = message.size();
-					int32_t size = msgSize + sizeof(int32_t);
+					size_t size = msgSize + sizeof(int32_t);
 					auto buffer = new uint8_t[size];
 
 					std::memcpy(buffer, &msgSize, sizeof(int32_t));
 					std::memcpy(buffer + sizeof(int32_t), &message[0], msgSize);
 
-					int32_t left = size;
+					size_t left = size;
 					while (left > 0 && client_->Connected())
 					{
 						left -= client_->Write(&buffer[size - left], left);
@@ -95,7 +95,7 @@ namespace junjinjen_matrix
 
 				bool Pipe::SendMessage(const std::string& message)
 				{
-					return SendMessage(reinterpret_cast<const uint8_t*>(&message[0]));
+					return SendMessage(byte_string(message.begin(), message.end()));
 				}
 
 				void Pipe::ReadMessages()

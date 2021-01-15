@@ -17,7 +17,6 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="Tests\TaskManagement\TaskManagerTests.cpp" />
-    <ClCompile Include="Tests\SerializableObject\SerializableObjectTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h">

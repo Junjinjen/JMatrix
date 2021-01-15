@@ -24,7 +24,7 @@ namespace JunjinjenMatrixUnitTests
 			Assert::IsTrue(taskManager->HasNewTasks());
 		}
 
-		TEST_METHOD(HasNewTasks_WhenPipeManagerHasNewPipeWithoutMessage_ReturnsTrue)
+		TEST_METHOD(HasNewTasks_WhenPipeManagerHasNewPipeWithoutMessage_ReturnsFalse)
 		{
 			// Arrange
 			auto [server, taskManager] = ConfigureTaskManager();
