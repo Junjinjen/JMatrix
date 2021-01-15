@@ -21,12 +21,12 @@ namespace junjinjen_matrix
 					class ValueConverter<T, only_if_serializable<T>>
 					{
 					public:
-						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const Serializable& value)
+						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T& value)
 						{
 							return value.Serialize(stream);
 						}
 
-						bool TryGetValue(std::basic_istream<uint8_t>& stream, Serializable& value)
+						bool TryGetValue(std::basic_istream<uint8_t>& stream, T& value)
 						{
 							return value.Deserialize(stream);
 						}

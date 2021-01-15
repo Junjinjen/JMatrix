@@ -31,9 +31,25 @@ namespace junjinjen_matrix
 					bool HasValue(const std::string& name) const;
 
 					template<typename T>
-					bool TrySetValue(const std::string& name, T value)
+					bool TrySetValue(const std::string& name, T& value)
 					{
 						ValueConverter<T> converter;
+						Container container = GetOrCreateContainerByName(name);
+						std::basic_ostringstream<uint8_t> stream;
+						if (converter.TrySetValue(stream, value))
+						{
+							container.SetData(std::move(stream.str()));
+							elements_.push_back(container);
+							return true;
+						}
+
+						return false;
+					}
+
+					template<typename = const char*>
+					bool TrySetValue(const std::string& name, const char* value)
+					{
+						ValueConverter<const char*> converter;
 						Container container = GetOrCreateContainerByName(name);
 						std::basic_ostringstream<uint8_t> stream;
 						if (converter.TrySetValue(stream, value))
@@ -53,21 +69,62 @@ namespace junjinjen_matrix
 						Container* container = GetContainerByName(name);
 						if (container != nullptr)
 						{
-							std::basic_istringstream<uint8_t> stream(container->GetData());
-							return converter.TryGetValue(stream, value);
+							const byte_string& str = container->GetData();
+							std::basic_istringstream<uint8_t> stream(str);
+							return converter.TryGetValue(stream, value) && stream.tellg() == str.size();
 						}
 
 						return false;
 					}
 
 					template<typename T>
-					bool TrySetArray(const std::string& name, const T* values, size_t count);
+					bool TrySetArray(const std::string& name, const T* values, size_t count)
+					{
+						ArrayConverter<T> converter;
+						Container container = GetOrCreateContainerByName(name);
+
+						std::basic_ostringstream<uint8_t> stream;
+						if (converter.TrySetArray(stream, values, count))
+						{
+							container.SetData(std::move(stream.str()));
+							elements_.push_back(container);
+							return true;
+						}
+
+						return false;
+					}
 
 					template<typename T>
-					bool TrySetArray(const std::string& name, const std::vector<T>& values);
+					bool TrySetArray(const std::string& name, const std::vector<T>& values)
+					{
+						ArrayConverter<T> converter;
+						Container container = GetOrCreateContainerByName(name);
+
+						std::basic_ostringstream<uint8_t> stream;
+						if (converter.TrySetArray(stream, values))
+						{
+							container.SetData(std::move(stream.str()));
+							elements_.push_back(container);
+							return true;
+						}
+
+						return false;
+					}
 
 					template<typename T>
-					bool TryGetArray(const std::string& name, std::vector<T>& values);
+					bool TryGetArray(const std::string& name, std::vector<T>& values)
+					{
+						ArrayConverter<T> converter;
+						Container* container = GetContainerByName(name);
+						if (container != nullptr)
+						{
+							const byte_string& str = container->GetData();
+							std::basic_istringstream<uint8_t> stream(str);
+							return converter.TryGetArray(stream, values) && stream.tellg() == str.size();
+						}
+
+						return false;
+					}
 				private:
 					ArrayConverter<Container> elementsConverter_;
 					std::vector<Container> elements_;

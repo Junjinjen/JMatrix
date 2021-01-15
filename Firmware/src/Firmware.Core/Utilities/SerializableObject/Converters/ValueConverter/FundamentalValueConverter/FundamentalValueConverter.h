@@ -19,7 +19,7 @@ namespace junjinjen_matrix
 					class ValueConverter<T, only_if_fundamental<T>>
 					{
 					public:
-						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T& value)
+						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T value)
 						{
 							stream.write((uint8_t*)&value, sizeof(T));
 							return stream.good();

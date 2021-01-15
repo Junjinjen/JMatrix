@@ -34,16 +34,47 @@ namespace JunjinjenMatrixUnitTests
 	public:
 		TEST_METHOD(HasNewTasks_WhenPipeManagerHasNewPipeWithMessage_ReturnsTrue)
 		{
-			SerializableObject a;
+			byte_string network;
 
-			a.TrySetValue("Int", 13);
-			char* ty = (char*)"Hello world";
-			a.TrySetValue("String", ty);
+			{
+				int number = 13;
+				std::string string = "Hello world!";
+				bool boolean = true;
+				std::vector<float> vec{ 1,3,5 };
+				std::vector<std::string> strVec{ "Hello", "this", "is", "amazing" };
 
-			int bbb;
-			std::string ccc;
-			a.TryGetValue("Int", bbb);
-			a.TryGetValue("String", ccc);
+				SerializableObject a;
+				a.TrySetValue("Num", number);
+				a.TrySetValue("Str", string);
+				a.TrySetValue("Bool", boolean);
+				a.TrySetArray("Vec", vec);
+
+				SerializableObject b;
+				b.TrySetArray("StrVec", strVec);
+				b.TrySetValue("Obj", a);
+
+				network = b.Serialize();
+			}
+
+			{
+				int number_n;
+				std::string string_n;
+				bool boolean_n;
+				std::vector<float> vec_n;
+				std::vector<std::string> strVec_n;
+
+				SerializableObject b_n;
+				SerializableObject a_n;
+
+				b_n.Deserialize(network);
+				b_n.TryGetArray("StrVec", strVec_n);
+				b_n.TryGetValue("Obj", a_n);
+
+				a_n.TryGetValue("Num", number_n);
+				a_n.TryGetValue("Str", string_n);
+				a_n.TryGetValue("Bool", boolean_n);
+				a_n.TryGetArray("Vec", vec_n);
+			}
 		}
 	};
 }

@@ -10,11 +10,10 @@ namespace junjinjen_matrix
 			{
 				byte_string SerializableObject::Serialize() const
 				{
-					byte_string tmp;
-					std::basic_ostringstream<uint8_t> stream(tmp);
+					std::basic_ostringstream<uint8_t> stream;
 					if (Serialize(stream))
 					{
-						return tmp;
+						return std::move(stream.str());
 					}
 
 					return byte_string();

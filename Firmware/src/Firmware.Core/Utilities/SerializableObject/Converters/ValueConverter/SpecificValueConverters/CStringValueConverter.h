@@ -20,7 +20,7 @@ namespace junjinjen_matrix
 					class ValueConverter<T, only_if_c_string<T>>
 					{
 					public:
-						bool TrySetValue(std::basic_ostream<uint8_t>& stream, T value)
+						bool TrySetValue(std::basic_ostream<uint8_t>& stream, const T value)
 						{
 							size_t size = strlen(value);
 							stream.write((uint8_t*)&size, sizeof(size_t));
