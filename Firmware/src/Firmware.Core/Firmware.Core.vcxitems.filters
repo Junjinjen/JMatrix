@@ -33,6 +33,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\ValueConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\SpecificValueConverters\ByteStringValueConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\ValueConverter\SpecificValueConverters\CStringValueConverter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\SerializableObject\Converters\Converters.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp">

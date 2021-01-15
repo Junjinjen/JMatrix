@@ -1,7 +1,7 @@
 #pragma once
 #include "Utilities/SerializableObject/Container/Container.h"
 #include "Utilities/SerializableObject/SerializableInterface/Serializable.h"
-#include "Utilities/SerializableObject/Converters/ArrayConverter/ArrayConverter.h"
+#include "Utilities/SerializableObject/Converters/Converters.h"
 #include <map>
 
 namespace junjinjen_matrix
@@ -31,7 +31,7 @@ namespace junjinjen_matrix
 					bool HasValue(const std::string& name) const;
 
 					template<typename T>
-					bool TrySetValue(const std::string& name, T& value)
+					bool TrySetValue(const std::string& name, const T& value)
 					{
 						ValueConverter<T> converter;
 						Container container = GetOrCreateContainerByName(name);
