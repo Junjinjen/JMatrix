@@ -73,7 +73,7 @@ void MockClient::Close()
     isConnected_ = false;
 }
 
-int32_t MockClient::Read(void* buffer, int32_t buffLength)
+int32_t MockClient::Read(uint8_t* buffer, int32_t buffLength)
 {
     size_t size = 0;
     if (!messagesBuffer_.empty())
@@ -97,14 +97,14 @@ int32_t MockClient::Read(void* buffer, int32_t buffLength)
     return size;
 }
 
-int32_t MockClient::Write(void* data, int32_t length)
+int32_t MockClient::Write(const uint8_t* data, int32_t length)
 {
     if (length > maxAcceptablePackageSize_)
     {
         length = maxAcceptablePackageSize_;
     }
 
-    outputMessages_.push_back(junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string(reinterpret_cast<const uint8_t*>(data), length));
+    outputMessages_.push_back(junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string(data, length));
     return length;
 }
 

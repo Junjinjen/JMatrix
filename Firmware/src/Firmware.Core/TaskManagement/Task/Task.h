@@ -1,6 +1,6 @@
 #pragma once
 #include "Logger/Logger.h"
-#include "Utilities/ByteString/ByteString.h"
+#include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
 
 namespace junjinjen_matrix
@@ -11,7 +11,7 @@ namespace junjinjen_matrix
 		{
 			using logger::Logger;
 			using network_pipeline::pipe_management::Pipe;
-			using utilities::byte_string::byte_string;
+			using utilities::byte_definitions::byte_string;
 
 			class Task
 			{

@@ -67,35 +67,59 @@ namespace junjinjen_matrix
 					return byte_string();
 				}
 
-				bool Pipe::SendMessage(const byte_string& message)
+				bool Pipe::SendMessage(const uint8_t* message, int32_t size)
 				{
-					if (!IsConnected())
+					if (size == 0)
+					{
+						return true;
+					}
+
+					if (size < 0 || !IsConnected())
 					{
 						return false;
 					}
 
-					logger_->Log(std::string("Sending message through pipe: [") + reinterpret_cast<const char*>(&message[0]) + "]");
+					logger_->Log(std::string("Sending message through pipe: [") + reinterpret_cast<const char*>(message) + "]");
 
-					int32_t msgSize = message.size();
-					size_t size = msgSize + sizeof(int32_t);
-					auto buffer = new uint8_t[size];
-
-					std::memcpy(buffer, &msgSize, sizeof(int32_t));
-					std::memcpy(buffer + sizeof(int32_t), &message[0], msgSize);
-
-					size_t left = size;
+					int32_t msgSize = size;
+					size_t left = sizeof(int32_t);
 					while (left > 0 && client_->Connected())
 					{
-						left -= client_->Write(&buffer[size - left], left);
+						left -= client_->Write(((uint8_t*)&msgSize) + sizeof(int32_t) - left, left);
 					}
 
-					delete[] buffer;
-					return left == 0;
+					if (left == 0)
+					{
+						size_t left = msgSize;
+						while (left > 0 && client_->Connected())
+						{
+							left -= client_->Write(&message[msgSize - left], left);
+						}
+
+						return left == 0;
+					}
+					
+					return false;
 				}
 
 				bool Pipe::SendMessage(const std::string& message)
 				{
+					if (message.empty())
+					{
+						return true;
+					}
+
 					return SendMessage(byte_string(message.begin(), message.end()));
+				}
+
+				bool Pipe::SendMessage(const byte_string& message)
+				{
+					if (message.empty())
+					{
+						return true;
+					}
+
+					return SendMessage(&message[0], message.size());
 				}
 
 				void Pipe::ReadMessages()

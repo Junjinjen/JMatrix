@@ -28,7 +28,27 @@ namespace junjinjen_matrix
 				{
 					if ((*it)->HasNewMessage())
 					{
-						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&(*it)->GetNewMessage()[0]), logger_, *it);
+						auto json = (*it)->GetNewMessage();
+						rapidjson::Document document;
+						std::unique_ptr<Task> task;
+
+						if (!document.Parse((const char*)&json[0]).HasParseError())
+						{
+							if (document.HasMember("task_name"))
+							{
+								rapidjson::Value& name = document["task_name"];
+								if (name.IsString())
+								{
+									task = TaskFactory::Create(name.GetString(), logger_, *it);
+								}
+							}
+						}
+
+						if (!task)
+						{
+							task = TaskFactory::Create("invalid_task", logger_, *it);
+						}
+						
 						newTasks_.push_back(std::move(task));
 						it = newPipes_.erase(it);
 					}

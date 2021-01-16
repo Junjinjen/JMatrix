@@ -1,6 +1,6 @@
 #pragma once
 #include "Logger/Logger.h"
-#include "Utilities/ByteString/ByteString.h"
+#include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/Network/NetworkServer.h"
 #include <queue>
 #include <cstring>
@@ -15,7 +15,7 @@ namespace junjinjen_matrix
 			{
 				using logger::Logger;
 				using network::NetworkClient;
-				using utilities::byte_string::byte_string;
+				using utilities::byte_definitions::byte_string;
 
 				class Pipe
 				{
@@ -29,8 +29,9 @@ namespace junjinjen_matrix
 					bool HasNewMessage();
 					byte_string GetNewMessage();
 
-					bool SendMessage(const byte_string& message);
+					bool SendMessage(const uint8_t* message, int32_t size);
 					bool SendMessage(const std::string& message);
+					bool SendMessage(const byte_string& message);
 				private:
 					inline void ReadMessages();
 
