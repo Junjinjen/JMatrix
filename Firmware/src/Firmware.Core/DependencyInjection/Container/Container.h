@@ -1,7 +1,6 @@
 #pragma once
+#include "DependencyInjection/TypeInfo.h"
 #include "DependencyInjection/Creator/Creator.h"
-#include <typeinfo>
-#include <typeindex>
 #include <unordered_map>
 #include <memory>
 
@@ -36,7 +35,7 @@ namespace junjinjen_matrix
 				template<typename T>
 				std::shared_ptr<T> Resolve() const
 				{
-					auto element = creatos_.find(typeid(T));
+					auto element = creatos_.find(GET_TYPE_INFO(T));
 					if (element != creatos_.end())
 					{
 						return std::static_pointer_cast<T>(element->second->Create());
@@ -45,7 +44,7 @@ namespace junjinjen_matrix
 					return nullptr;
 				}
 			private:
-				std::unordered_map<std::type_index, Creator*> creatos_;
+				std::unordered_map<TypeInfo, Creator*> creatos_;
 			};
 		}
 	}

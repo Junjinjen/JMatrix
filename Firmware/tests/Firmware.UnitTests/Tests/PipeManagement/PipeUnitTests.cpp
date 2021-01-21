@@ -1,4 +1,5 @@
 #include "CppUnitTest.h"
+#include "DependencyInjection/ContainerBuilder/ContainerBuilder.h"
 #include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
 #include "../../Mocks/Logger/DebugLogger.h"
 #include "../../Mocks/Network/Client/MockClient.h"
@@ -8,12 +9,20 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::network_pipeline::pipe_management;
+using namespace junjinjen_matrix::firmware::dependency_injection;
 
 namespace JunjinjenMatrixUnitTests
 {
 	TEST_CLASS(PipeUnitTests)
 	{
 	public:
+		TEST_CLASS_INITIALIZE(InitializeIocContainer)
+		{
+			ContainerBuilder builder;
+			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logger::Logger>();
+			builder.Build();
+		}
+
 		TEST_METHOD(IsConnected_WhenClientConnected_ReturnsTrue)
 		{
 			// Arrange
@@ -21,7 +30,7 @@ namespace JunjinjenMatrixUnitTests
 			client->SetConnected(true);
 
 			// Act / Assert
-			Assert::IsTrue(pipe->IsConnected());
+			Assert::IsTrue(pipe->Connected());
 		}
 
 		TEST_METHOD(IsConnected_WhenClientDisconnected_ReturnsFalse)
@@ -31,7 +40,7 @@ namespace JunjinjenMatrixUnitTests
 			client->SetConnected(false);
 
 			// Act / Assert
-			Assert::IsFalse (pipe->IsConnected());
+			Assert::IsFalse (pipe->Connected());
 		}
 
 		TEST_METHOD(HasNewMessage_WhenClientHasMessage_ReturnsTrue)
@@ -252,7 +261,7 @@ namespace JunjinjenMatrixUnitTests
 			AddToVector(expectedOutputVector, client->GenerateMessage(expected));
 
 			// Act
-			Assert::IsTrue(pipe->SendMessage(expected));
+			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected)));
 
 			// Assert
 			for (auto& msg : client->GetOutput())
@@ -279,9 +288,9 @@ namespace JunjinjenMatrixUnitTests
 			AddToVector(expectedOutputVector, client->GenerateMessage(expected3));
 
 			// Act
-			Assert::IsTrue(pipe->SendMessage(expected1));
-			Assert::IsTrue(pipe->SendMessage(expected2));
-			Assert::IsTrue(pipe->SendMessage(expected3));
+			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected1)));
+			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected2)));
+			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected3)));
 
 			// Assert
 			for (auto& msg : client->GetOutput())
@@ -292,123 +301,21 @@ namespace JunjinjenMatrixUnitTests
 			Assert::IsTrue(expectedOutputVector == assertionOutputVector);
 		}
 
-		TEST_METHOD(SendMessage_WhenClientReceivesMessageByBytes_ClientReturnsMessage)
+		TEST_METHOD(SendMessage_WhenClientDoesNotReceiveWholeMessage_ReturnsFalse)
 		{
 			// Arrange
 			auto [client, pipe] = ConfigureTestPipe();
-			std::vector<uint8_t> expectedOutputVector;
-			std::vector<uint8_t> assertionOutputVector;
 			client->SetMaxPackageSize(1);
+			auto expected = "Message";
 
-			auto expected = "Test1";
-
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected));
-
-			// Act
-			Assert::IsTrue(pipe->SendMessage(expected));
-
-			// Assert
-			for (auto& msg : client->GetOutput())
-			{
-				AddToVector(assertionOutputVector, msg);
-			}
-
-			Assert::IsTrue(expectedOutputVector == assertionOutputVector);
-		}
-
-		TEST_METHOD(SendMessage_WhenClientReceivesMessagesByBytes_ClientReturnsMessages)
-		{
-			// Arrange
-			auto [client, pipe] = ConfigureTestPipe();
-			std::vector<uint8_t> expectedOutputVector;
-			std::vector<uint8_t> assertionOutputVector;
-			client->SetMaxPackageSize(1);
-
-			auto expected1 = "Test1";
-			auto expected2 = "TestMessage2";
-			auto expected3 = "hello world";
-
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected1));
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected2));
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected3));
-
-			// Act
-			Assert::IsTrue(pipe->SendMessage(expected1));
-			Assert::IsTrue(pipe->SendMessage(expected2));
-			Assert::IsTrue(pipe->SendMessage(expected3));
-
-			// Assert
-			for (auto& msg : client->GetOutput())
-			{
-				AddToVector(assertionOutputVector, msg);
-			}
-
-			Assert::IsTrue(expectedOutputVector == assertionOutputVector);
-		}
-
-		TEST_METHOD(SendMessage_WhenClientReceivesMessageByParts_ClientReturnsMessage)
-		{
-			// Arrange
-			auto [client, pipe] = ConfigureTestPipe();
-			std::vector<uint8_t> expectedOutputVector;
-			std::vector<uint8_t> assertionOutputVector;
-			client->SetMaxPackageSize(4);
-
-			auto expected = "Test1";
-
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected));
-
-			// Act
-			Assert::IsTrue(pipe->SendMessage(expected));
-
-			// Assert
-			for (auto& msg : client->GetOutput())
-			{
-				AddToVector(assertionOutputVector, msg);
-			}
-
-			Assert::IsTrue(expectedOutputVector == assertionOutputVector);
-		}
-
-		TEST_METHOD(SendMessage_WhenClientReceivesMessagesByParts_ClientReturnsMessages)
-		{
-			// Arrange
-			auto [client, pipe] = ConfigureTestPipe();
-			std::vector<uint8_t> expectedOutputVector;
-			std::vector<uint8_t> assertionOutputVector;
-			
-			auto expected1 = "Long test message!";
-			auto expected2 = "Second long message.";
-			auto expected3 = "Hello world??";
-
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected1));
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected2));
-			AddToVector(expectedOutputVector, client->GenerateMessage(expected3));
-
-			// Act
-			client->SetMaxPackageSize(6);
-			Assert::IsTrue(pipe->SendMessage(expected1));
-
-			client->SetMaxPackageSize(1);
-			Assert::IsTrue(pipe->SendMessage(expected2));
-
-			client->SetMaxPackageSize(4);
-			Assert::IsTrue(pipe->SendMessage(expected3));
-
-			// Assert
-			for (auto& msg : client->GetOutput())
-			{
-				AddToVector(assertionOutputVector, msg);
-			}
-
-			Assert::IsTrue(expectedOutputVector == assertionOutputVector);
+			// Act / Assert
+			Assert::IsFalse(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected)));
 		}
 	private:
 		inline std::tuple<MockClient*, std::unique_ptr<Pipe>> ConfigureTestPipe()
 		{
-			auto logger = std::make_shared<DebugLogger>();
 			auto client = new MockClient();
-			auto pipe = std::make_unique<Pipe>(logger, std::unique_ptr<MockClient>(client));
+			auto pipe = std::make_unique<Pipe>(std::unique_ptr<MockClient>(client));
 
 			return std::make_tuple(client, std::move(pipe));
 		}

@@ -8,8 +8,8 @@ namespace junjinjen_matrix
 		{
 			namespace pipe_management
 			{
-				PipeManager::PipeManager(std::shared_ptr<Logger> logger, std::unique_ptr<NetworkServer> server)
-					: logger_(logger), server_(std::move(server)), isStopped_(false)
+				PipeManager::PipeManager(std::unique_ptr<NetworkServer> server)
+					: server_(std::move(server)), isStopped_(false)
 				{
 				}
 
@@ -22,19 +22,20 @@ namespace junjinjen_matrix
 				{
 					if (!isStopped_)
 					{
-						logger_->Log("Stopping pipe manager");
 						server_->Stop();
+						isStopped_ = true;
+						logger_->Log("Pipe manager stopped");
 					}
 				}
 
 				bool PipeManager::HasNewPipe()
 				{
-					if (isStopped_)
+					if (!isStopped_)
 					{
-						return false;
+						return server_->HasNewClient();
 					}
 
-					return server_->HasNewClient();
+					return false;
 				}
 
 				std::unique_ptr<Pipe> PipeManager::GetNewPipe()
@@ -42,7 +43,7 @@ namespace junjinjen_matrix
 					if (HasNewPipe())
 					{
 						logger_->Log("Creating new pipe");
-						return std::unique_ptr<Pipe>(new Pipe(logger_, server_->GetNewClient()));
+						return std::unique_ptr<Pipe>(new Pipe(server_->GetNewClient()));
 					}
 
 					return nullptr;

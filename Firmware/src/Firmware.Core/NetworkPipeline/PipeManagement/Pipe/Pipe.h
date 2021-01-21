@@ -1,4 +1,5 @@
 #pragma once
+#include "DependencyInjection/Container/Container.h"
 #include "Logger/Logger.h"
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/Network/NetworkServer.h"
@@ -20,26 +21,23 @@ namespace junjinjen_matrix
 				class Pipe
 				{
 				public:
-					Pipe(std::shared_ptr<Logger> logger, std::unique_ptr<NetworkClient> client);
+					Pipe(std::unique_ptr<NetworkClient> client);
 					~Pipe();
 
-					bool IsConnected() const;
+					bool Connected() const;
 					void Close();
 
 					bool HasNewMessage();
 					byte_string GetNewMessage();
-
-					bool SendMessage(const uint8_t* message, int32_t size);
-					bool SendMessage(const std::string& message);
 					bool SendMessage(const byte_string& message);
 				private:
-					inline void ReadMessages();
-
-					std::shared_ptr<Logger> logger_;
+					INJECT_FIELD(Logger, logger_)
 					std::unique_ptr<NetworkClient> client_;
 					bool isClosed_;
 
 					std::queue<byte_string> messages_;
+
+					inline void ReadMessages();
 
 					size_t readSize_;
 					int32_t messageSize_;

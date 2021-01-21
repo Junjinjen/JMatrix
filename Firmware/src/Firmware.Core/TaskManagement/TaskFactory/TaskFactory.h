@@ -9,17 +9,16 @@ namespace junjinjen_matrix
 	{
 		namespace task_management
 		{
-			using task_creator_t = std::function<std::unique_ptr<Task>(std::shared_ptr<Logger>& logger, std::unique_ptr<Pipe>& pipe)>;
+			using task_creator_t = std::function<std::unique_ptr<Task>(std::unique_ptr<Pipe>& pipe)>;
 
 			class TaskFactory
 			{
 			public:
 				static bool AddTaskCreator(const std::string& taskName, task_creator_t creator);
 
-				static std::unique_ptr<Task> Create(const std::string& taskName, std::shared_ptr<Logger>& logger, std::unique_ptr<Pipe>& pipe);
+				static std::unique_ptr<Task> Create(const std::string& taskName, std::unique_ptr<Pipe>& pipe);
 			private:
 				inline static std::map<std::string, task_creator_t>& GetMap();
-				inline static std::unique_ptr<Task> CreateInvalidTask(std::shared_ptr<Logger>& logger, std::unique_ptr<Pipe>& pipe);
 			};
 		}
 	}

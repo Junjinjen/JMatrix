@@ -1,5 +1,5 @@
 #include "CppUnitTest.h"
-#include "../Mocks/Logger/DebugLogger.h"
+#include "../../Mocks/Logger/DebugLogger.h"
 #include "DependencyInjection/ContainerBuilder/ContainerBuilder.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -7,8 +7,6 @@ using namespace junjinjen_matrix::firmware::dependency_injection;
 
 namespace JunjinjenMatrixUnitTests
 {
-	using junjinjen_matrix::firmware::logger::Logger;
-
 	class TestClassBase
 	{
 	public:
@@ -216,6 +214,36 @@ namespace JunjinjenMatrixUnitTests
 			auto secondInstance = container->Resolve<TestClassBase>();
 
 			Assert::AreNotEqual(newNumber, secondInstance->number_);
+		}
+
+		TEST_METHOD(AddSingleton_WhenSeveralObjectsRegistered_ContainerReturnsCorrespondingObjects)
+		{
+			// Arrange
+			ContainerBuilder builder;
+			float expectedFloat = -2;
+			int expectedInt = 338236;
+			int expectedNumberInClass = 17;
+
+			// Act
+			builder.AddSingleton<float>([=]() { return new float(expectedFloat); });
+			builder.AddSingleton<int>([=]() { return new int(expectedInt); });
+			builder.AddSingleton<TestClassBase>([=]()
+			{
+				auto tmp = new TestClassBase();
+				tmp->number_ = expectedNumberInClass;
+				return tmp;
+			});
+
+			auto container = builder.Build();
+
+			// Assert
+			auto actualFloat = *container->Resolve<float>();
+			auto actualInt = *container->Resolve<int>();
+			auto actualNumberInClass = container->Resolve<TestClassBase>()->number_;
+
+			Assert::AreEqual(expectedFloat, actualFloat);
+			Assert::AreEqual(expectedInt, actualInt);
+			Assert::AreEqual(expectedNumberInClass, actualNumberInClass);
 		}
 	};
 }

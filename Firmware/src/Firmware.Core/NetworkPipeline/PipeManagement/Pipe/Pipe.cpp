@@ -8,10 +8,9 @@ namespace junjinjen_matrix
 		{
 			namespace pipe_management
 			{
-				Pipe::Pipe(std::shared_ptr<Logger> logger, std::unique_ptr<NetworkClient> client)
-					: logger_(logger), client_(std::move(client)), isClosed_(false), readSize_(0), messageSize_(0)
+				Pipe::Pipe(std::unique_ptr<NetworkClient> client)
+					: isClosed_(false), client_(std::move(client))
 				{
-					logger_->Log("Pipe created");
 				}
 
 				Pipe::~Pipe()
@@ -19,22 +18,11 @@ namespace junjinjen_matrix
 					Close();
 				}
 
-				bool Pipe::IsConnected() const
+				bool Pipe::Connected() const
 				{
-					if (!isClosed_)
+					if (client_->Connected() && !isClosed_)
 					{
-						return client_->Connected();
-					}
-
-					return false;
-				}
-
-				bool Pipe::HasNewMessage()
-				{
-					if (IsConnected())
-					{
-						ReadMessages();
-						return !messages_.empty();
+						return true;
 					}
 
 					return false;
@@ -45,11 +33,20 @@ namespace junjinjen_matrix
 					if (!isClosed_)
 					{
 						client_->Close();
-						client_.reset();
-
 						isClosed_ = true;
 						logger_->Log("Pipe closed");
 					}
+				}
+
+				bool Pipe::HasNewMessage()
+				{
+					if (Connected())
+					{
+						ReadMessages();
+						return !messages_.empty();
+					}
+
+					return false;
 				}
 
 				byte_string Pipe::GetNewMessage()
@@ -60,69 +57,31 @@ namespace junjinjen_matrix
 						messages_.pop();
 
 						logger_->Log(std::string("Pipe returned message: [") + reinterpret_cast<const char*>(&message[0]) + "]");
-
 						return message;
 					}
 
-					return byte_string();
-				}
-
-				bool Pipe::SendMessage(const uint8_t* message, int32_t size)
-				{
-					if (size == 0)
-					{
-						return true;
-					}
-
-					if (size < 0 || !IsConnected())
-					{
-						return false;
-					}
-
-					logger_->Log(std::string("Sending message through pipe: [") + reinterpret_cast<const char*>(message) + "]");
-
-					int32_t msgSize = size;
-					size_t left = sizeof(int32_t);
-					while (left > 0 && client_->Connected())
-					{
-						left -= client_->Write(((uint8_t*)&msgSize) + sizeof(int32_t) - left, left);
-					}
-
-					if (left == 0)
-					{
-						size_t left = msgSize;
-						while (left > 0 && client_->Connected())
-						{
-							left -= client_->Write(&message[msgSize - left], left);
-						}
-
-						return left == 0;
-					}
-					
-					return false;
-				}
-
-				bool Pipe::SendMessage(const std::string& message)
-				{
-					if (message.empty())
-					{
-						return true;
-					}
-
-					return SendMessage(byte_string(message.begin(), message.end()));
+					return nullptr;
 				}
 
 				bool Pipe::SendMessage(const byte_string& message)
 				{
-					if (message.empty())
+					if (Connected())
 					{
-						return true;
+						logger_->Log(std::string("Sending message through pipe: [") + reinterpret_cast<const char*>(&message[0]) + "]");
+
+						int32_t size = message.size();
+						if (client_->Write((const uint8_t*)&size, sizeof(int32_t)) == sizeof(int32_t))
+						{
+							return client_->Write(&message[0], message.size()) == message.size();
+						}
+						
+						return false;
 					}
 
-					return SendMessage(&message[0], message.size());
+					return false;
 				}
 
-				void Pipe::ReadMessages()
+				inline void Pipe::ReadMessages()
 				{
 					if (client_->DataAvaible())
 					{

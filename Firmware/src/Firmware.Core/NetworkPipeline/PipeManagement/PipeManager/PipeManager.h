@@ -15,7 +15,7 @@ namespace junjinjen_matrix
 				class PipeManager
 				{
 				public:
-					PipeManager(std::shared_ptr<Logger> logger, std::unique_ptr<NetworkServer> server);
+					PipeManager(std::unique_ptr<NetworkServer> server);
 					~PipeManager();
 
 					void Stop();
@@ -23,7 +23,7 @@ namespace junjinjen_matrix
 					bool HasNewPipe();
 					std::unique_ptr<Pipe> GetNewPipe();
 				private:
-					std::shared_ptr<Logger> logger_;
+					INJECT_FIELD(Logger, logger_)
 					std::unique_ptr<NetworkServer> server_;
 					bool isStopped_;
 				};

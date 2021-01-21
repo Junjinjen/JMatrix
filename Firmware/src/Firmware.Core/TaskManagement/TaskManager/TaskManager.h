@@ -1,8 +1,10 @@
 #pragma once
+#include "DependencyInjection/Container/Container.h"
 #include "Logger/Logger.h"
 #include "NetworkPipeline/PipeManagement/PipeManager/PipeManager.h"
 #include "TaskManagement/Task/Task.h"
 #include "TaskManagement/TaskFactory/TaskFactory.h"
+#include "TaskManagement/TaskManager/TaskMetadata.h"
 
 namespace junjinjen_matrix
 {
@@ -16,20 +18,19 @@ namespace junjinjen_matrix
 			class TaskManager
 			{
 			public:
-				TaskManager(std::shared_ptr<Logger> logger, std::unique_ptr<PipeManager> pipeManager);
+				TaskManager(std::unique_ptr<PipeManager> pipeManager);
 				~TaskManager();
 
-				bool HasNewTasks();
-				std::vector<std::unique_ptr<Task>> GetNewTasks();
+				bool HasNewTask();
+				std::unique_ptr<Task> GetNewTask();
 
 				void Stop();
 			private:
-				std::shared_ptr<Logger> logger_;
+				INJECT_FIELD(Logger, logger_)
 				std::unique_ptr<PipeManager> pipeManager_;
-
 				bool isStopped_;
 
-				std::vector<std::unique_ptr<Task>> newTasks_;
+				std::queue<std::unique_ptr<Task>> newTasks_;
 				std::vector<std::unique_ptr<Pipe>> newPipes_;
 			};
 		}

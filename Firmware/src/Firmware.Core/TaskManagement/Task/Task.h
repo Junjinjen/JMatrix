@@ -1,4 +1,5 @@
 #pragma once
+#include "DependencyInjection/Container/Container.h"
 #include "Logger/Logger.h"
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
@@ -16,18 +17,18 @@ namespace junjinjen_matrix
 			class Task
 			{
 			public:
-				Task(std::shared_ptr<Logger> logger, std::unique_ptr<Pipe> pipe);
-				virtual ~Task();
+				Task(std::unique_ptr<Pipe> pipe);
+				virtual ~Task() = default;
 
-				bool IsStopped() const;
-				virtual void Stop();
+				bool Completed() const;
+				void Stop();
 
 				virtual void Execute() = 0;
 			protected:
-				std::shared_ptr<Logger> logger_;
+				INJECT_FIELD(Logger, logger_)
 				std::unique_ptr<Pipe> pipe_;
 			private:
-				bool isStopped_;
+				bool completed_;
 			};
 		}
 	}

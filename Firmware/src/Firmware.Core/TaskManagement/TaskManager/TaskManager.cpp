@@ -6,8 +6,8 @@ namespace junjinjen_matrix
 	{
 		namespace task_management
 		{
-			TaskManager::TaskManager(std::shared_ptr<Logger> logger, std::unique_ptr<PipeManager> pipeManager)
-				: logger_(logger), pipeManager_(std::move(pipeManager)), isStopped_(false)
+			TaskManager::TaskManager(std::unique_ptr<PipeManager> pipeManager)
+				: pipeManager_(std::move(pipeManager)), isStopped_(false)
 			{
 			}
 
@@ -16,7 +16,7 @@ namespace junjinjen_matrix
 				Stop();
 			}
 
-			bool TaskManager::HasNewTasks()
+			bool TaskManager::HasNewTask()
 			{
 				while (pipeManager_->HasNewPipe())
 				{
@@ -28,28 +28,22 @@ namespace junjinjen_matrix
 				{
 					if ((*it)->HasNewMessage())
 					{
-						auto json = (*it)->GetNewMessage();
-						rapidjson::Document document;
-						std::unique_ptr<Task> task;
+						auto pipePtr = it->get();
+						auto taskName = pipePtr->GetNewMessage();
+						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&taskName[0]), *it);
+						StatusCode code;
 
-						if (!document.Parse((const char*)&json[0]).HasParseError())
+						if (task)
 						{
-							if (document.HasMember("task_name"))
-							{
-								rapidjson::Value& name = document["task_name"];
-								if (name.IsString())
-								{
-									task = TaskFactory::Create(name.GetString(), logger_, *it);
-								}
-							}
+							code = StatusCode::Success;
+							newTasks_.push(std::move(task));
+						}
+						else
+						{
+							code = StatusCode::TaskNotFound;
 						}
 
-						if (!task)
-						{
-							task = TaskFactory::Create("invalid_task", logger_, *it);
-						}
-						
-						newTasks_.push_back(std::move(task));
+						pipePtr->SendMessage(byte_string((const uint8_t*)&code, sizeof(StatusCode)));
 						it = newPipes_.erase(it);
 					}
 					else
@@ -61,21 +55,16 @@ namespace junjinjen_matrix
 				return !newTasks_.empty();
 			}
 
-			std::vector<std::unique_ptr<Task>> TaskManager::GetNewTasks()
+			std::unique_ptr<Task> TaskManager::GetNewTask()
 			{
-				std::vector<std::unique_ptr<Task>> vec;
-
-				if (HasNewTasks())
+				if (HasNewTask())
 				{
-					for (size_t i = 0; i < newTasks_.size(); i++)
-					{
-						vec.push_back(std::move(newTasks_[i]));
-					}
-
-					newTasks_.clear();
+					std::unique_ptr<Task> task = std::move(newTasks_.front());
+					newTasks_.pop();
+					return task;
 				}
 
-				return vec;
+				return nullptr;
 			}
 
 			void TaskManager::Stop()

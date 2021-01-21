@@ -6,27 +6,23 @@ namespace junjinjen_matrix
 	{
 		namespace task_management
 		{
-			Task::Task(std::shared_ptr<Logger> logger, std::unique_ptr<Pipe> pipe)
-				: logger_(logger), pipe_(std::move(pipe)), isStopped_(false)
+			Task::Task(std::unique_ptr<Pipe> pipe)
+				: pipe_(std::move(pipe))
 			{
 			}
 
-			Task::~Task()
+			bool Task::Completed() const
 			{
-				Stop();
-			}
-
-			bool Task::IsStopped() const
-			{
-				return isStopped_;
+				return completed_;
 			}
 
 			void Task::Stop()
 			{
-				if (!isStopped_)
+				if (!completed_)
 				{
 					pipe_->Close();
-					logger_->Log("Task stopped");
+					completed_ = true;
+					logger_->Log("Task completed");
 				}
 			}
 		}

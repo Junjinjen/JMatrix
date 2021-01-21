@@ -1,4 +1,5 @@
 #include "CppUnitTest.h"
+#include "DependencyInjection/ContainerBuilder/ContainerBuilder.h"
 #include "NetworkPipeline/PipeManagement/PipeManager/PipeManager.h"
 #include "../../Mocks/Logger/DebugLogger.h"
 #include "../../Mocks/Network/Server/MockServer.h"
@@ -6,12 +7,20 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::network_pipeline::pipe_management;
+using namespace junjinjen_matrix::firmware::dependency_injection;
 
 namespace JunjinjenMatrixUnitTests
 {
 	TEST_CLASS(PipeManagerUnitTests)
 	{
 	public:
+		TEST_CLASS_INITIALIZE(InitializeIocContainer)
+		{
+			ContainerBuilder builder;
+			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logger::Logger>();
+			builder.Build();
+		}
+
 		TEST_METHOD(HasNewPipe_WhenServerHasNewClient_ReturnsTrue)
 		{
 			// Arrange
@@ -58,9 +67,8 @@ namespace JunjinjenMatrixUnitTests
 	private:
 		inline std::tuple<MockServer*, std::unique_ptr<PipeManager>> ConfigureTestPipeManager()
 		{
-			auto logger = std::make_shared<DebugLogger>();
 			auto server = new MockServer();
-			auto pipe = std::make_unique<PipeManager>(logger, std::unique_ptr<MockServer>(server));
+			auto pipe = std::make_unique<PipeManager>(std::unique_ptr<MockServer>(server));
 
 			return std::make_tuple(server, std::move(pipe));
 		}
