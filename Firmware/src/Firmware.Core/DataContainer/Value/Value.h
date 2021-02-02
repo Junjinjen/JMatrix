@@ -3,7 +3,7 @@
 #include "DataContainer/DataContainer.h"
 #include "DataContainer/InvalidTypeException/InvalidTypeException.h"
 #include <cstdint>
-#include <cstring>
+#include <string>
 
 namespace junjinjen_matrix
 {
@@ -114,6 +114,8 @@ namespace junjinjen_matrix
 				} *value_;
 
 				inline void RemoveValue();
+				inline bool AllocateValue();
+				inline void CopyUnion(const junjinjen_matrix::firmware::data_container::Value& other);
 			};
 		}
 	}

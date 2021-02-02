@@ -350,7 +350,7 @@ namespace junjinjen_matrix
 				throw std::out_of_range("Array with name " + key + " wasn't found");
 			}
 
-			Value* DataContainer::FindValue(const std::string& key)
+			inline Value* DataContainer::FindValue(const std::string& key)
 			{
 				for (size_t i = 0; i < values_.size(); i++)
 				{

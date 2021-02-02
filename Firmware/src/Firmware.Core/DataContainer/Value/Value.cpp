@@ -7,43 +7,49 @@ namespace junjinjen_matrix
 		namespace data_container
 		{
 			Value::Value()
-				: type_(ValueType::Empty)
+				: type_(ValueType::Empty), value_(nullptr)
 			{
 			}
 
 			Value::Value(const Value& value)
 				: type_(value.type_)
 			{
-				std::memcpy(&value_, &value.value_, sizeof(Value));
+				value_ = new ValueType_t();
+				CopyUnion(value);
 			}
 
 			Value::Value(Value&& value)
-				: type_(value.type_)
+				: type_(value.type_), value_(value.value_)
 			{
-				std::memcpy(&value_, &value.value_, sizeof(Value));
+				value.value_ = nullptr;
+				value.type_ = ValueType::Empty;
 			}
 
 			Value::Value(int32_t value)
 			{
-				value_.int32_v = value;
+				value_ = new ValueType_t();
+				value_->int32_v = value;
 				type_ = ValueType::Int32;
 			}
 
 			Value::Value(int64_t value)
 			{
-				value_.int64_v = value;
+				value_ = new ValueType_t();
+				value_->int64_v = value;
 				type_ = ValueType::Int64;
 			}
 
 			Value::Value(bool value)
 			{
-				value_.bool_v = value;
+				value_ = new ValueType_t();
+				value_->bool_v = value;
 				type_ = ValueType::Boolean;
 			}
 
 			Value::Value(const std::string& value)
 			{
-				new (&value_.string_v) std::string(value);
+				value_ = new ValueType_t();
+				new (&value_->string_v) std::string(value);
 				type_ = ValueType::String;
 			}
 
@@ -54,55 +60,71 @@ namespace junjinjen_matrix
 
 			Value::Value(std::string&& value)
 			{
-				new (&value_.string_v) std::string(value);
+				value_ = new ValueType_t();
+				new (&value_->string_v) std::string(value);
 				type_ = ValueType::String;
 			}
 
 			Value::Value(const byte_string& value)
 			{
-				new (&value_.byte_string_v) byte_string(value);
+				value_ = new ValueType_t();
+				new (&value_->byte_string_v) byte_string(value);
 				type_ = ValueType::ByteString;
 			}
 
 			Value::Value(byte_string&& value)
 			{
-				new (&value_.byte_string_v) byte_string(value);
+				value_ = new ValueType_t();
+				new (&value_->byte_string_v) byte_string(value);
 				type_ = ValueType::ByteString;
 			}
 
 			Value::Value(float value)
 			{
-				value_.float_v = value;
+				value_ = new ValueType_t();
+				value_->float_v = value;
 				type_ = ValueType::Float;
 			}
 
 			Value::Value(double value)
 			{
-				value_.double_v = value;
+				value_ = new ValueType_t();
+				value_->double_v = value;
 				type_ = ValueType::Double;
 			}
 
 			Value::Value(const DataContainer& value)
 			{
-				new (&value_.container_v) DataContainer(value);
+				value_ = new ValueType_t();
+				new (&value_->container_v) DataContainer(value);
 				type_ = ValueType::Container;
 			}
 
 			Value::Value(const std::vector<Value>& value)
 			{
-				new (&value_.array_v) std::vector<Value>(value);
+				value_ = new ValueType_t();
+				new (&value_->array_v) std::vector<Value>(value);
 				type_ = ValueType::Array;
 			}
 
 			Value::~Value()
 			{
-				RemoveValue();
+				if (value_ != nullptr)
+				{
+					RemoveValue();
+					delete value_;
+				}
 			}
 
 			void Value::operator=(const Value& value)
 			{
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
 				type_ = value.type_;
-				std::memcpy(&value_, &value.value_, sizeof(Value));
+				CopyUnion(value);
 			}
 
 			ValueType Value::GetType() const
@@ -167,7 +189,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.int32_v;
+				return value_->int32_v;
 			}
 
 			int64_t Value::GetInt64() const
@@ -177,7 +199,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.int64_v;
+				return value_->int64_v;
 			}
 
 			bool Value::GetBoolean() const
@@ -187,7 +209,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.bool_v;
+				return value_->bool_v;
 			}
 
 			const std::string& Value::GetString() const
@@ -197,7 +219,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.string_v;
+				return value_->string_v;
 			}
 
 			const byte_string& Value::GetByteString() const
@@ -207,7 +229,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.byte_string_v;
+				return value_->byte_string_v;
 			}
 
 			float Value::GetFloat() const
@@ -217,7 +239,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.float_v;
+				return value_->float_v;
 			}
 
 			double Value::GetDouble() const
@@ -227,7 +249,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.double_v;
+				return value_->double_v;
 			}
 
 			DataContainer& Value::AsContainer()
@@ -237,7 +259,7 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.container_v;
+				return value_->container_v;
 			}
 
 			std::vector<Value>& Value::AsArray()
@@ -247,139 +269,245 @@ namespace junjinjen_matrix
 					throw InvalidTypeException();
 				}
 
-				return value_.array_v;
+				return value_->array_v;
 			}
 
 			void Value::Clear()
 			{
-				RemoveValue();
+				if (value_ != nullptr)
+				{
+					RemoveValue();
+
+					delete value_;
+					value_ = nullptr;
+				}
+				
 				type_ = ValueType::Empty;
 			}
 
 			void Value::SetInt32(int32_t value)
 			{
-				RemoveValue();
-				value_.int32_v = value;
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				value_->int32_v = value;
 				type_ = ValueType::Int32;
 			}
 
 			void Value::SetInt64(int64_t value)
 			{
-				RemoveValue();
-				value_.int64_v = value;
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				value_->int64_v = value;
 				type_ = ValueType::Int64;
 			}
 
 			void Value::SetBoolean(bool value)
 			{
-				RemoveValue();
-				value_.bool_v = value;
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				value_->bool_v = value;
 				type_ = ValueType::Boolean;
 			}
 
 			void Value::SetString(const std::string& value)
 			{
-				RemoveValue();
-				new (&value_.string_v) std::string(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->string_v) std::string(value);
 				type_ = ValueType::String;
 			}
 
 			void Value::SetString(std::string&& value)
 			{
-				RemoveValue();
-				new (&value_.string_v) std::string(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->string_v) std::string(value);
 				type_ = ValueType::String;
 			}
 
 			void Value::SetByteString(const byte_string& value)
 			{
-				RemoveValue();
-				new (&value_.byte_string_v) byte_string(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->byte_string_v) byte_string(value);
 				type_ = ValueType::ByteString;
 			}
 
 			void Value::SetByteString(byte_string&& value)
 			{
-				RemoveValue();
-				new (&value_.byte_string_v) byte_string(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->byte_string_v) byte_string(value);
 				type_ = ValueType::ByteString;
 			}
 
 			void Value::SetFloat(float value)
 			{
-				RemoveValue();
-				value_.float_v = value;
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				value_->float_v = value;
 				type_ = ValueType::Float;
 			}
 
 			void Value::SetDouble(double value)
 			{
-				RemoveValue();
-				value_.double_v = value;
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				value_->double_v = value;
 				type_ = ValueType::Double;
 			}
 
 			DataContainer& Value::CreateContainer()
 			{
-				RemoveValue();
-				new (&value_.container_v) DataContainer();
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->container_v) DataContainer();
 				type_ = ValueType::Container;
-				return value_.container_v;
+				return value_->container_v;
 			}
 
 			DataContainer& Value::CreateContainer(const DataContainer& value)
 			{
-				RemoveValue();
-				new (&value_.container_v) DataContainer(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->container_v) DataContainer(value);
 				type_ = ValueType::Container;
-				return value_.container_v;
+				return value_->container_v;
 			}
 
 			DataContainer& Value::CreateContainer(DataContainer&& value)
 			{
-				RemoveValue();
-				new (&value_.container_v) DataContainer(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->container_v) DataContainer(value);
 				type_ = ValueType::Container;
-				return value_.container_v;
+				return value_->container_v;
 			}
 
 			std::vector<Value>& Value::CreateArray()
 			{
-				RemoveValue();
-				new (&value_.array_v) std::vector<Value>();
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->array_v) std::vector<Value>();
 				type_ = ValueType::Array;
-				return value_.array_v;
+				return value_->array_v;
 			}
 
 			std::vector<Value>& Value::CreateArray(const std::vector<Value>& value)
 			{
-				RemoveValue();
-				new (&value_.array_v) std::vector<Value>(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+
+				new (&value_->array_v) std::vector<Value>(value);
 				type_ = ValueType::Array;
-				return value_.array_v;
+				return value_->array_v;
 			}
 
 			std::vector<Value>& Value::CreateArray(std::vector<Value>&& value)
 			{
-				RemoveValue();
-				new (&value_.array_v) std::vector<Value>(value);
+				if (!AllocateValue())
+				{
+					RemoveValue();
+				}
+				
+				new (&value_->array_v) std::vector<Value>(value);
 				type_ = ValueType::Array;
-				return value_.array_v;
+				return value_->array_v;
 			}
 
 			inline void Value::RemoveValue()
 			{
-				if (IsString() || IsByteString())
+				if (IsString())
 				{
-					value_.string_v.~basic_string();
+					value_->string_v.~basic_string();
+				}
+				else if (IsByteString())
+				{
+					value_->byte_string_v.~basic_string();
 				}
 				else if (IsArray())
 				{
-					value_.array_v.~vector();
+					value_->array_v.~vector();
 				}
 				else if (IsContainer())
 				{
-					value_.container_v.~DataContainer();
+					value_->container_v.~DataContainer();
+				}
+			}
+
+			inline bool Value::AllocateValue()
+			{
+				if (value_ == nullptr)
+				{
+					value_ = new ValueType_t();
+					return true;
+				}
+
+				return false;
+			}
+
+			inline void Value::CopyUnion(const junjinjen_matrix::firmware::data_container::Value& other)
+			{
+				switch (other.GetType())
+				{
+				case ValueType::Array:
+					new (&value_->array_v) std::vector<Value>(other.value_->array_v);
+					break;
+				case ValueType::ByteString:
+					new (&value_->byte_string_v) byte_string(other.value_->byte_string_v);
+					break;
+				case ValueType::Container:
+					new (&value_->container_v) DataContainer(other.value_->container_v);
+					break;
+				case ValueType::String:
+					new (&value_->string_v) std::string(other.value_->string_v);
+					break;
+				default:
+					if (other.value_ != nullptr)
+					{
+						memcpy(value_, other.value_, sizeof(ValueType_t));
+					}
 				}
 			}
 		}

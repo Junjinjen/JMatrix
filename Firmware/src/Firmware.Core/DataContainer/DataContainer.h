@@ -54,7 +54,7 @@ namespace junjinjen_matrix
 			private:
 				std::vector<std::pair<std::string, Value>> values_;
 
-				Value* FindValue(const std::string& key);
+				inline Value* FindValue(const std::string& key);
 			};
 		}
 	}
