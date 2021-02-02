@@ -4,7 +4,6 @@
 #include "NetworkPipeline/PipeManagement/PipeManager/PipeManager.h"
 #include "TaskManagement/Task/Task.h"
 #include "TaskManagement/TaskFactory/TaskFactory.h"
-#include "TaskManagement/TaskManager/TaskMetadata.h"
 
 namespace junjinjen_matrix
 {

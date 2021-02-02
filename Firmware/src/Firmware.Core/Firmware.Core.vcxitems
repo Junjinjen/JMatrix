@@ -21,6 +21,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\TransientCreator\TransientCreator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\TypeInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger\Logger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\InvalidTypeException\InvalidTypeException.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h" />
@@ -28,13 +31,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskRegistrator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskMetadata.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteDefinitions\ByteDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />

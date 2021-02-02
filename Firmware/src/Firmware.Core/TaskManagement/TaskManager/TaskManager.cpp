@@ -31,7 +31,7 @@ namespace junjinjen_matrix
 						auto pipePtr = it->get();
 						auto taskName = pipePtr->GetNewMessage();
 						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&taskName[0]), *it);
-						StatusCode code;
+						/*StatusCode code;
 
 						if (task)
 						{
@@ -44,7 +44,7 @@ namespace junjinjen_matrix
 						}
 
 						pipePtr->SendMessage(byte_string((const uint8_t*)&code, sizeof(StatusCode)));
-						it = newPipes_.erase(it);
+						it = newPipes_.erase(it);*/
 					}
 					else
 					{

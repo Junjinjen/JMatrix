@@ -26,8 +26,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\Creator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\TransientCreator\TransientCreator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\SingletonCreator\SingletonCreator.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskMetadata.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\TypeInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\InvalidTypeException\InvalidTypeException.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
@@ -37,6 +39,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">
