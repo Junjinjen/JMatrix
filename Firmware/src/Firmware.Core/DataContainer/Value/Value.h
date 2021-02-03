@@ -62,17 +62,14 @@ namespace junjinjen_matrix
 				bool IsArray() const;
 				bool IsContainer() const;
 
-				int32_t GetInt32() const;
-				int64_t GetInt64() const;
-				bool GetBoolean() const;
-				const std::string& GetString() const;
-				const byte_string& GetByteString() const;
-				float GetFloat() const;
-				double GetDouble() const;
-
-				DataContainer& AsContainer();
-				std::vector<Value>& AsArray();
-
+				int32_t AsInt32() const;
+				int64_t AsInt64() const;
+				bool AsBoolean() const;
+				const std::string& AsString() const;
+				const byte_string& AsByteString() const;
+				float AsFloat() const;
+				double AsDouble() const;
+				
 				void Clear();
 				void SetInt32(int32_t value);
 				void SetInt64(int64_t value);
@@ -83,6 +80,9 @@ namespace junjinjen_matrix
 				void SetByteString(byte_string&& value);
 				void SetFloat(float value);
 				void SetDouble(double value);
+				
+				DataContainer& AsContainer();
+				std::vector<Value>& AsArray();
 
 				DataContainer& CreateContainer();
 				DataContainer& CreateContainer(const DataContainer& value);
