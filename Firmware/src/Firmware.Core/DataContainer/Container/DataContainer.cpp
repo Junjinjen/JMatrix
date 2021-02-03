@@ -1,4 +1,4 @@
-#include "Value/Value.h"
+#include "DataContainer/Value/Value.h"
 #include "DataContainer.h"
 
 namespace junjinjen_matrix
@@ -65,6 +65,11 @@ namespace junjinjen_matrix
 
 				values_.emplace_back(key, Value());
 				return values_.back().second;
+			}
+
+			void DataContainer::operator=(const DataContainer& other)
+			{
+				values_ = other.values_;
 			}
 
 			bool DataContainer::operator==(const DataContainer& other) const

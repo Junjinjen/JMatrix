@@ -29,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\TypeInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\InvalidTypeException\InvalidTypeException.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\Container\DataContainer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -40,7 +41,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\Container\DataContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

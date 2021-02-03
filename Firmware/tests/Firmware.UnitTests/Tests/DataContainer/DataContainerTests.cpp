@@ -1,5 +1,5 @@
 #include "CppUnitTest.h"
-#include "DataContainer/Value/Value.h"
+#include "DataContainer/DataContainer.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::data_container;
@@ -143,20 +143,6 @@ namespace JunjinjenMatrixUnitTests
 
 			// Assert 
 			Assert::AreEqual(expected, value.AsString());
-		}
-
-		TEST_METHOD(Indexator_WhenContainerHasNotValueWithGivenKey_ReturnsEmptyValue)
-		{
-			// Arrange
-			DataContainer container;
-			std::string key = "tmp";
-
-			// Act
-			auto value = container[key];
-
-			// Assert 
-			Assert::IsTrue(value.Empty());
-			Assert::IsTrue(container.HasValue(key));
 		}
 
 		TEST_METHOD(SetInt32_WhenContainerHasValueWithGivenKey_UpdatesValue)

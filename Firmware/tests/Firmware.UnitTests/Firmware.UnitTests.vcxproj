@@ -22,6 +22,7 @@
     <ClCompile Include="Mocks\Logger\DebugLogger.cpp" />
     <ClCompile Include="Mocks\Network\Client\MockClient.cpp" />
     <ClCompile Include="Mocks\Network\Server\MockServer.cpp" />
+    <ClCompile Include="Tests\DataContainer\ValueTests.cpp" />
     <ClCompile Include="Tests\DependencyInjection\DependencyInjectionTests.cpp" />
     <ClCompile Include="Tests\DataContainer\DataContainerTests.cpp" />
     <ClCompile Include="Tests\PipeManagement\PipeManagerTests.cpp" />

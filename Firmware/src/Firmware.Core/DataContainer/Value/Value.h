@@ -1,6 +1,6 @@
 #pragma once
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
-#include "DataContainer/DataContainer.h"
+#include "DataContainer/Container/DataContainer.h"
 #include "DataContainer/InvalidTypeException/InvalidTypeException.h"
 #include <cstdint>
 #include <string>
@@ -86,6 +86,7 @@ namespace junjinjen_matrix
 				
 				DataContainer& AsContainer();
 				const DataContainer& AsContainer() const;
+
 				std::vector<Value>& AsArray();
 				const std::vector<Value>& AsArray() const;
 
