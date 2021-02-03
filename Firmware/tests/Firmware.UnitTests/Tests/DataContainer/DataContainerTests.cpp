@@ -97,10 +97,36 @@ namespace JunjinjenMatrixUnitTests
 			std::string expected = "Test value";
 			container.SetValue(key, Value(expected));
 			
-			// Assert
+			// Act
 			auto value = container.GetValue(key);
 
-			// Act 
+			// Assert 
+			Assert::AreEqual(expected, value.AsString());
+		}
+
+		TEST_METHOD(GetValueConst_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		{
+			// Arrange
+			const DataContainer container;
+			std::string key = "tmp";
+
+			// Act / Assert
+			Assert::ExpectException<std::out_of_range>([&]() { container.GetValue(key); });
+		}
+
+		TEST_METHOD(GetValueConst_WhenContainerHasValueWithGivenKey_ReturnsValue)
+		{
+			// Arrange
+			DataContainer container;
+			std::string key = "tmp";
+			std::string expected = "Test value";
+			container.SetValue(key, Value(expected));
+			const DataContainer& constInstance = container;
+
+			// Act
+			auto value = constInstance.GetValue(key);
+
+			// Assert 
 			Assert::AreEqual(expected, value.AsString());
 		}
 
@@ -112,10 +138,10 @@ namespace JunjinjenMatrixUnitTests
 			std::string expected = "Test value";
 			container.SetValue(key, Value(expected));
 
-			// Assert
+			// Act
 			auto value = container[key];
 
-			// Act 
+			// Assert 
 			Assert::AreEqual(expected, value.AsString());
 		}
 
@@ -125,12 +151,29 @@ namespace JunjinjenMatrixUnitTests
 			DataContainer container;
 			std::string key = "tmp";
 
-			// Assert
+			// Act
 			auto value = container[key];
 
-			// Act 
+			// Assert 
 			Assert::IsTrue(value.Empty());
 			Assert::IsTrue(container.HasValue(key));
+		}
+
+		TEST_METHOD(SetInt32_WhenContainerHasValueWithGivenKey_UpdatesValue)
+		{
+			// Arrange
+			DataContainer container;
+			std::string key = "tmp";
+			std::string oldValue = "Some old value";
+			int32_t expected = 14;
+			container[key].SetString(oldValue);
+
+			// Act
+			auto value = container[key];
+			value.SetInt32(expected);
+
+			// Assert
+			Assert::AreEqual(container[key].AsInt32(), expected);
 		}
 	};
 }
