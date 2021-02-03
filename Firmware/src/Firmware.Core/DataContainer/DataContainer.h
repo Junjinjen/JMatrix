@@ -27,6 +27,7 @@ namespace junjinjen_matrix
 				Value& GetValue(const std::string& key);
 				const Value& GetValue(const std::string& key) const;
 				Value& operator[](const std::string& key);
+				bool operator==(const DataContainer& other) const;
 
 				void SetInt32(const std::string& key, int32_t value);
 				void SetInt64(const std::string& key, int64_t value);

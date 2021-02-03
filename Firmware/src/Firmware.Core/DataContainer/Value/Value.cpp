@@ -61,7 +61,7 @@ namespace junjinjen_matrix
 			Value::Value(std::string&& value)
 			{
 				value_ = new ValueType_t();
-				new (&value_->string_v) std::string(value);
+				new (&value_->string_v) std::string(std::move(value));
 				type_ = ValueType::String;
 			}
 
@@ -75,7 +75,7 @@ namespace junjinjen_matrix
 			Value::Value(byte_string&& value)
 			{
 				value_ = new ValueType_t();
-				new (&value_->byte_string_v) byte_string(value);
+				new (&value_->byte_string_v) byte_string(std::move(value));
 				type_ = ValueType::ByteString;
 			}
 
@@ -100,10 +100,24 @@ namespace junjinjen_matrix
 				type_ = ValueType::Container;
 			}
 
+			Value::Value(DataContainer&& value)
+			{
+				value_ = new ValueType_t();
+				new (&value_->container_v) DataContainer(std::move(value));
+				type_ = ValueType::Container;
+			}
+
 			Value::Value(const std::vector<Value>& value)
 			{
 				value_ = new ValueType_t();
 				new (&value_->array_v) std::vector<Value>(value);
+				type_ = ValueType::Array;
+			}
+
+			Value::Value(std::vector<Value>&& value)
+			{
+				value_ = new ValueType_t();
+				new (&value_->array_v) std::vector<Value>(std::move(value));
 				type_ = ValueType::Array;
 			}
 
@@ -125,6 +139,49 @@ namespace junjinjen_matrix
 
 				type_ = value.type_;
 				CopyUnion(value);
+			}
+
+			bool Value::operator==(const Value& other) const
+			{
+				if (type_ != other.type_)
+				{
+					return false;
+				}
+
+				switch (type_)
+				{
+				case ValueType::Empty:
+					return true;
+				case ValueType::Int32:
+					return value_->int32_v == other.value_->int32_v;
+					break;
+				case ValueType::Int64:
+					return value_->int64_v == other.value_->int64_v;
+					break;
+				case ValueType::Boolean:
+					return value_->bool_v == other.value_->bool_v;
+					break;
+				case ValueType::String:
+					return value_->string_v == other.value_->string_v;
+					break;
+				case ValueType::ByteString:
+					return value_->byte_string_v == other.value_->byte_string_v;
+					break;
+				case ValueType::Float:
+					return value_->float_v == other.value_->float_v;
+					break;
+				case ValueType::Double:
+					return value_->double_v == other.value_->double_v;
+					break;
+				case ValueType::Container:
+					return value_->container_v == other.value_->container_v;
+					break;
+				case ValueType::Array:
+					return value_->array_v == other.value_->array_v;
+					break;
+				}
+
+				return false;
 			}
 
 			ValueType Value::GetType() const
@@ -346,7 +403,7 @@ namespace junjinjen_matrix
 					RemoveValue();
 				}
 
-				new (&value_->string_v) std::string(value);
+				new (&value_->string_v) std::string(std::move(value));
 				type_ = ValueType::String;
 			}
 
@@ -368,7 +425,7 @@ namespace junjinjen_matrix
 					RemoveValue();
 				}
 
-				new (&value_->byte_string_v) byte_string(value);
+				new (&value_->byte_string_v) byte_string(std::move(value));
 				type_ = ValueType::ByteString;
 			}
 
@@ -425,7 +482,7 @@ namespace junjinjen_matrix
 					RemoveValue();
 				}
 
-				new (&value_->container_v) DataContainer(value);
+				new (&value_->container_v) DataContainer(std::move(value));
 				type_ = ValueType::Container;
 				return value_->container_v;
 			}
@@ -461,7 +518,7 @@ namespace junjinjen_matrix
 					RemoveValue();
 				}
 				
-				new (&value_->array_v) std::vector<Value>(value);
+				new (&value_->array_v) std::vector<Value>(std::move(value));
 				type_ = ValueType::Array;
 				return value_->array_v;
 			}

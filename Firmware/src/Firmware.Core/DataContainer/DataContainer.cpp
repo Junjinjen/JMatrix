@@ -67,6 +67,11 @@ namespace junjinjen_matrix
 				return values_.back().second;
 			}
 
+			bool DataContainer::operator==(const DataContainer& other) const
+			{
+				return values_ == other.values_;
+			}
+
 			void DataContainer::SetInt32(const std::string& key, int32_t value)
 			{
 				auto node = FindValue(key);
@@ -128,7 +133,7 @@ namespace junjinjen_matrix
 				}
 				else
 				{
-					values_.emplace_back(key, Value(value));
+					values_.emplace_back(key, Value(std::move(value)));
 				}
 			}
 
@@ -150,7 +155,7 @@ namespace junjinjen_matrix
 				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					node->SetByteString(value);
+					node->SetByteString(std::move(value));
 				}
 				else
 				{
@@ -268,9 +273,11 @@ namespace junjinjen_matrix
 				{
 					return node->CreateContainer();
 				}
-
-				values_.emplace_back(key, Value());
-				return values_.back().second.CreateContainer();
+				else
+				{
+					values_.emplace_back(key, Value());
+					return values_.back().second.CreateContainer();
+				}
 			}
 
 			void DataContainer::SetContainer(const std::string& key, const DataContainer& value)
@@ -280,9 +287,10 @@ namespace junjinjen_matrix
 				{
 					node->CreateContainer(value);
 				}
-
-				values_.emplace_back(key, Value());
-				values_.back().second.CreateContainer(value);
+				else
+				{
+					values_.emplace_back(key, Value(value));
+				}
 			}
 
 			void DataContainer::SetContainer(const std::string& key, DataContainer&& value)
@@ -292,9 +300,10 @@ namespace junjinjen_matrix
 				{
 					node->CreateContainer(std::move(value));
 				}
-
-				values_.emplace_back(key, Value());
-				values_.back().second.CreateContainer(std::move(value));
+				else
+				{
+					values_.emplace_back(key, Value(std::move(value)));
+				}
 			}
 
 			const DataContainer& DataContainer::GetContainer(const std::string& key) const
@@ -320,9 +329,11 @@ namespace junjinjen_matrix
 				{
 					return node->CreateArray();
 				}
-
-				values_.emplace_back(key, Value());
-				return values_.back().second.CreateArray();
+				else
+				{
+					values_.emplace_back(key, Value());
+					return values_.back().second.CreateArray();
+				}
 			}
 
 			void DataContainer::SetArray(const std::string& key, const std::vector<Value>& value)
@@ -332,9 +343,10 @@ namespace junjinjen_matrix
 				{
 					node->CreateArray(value);
 				}
-
-				values_.emplace_back(key, Value());
-				values_.back().second.CreateArray(value);
+				else
+				{
+					values_.emplace_back(key, Value(value));
+				}
 			}
 
 			void DataContainer::SetArray(const std::string& key, std::vector<Value>&& value)
@@ -344,9 +356,10 @@ namespace junjinjen_matrix
 				{
 					node->CreateArray(std::move(value));
 				}
-
-				values_.emplace_back(key, Value());
-				values_.back().second.CreateArray(std::move(value));
+				else
+				{
+					values_.emplace_back(key, Value(std::move(value)));
+				}
 			}
 
 			const std::vector<Value>& DataContainer::GetArray(const std::string& key) const

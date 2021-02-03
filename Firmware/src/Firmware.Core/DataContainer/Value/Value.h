@@ -44,10 +44,13 @@ namespace junjinjen_matrix
 				Value(float value);
 				Value(double value);
 				Value(const DataContainer& value);
+				Value(DataContainer&& value);
 				Value(const std::vector<Value>& value);
+				Value(std::vector<Value>&& value);
 				~Value();
 
 				void operator=(const Value& value);
+				bool operator==(const Value& other) const;
 
 				ValueType GetType() const;
 
