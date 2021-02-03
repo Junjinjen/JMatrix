@@ -458,21 +458,20 @@ namespace junjinjen_matrix
 
 			inline void Value::RemoveValue()
 			{
-				if (IsString())
+				switch (type_)
 				{
-					value_->string_v.~basic_string();
-				}
-				else if (IsByteString())
-				{
-					value_->byte_string_v.~basic_string();
-				}
-				else if (IsArray())
-				{
+				case ValueType::Array:
 					value_->array_v.~vector();
-				}
-				else if (IsContainer())
-				{
+					break;
+				case ValueType::ByteString:
+					value_->byte_string_v.~basic_string();
+					break;
+				case ValueType::Container:
 					value_->container_v.~DataContainer();
+					break;
+				case ValueType::String:
+					value_->string_v.~basic_string();
+					break;
 				}
 			}
 
@@ -491,7 +490,7 @@ namespace junjinjen_matrix
 			{
 				if (other.value_ != nullptr)
 				{
-					switch (other.GetType())
+					switch (other.type_)
 					{
 					case ValueType::Array:
 						new (&value_->array_v) std::vector<Value>(other.value_->array_v);
