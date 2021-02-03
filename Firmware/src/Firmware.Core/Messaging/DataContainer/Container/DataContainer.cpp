@@ -1,11 +1,11 @@
-#include "DataContainer/Value/Value.h"
 #include "DataContainer.h"
+#include "../Value/Value.h"
 
 namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace data_container
+		namespace messaging
 		{
 			bool DataContainer::Empty() const
 			{
@@ -70,6 +70,11 @@ namespace junjinjen_matrix
 			void DataContainer::operator=(const DataContainer& other)
 			{
 				values_ = other.values_;
+			}
+
+			void DataContainer::operator=(DataContainer&& other) noexcept
+			{
+				values_ = std::move(other.values_);
 			}
 
 			bool DataContainer::operator==(const DataContainer& other) const

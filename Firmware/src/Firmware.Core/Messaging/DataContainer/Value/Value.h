@@ -1,7 +1,8 @@
 #pragma once
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
-#include "DataContainer/Container/DataContainer.h"
-#include "DataContainer/InvalidTypeException/InvalidTypeException.h"
+#include "Messaging/DataContainer/Container/DataContainer.h"
+#include "Messaging/Exceptions/InvalidTypeException.h"
+#include <vector>
 #include <cstdint>
 #include <string>
 
@@ -9,9 +10,10 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace data_container
+		namespace messaging
 		{
 			using utilities::byte_definitions::byte_string;
+			using exceptions::InvalidTypeException;
 
 			enum ValueType
 			{
@@ -27,12 +29,14 @@ namespace junjinjen_matrix
 				Array
 			};
 
+			class DataContainer;
+
 			class Value
 			{
 			public:
 				Value();
 				Value(const Value& value);
-				Value(Value&& value);
+				Value(Value&& value) noexcept;
 				Value(bool value);
 				Value(int32_t value);
 				Value(int64_t value);
@@ -50,6 +54,7 @@ namespace junjinjen_matrix
 				~Value();
 
 				void operator=(const Value& value);
+				void operator=(Value&& value) noexcept;
 				bool operator==(const Value& other) const;
 
 				ValueType GetType() const;
@@ -121,7 +126,7 @@ namespace junjinjen_matrix
 
 				inline void RemoveValue();
 				inline bool AllocateValue();
-				inline void CopyUnion(const junjinjen_matrix::firmware::data_container::Value& other);
+				inline void CopyUnion(const junjinjen_matrix::firmware::messaging::Value& other);
 			};
 		}
 	}

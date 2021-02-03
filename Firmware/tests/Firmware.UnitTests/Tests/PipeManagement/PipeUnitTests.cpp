@@ -11,7 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::network_pipeline::pipe_management;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace JunjinjenMatrixUnitTests
+namespace PipeManagementUnitTests
 {
 	TEST_CLASS(PipeUnitTests)
 	{
@@ -40,7 +40,7 @@ namespace JunjinjenMatrixUnitTests
 			client->SetConnected(false);
 
 			// Act / Assert
-			Assert::IsFalse (pipe->Connected());
+			Assert::IsFalse(pipe->Connected());
 		}
 
 		TEST_METHOD(HasNewMessage_WhenClientHasMessage_ReturnsTrue)
@@ -139,7 +139,7 @@ namespace JunjinjenMatrixUnitTests
 
 			auto rawMessage3 = client->GenerateMessage(expected3);
 			auto packagesCount3 = rawMessage3.size();
-			
+
 			for (size_t i = 0; i < packagesCount1; i++)
 			{
 				client->AddRawMessage(std::string(&rawMessage1[i], 1));
@@ -268,7 +268,7 @@ namespace JunjinjenMatrixUnitTests
 			{
 				AddToVector(assertionOutputVector, msg);
 			}
-			
+
 			Assert::IsTrue(expectedOutputVector == assertionOutputVector);
 		}
 

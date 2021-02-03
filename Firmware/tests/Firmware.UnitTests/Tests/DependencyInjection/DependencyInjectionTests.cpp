@@ -5,7 +5,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace JunjinjenMatrixUnitTests
+namespace DependencyInjectionUnitTests
 {
 	class TestClassBase
 	{
@@ -37,7 +37,7 @@ namespace JunjinjenMatrixUnitTests
 			// Assert
 			auto firstInstance = container->Resolve<TestClassBase>();
 			firstInstance->number_ = newNumber;
-			
+
 			auto secondInstance = container->Resolve<TestClassBase>();
 
 			Assert::AreEqual(newNumber, secondInstance->number_);
@@ -228,11 +228,11 @@ namespace JunjinjenMatrixUnitTests
 			builder.AddSingleton<float>([=]() { return new float(expectedFloat); });
 			builder.AddSingleton<int>([=]() { return new int(expectedInt); });
 			builder.AddSingleton<TestClassBase>([=]()
-			{
-				auto tmp = new TestClassBase();
-				tmp->number_ = expectedNumberInClass;
-				return tmp;
-			});
+				{
+					auto tmp = new TestClassBase();
+					tmp->number_ = expectedNumberInClass;
+					return tmp;
+				});
 
 			auto container = builder.Build();
 

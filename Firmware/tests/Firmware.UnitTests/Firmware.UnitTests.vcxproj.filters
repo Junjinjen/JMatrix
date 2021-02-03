@@ -18,8 +18,8 @@
     </ClCompile>
     <ClCompile Include="Tests\TaskManagement\TaskManagerTests.cpp" />
     <ClCompile Include="Tests\DependencyInjection\DependencyInjectionTests.cpp" />
-    <ClCompile Include="Tests\DataContainer\DataContainerTests.cpp" />
-    <ClCompile Include="Tests\DataContainer\ValueTests.cpp" />
+    <ClCompile Include="Tests\Messaging\DataContainer\ValueTests.cpp" />
+    <ClCompile Include="Tests\Messaging\DataContainer\DataContainerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mocks\Logger\DebugLogger.h">

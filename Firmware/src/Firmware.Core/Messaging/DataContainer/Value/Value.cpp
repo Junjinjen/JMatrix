@@ -4,7 +4,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace data_container
+		namespace messaging
 		{
 			Value::Value()
 				: type_(ValueType::Empty), value_(nullptr)
@@ -18,7 +18,7 @@ namespace junjinjen_matrix
 				CopyUnion(value);
 			}
 
-			Value::Value(Value&& value)
+			Value::Value(Value&& value) noexcept
 				: type_(value.type_), value_(value.value_)
 			{
 				value.value_ = nullptr;
@@ -139,6 +139,20 @@ namespace junjinjen_matrix
 
 				type_ = value.type_;
 				CopyUnion(value);
+			}
+
+			void Value::operator=(Value&& value) noexcept
+			{
+				if (value_ != nullptr)
+				{
+					RemoveValue();
+				}
+				
+				type_ = value.type_;
+				value_ = value.value_;
+
+				value.type_ = ValueType::Empty;
+				value.value_ = nullptr;
 			}
 
 			bool Value::operator==(const Value& other) const
@@ -553,7 +567,7 @@ namespace junjinjen_matrix
 				return false;
 			}
 
-			inline void Value::CopyUnion(const junjinjen_matrix::firmware::data_container::Value& other)
+			inline void Value::CopyUnion(const junjinjen_matrix::firmware::messaging::Value& other)
 			{
 				if (other.value_ != nullptr)
 				{

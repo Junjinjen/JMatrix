@@ -27,10 +27,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\TransientCreator\TransientCreator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\SingletonCreator\SingletonCreator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\TypeInfo.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\InvalidTypeException\InvalidTypeException.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\Container\DataContainer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)DataContainer\DataContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Exceptions\InvalidTypeException.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\ContainerProvider\ContainerProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Exceptions\ContainerParseException.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\DataContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
@@ -40,8 +42,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\Value\Value.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)DataContainer\Container\DataContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

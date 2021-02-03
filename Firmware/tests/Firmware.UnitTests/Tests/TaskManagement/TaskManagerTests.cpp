@@ -9,7 +9,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::task_management;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace JunjinjenMatrixUnitTests
+namespace TaskManagementUnitTests
 {
 	class TestTask : public Task
 	{
@@ -34,9 +34,9 @@ namespace JunjinjenMatrixUnitTests
 			builder.Build();
 
 			TaskFactory::AddTaskCreator("Test task name", [](std::unique_ptr<Pipe>& pipe)
-			{
-				return std::unique_ptr<Task>(new TestTask(std::move(pipe)));
-			});
+				{
+					return std::unique_ptr<Task>(new TestTask(std::move(pipe)));
+				});
 		}
 
 		TEST_METHOD(HasNewTasks_WhenPipeManagerHasNewPipeWithMessage_ReturnsTrue)

@@ -1,10 +1,10 @@
 #include "CppUnitTest.h"
-#include "DataContainer/DataContainer.h"
+#include "Messaging/DataContainer/DataContainer.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace junjinjen_matrix::firmware::data_container;
+using namespace junjinjen_matrix::firmware::messaging;
 
-namespace JunjinjenMatrixUnitTests
+namespace MessagingUnitTests
 {
 	TEST_CLASS(DataContainerUnitTests)
 	{

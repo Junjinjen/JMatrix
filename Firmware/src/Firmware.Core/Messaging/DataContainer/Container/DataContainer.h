@@ -8,7 +8,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace data_container
+		namespace messaging
 		{
 			using utilities::byte_definitions::byte_string;
 
@@ -22,7 +22,8 @@ namespace junjinjen_matrix
 
 				DataContainer() = default;
 				DataContainer(const DataContainer&) = default;
-				DataContainer(DataContainer&&) = default;
+				DataContainer(DataContainer&&) noexcept = default;
+				virtual ~DataContainer() = default;
 
 				bool Empty() const;
 				bool HasValue(const std::string& key) const;
@@ -32,6 +33,7 @@ namespace junjinjen_matrix
 				const Value& GetValue(const std::string& key) const;
 				Value& operator[](const std::string& key);
 				void operator=(const DataContainer& other);
+				void operator=(DataContainer&& other) noexcept;
 				bool operator==(const DataContainer& other) const;
 
 				void SetInt32(const std::string& key, int32_t value);

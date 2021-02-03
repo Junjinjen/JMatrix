@@ -18,6 +18,7 @@
 #define _VMDEBUG 1
 #define __ets__
 #define ICACHE_FLASH
+#define NEW_OOM_ABORT
 #define NONOSDK22x_190703 1
 #define F_CPU 80000000L
 #define LWIP_OPEN_SRC
