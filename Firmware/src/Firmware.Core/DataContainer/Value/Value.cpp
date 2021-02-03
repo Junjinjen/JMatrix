@@ -182,7 +182,7 @@ namespace junjinjen_matrix
 				return type_ == ValueType::Container;
 			}
 
-			int32_t Value::GetInt32() const
+			int32_t Value::AsInt32() const
 			{
 				if (!IsInt32())
 				{
@@ -192,7 +192,7 @@ namespace junjinjen_matrix
 				return value_->int32_v;
 			}
 
-			int64_t Value::GetInt64() const
+			int64_t Value::AsInt64() const
 			{
 				if (!IsInt64())
 				{
@@ -202,7 +202,7 @@ namespace junjinjen_matrix
 				return value_->int64_v;
 			}
 
-			bool Value::GetBoolean() const
+			bool Value::AsBoolean() const
 			{
 				if (!IsBoolean())
 				{
@@ -212,7 +212,7 @@ namespace junjinjen_matrix
 				return value_->bool_v;
 			}
 
-			const std::string& Value::GetString() const
+			const std::string& Value::AsString() const
 			{
 				if (!IsString())
 				{
@@ -222,7 +222,7 @@ namespace junjinjen_matrix
 				return value_->string_v;
 			}
 
-			const byte_string& Value::GetByteString() const
+			const byte_string& Value::AsByteString() const
 			{
 				if (!IsByteString())
 				{
@@ -232,7 +232,7 @@ namespace junjinjen_matrix
 				return value_->byte_string_v;
 			}
 
-			float Value::GetFloat() const
+			float Value::AsFloat() const
 			{
 				if (!IsFloat())
 				{
@@ -242,7 +242,7 @@ namespace junjinjen_matrix
 				return value_->float_v;
 			}
 
-			double Value::GetDouble() const
+			double Value::AsDouble() const
 			{
 				if (!IsDouble())
 				{
