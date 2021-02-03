@@ -17,6 +17,9 @@ namespace junjinjen_matrix
 			class DataContainer
 			{
 			public:
+				using iterator = std::vector<std::pair<std::string, Value>>::iterator;
+				using const_iterator = std::vector<std::pair<std::string, Value>>::const_iterator;
+
 				bool Empty() const;
 				bool HasValue(const std::string& key) const;
 
@@ -54,6 +57,12 @@ namespace junjinjen_matrix
 				void SetArray(const std::string& key, std::vector<Value>&& value);
 				const std::vector<Value>& GetArray(const std::string& key) const;
 				std::vector<Value>& GetArray(const std::string& key);
+
+				iterator begin();
+				iterator end();
+
+				const_iterator cbegin() const;
+				const_iterator cend() const;
 			private:
 				std::vector<std::pair<std::string, Value>> values_;
 

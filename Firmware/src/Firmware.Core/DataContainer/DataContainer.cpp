@@ -365,6 +365,26 @@ namespace junjinjen_matrix
 				return const_cast<std::vector<Value>&>(const_cast<const DataContainer*>(this)->GetArray(key));
 			}
 
+			std::vector<std::pair<std::string, Value>>::iterator DataContainer::begin()
+			{
+				return values_.begin();
+			}
+
+			std::vector<std::pair<std::string, Value>>::iterator DataContainer::end()
+			{
+				return values_.end();
+			}
+
+			std::vector<std::pair<std::string, Value>>::const_iterator DataContainer::cbegin() const
+			{
+				return values_.cbegin();
+			}
+
+			std::vector<std::pair<std::string, Value>>::const_iterator DataContainer::cend() const
+			{
+				return values_.cend();
+			}
+
 			inline const Value* DataContainer::FindValue(const std::string& key) const
 			{
 				for (size_t i = 0; i < values_.size(); i++)
