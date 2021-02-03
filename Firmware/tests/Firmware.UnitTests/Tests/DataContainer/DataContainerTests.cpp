@@ -101,7 +101,7 @@ namespace JunjinjenMatrixUnitTests
 			auto value = container.GetValue(key);
 
 			// Act 
-			Assert::AreEqual(expected, value.GetString());
+			Assert::AreEqual(expected, value.AsString());
 		}
 
 		TEST_METHOD(Indexator_WhenContainerHasValueWithGivenKey_ReturnsValue)
@@ -116,7 +116,7 @@ namespace JunjinjenMatrixUnitTests
 			auto value = container[key];
 
 			// Act 
-			Assert::AreEqual(expected, value.GetString());
+			Assert::AreEqual(expected, value.AsString());
 		}
 
 		TEST_METHOD(Indexator_WhenContainerHasNotValueWithGivenKey_ReturnsEmptyValue)

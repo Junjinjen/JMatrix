@@ -82,7 +82,9 @@ namespace junjinjen_matrix
 				void SetDouble(double value);
 				
 				DataContainer& AsContainer();
+				const DataContainer& AsContainer() const;
 				std::vector<Value>& AsArray();
+				const std::vector<Value>& AsArray() const;
 
 				DataContainer& CreateContainer();
 				DataContainer& CreateContainer(const DataContainer& value);

@@ -254,6 +254,11 @@ namespace junjinjen_matrix
 
 			DataContainer& Value::AsContainer()
 			{
+				return const_cast<DataContainer&>(const_cast<const Value*>(this)->AsContainer());
+			}
+
+			const DataContainer& Value::AsContainer() const
+			{
 				if (!IsContainer())
 				{
 					throw InvalidTypeException();
@@ -263,6 +268,11 @@ namespace junjinjen_matrix
 			}
 
 			std::vector<Value>& Value::AsArray()
+			{
+				return const_cast<std::vector<Value>&>(const_cast<const Value*>(this)->AsArray());
+			}
+
+			const std::vector<Value>& Value::AsArray() const
 			{
 				if (!IsArray())
 				{

@@ -22,6 +22,7 @@ namespace junjinjen_matrix
 
 				void SetValue(const std::string& key, const Value& value);
 				Value& GetValue(const std::string& key);
+				const Value& GetValue(const std::string& key) const;
 				Value& operator[](const std::string& key);
 
 				void SetInt32(const std::string& key, int32_t value);
@@ -34,26 +35,29 @@ namespace junjinjen_matrix
 				void SetFloat(const std::string& key, float value);
 				void SetDouble(const std::string& key, double value);
 
-				int32_t GetInt32(const std::string& key);
-				int64_t GetInt64(const std::string& key);
-				bool GetBoolean(const std::string& key);
-				const std::string& GetString(const std::string& key);
-				const byte_string& GetByteString(const std::string& key);
-				float GetFloat(const std::string& key);
-				double GetDouble(const std::string& key);
+				int32_t GetInt32(const std::string& key) const;
+				int64_t GetInt64(const std::string& key) const;
+				bool GetBoolean(const std::string& key) const;
+				const std::string& GetString(const std::string& key) const;
+				const byte_string& GetByteString(const std::string& key) const;
+				float GetFloat(const std::string& key) const;
+				double GetDouble(const std::string& key) const;
 
 				DataContainer& SetContainer(const std::string& key);
 				void SetContainer(const std::string& key, const DataContainer& value);
 				void SetContainer(const std::string& key, DataContainer&& value);
+				const DataContainer& GetContainer(const std::string& key) const;
 				DataContainer& GetContainer(const std::string& key);
 
 				std::vector<Value>& SetArray(const std::string& key);
 				void SetArray(const std::string& key, const std::vector<Value>& value);
 				void SetArray(const std::string& key, std::vector<Value>&& value);
+				const std::vector<Value>& GetArray(const std::string& key) const;
 				std::vector<Value>& GetArray(const std::string& key);
 			private:
 				std::vector<std::pair<std::string, Value>> values_;
 
+				inline const Value* FindValue(const std::string& key) const;
 				inline Value* FindValue(const std::string& key);
 			};
 		}

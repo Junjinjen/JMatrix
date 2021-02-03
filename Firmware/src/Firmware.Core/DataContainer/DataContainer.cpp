@@ -41,7 +41,12 @@ namespace junjinjen_matrix
 
 			Value& DataContainer::GetValue(const std::string& key)
 			{
-				Value* ptr = FindValue(key);
+				return const_cast<Value&>(const_cast<const DataContainer*>(this)->GetValue(key));
+			}
+
+			const Value& DataContainer::GetValue(const std::string& key) const
+			{
+				auto ptr = FindValue(key);
 				if (ptr != nullptr)
 				{
 					return *ptr;
@@ -52,7 +57,7 @@ namespace junjinjen_matrix
 
 			Value& DataContainer::operator[](const std::string& key)
 			{
-				Value* ptr = FindValue(key);
+				auto ptr = FindValue(key);
 				if (ptr != nullptr)
 				{
 					return *ptr;
@@ -64,7 +69,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetInt32(const std::string& key, int32_t value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetInt32(value);
@@ -77,7 +82,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetInt64(const std::string& key, int64_t value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetInt64(value);
@@ -90,7 +95,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetBoolean(const std::string& key, bool value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetBoolean(value);
@@ -103,7 +108,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetString(const std::string& key, const std::string& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetString(value);
@@ -116,7 +121,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetString(const std::string& key, std::string&& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetString(std::move(value));
@@ -129,7 +134,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetByteString(const std::string& key, const byte_string& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetByteString(value);
@@ -142,7 +147,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetByteString(const std::string& key, byte_string&& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetByteString(value);
@@ -155,7 +160,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetFloat(const std::string& key, float value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetFloat(value);
@@ -168,7 +173,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetDouble(const std::string& key, double value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->SetDouble(value);
@@ -179,78 +184,78 @@ namespace junjinjen_matrix
 				}
 			}
 
-			int32_t DataContainer::GetInt32(const std::string& key)
+			int32_t DataContainer::GetInt32(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetInt32();
+					return node->AsInt32();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
 			}
 
-			int64_t DataContainer::GetInt64(const std::string& key)
+			int64_t DataContainer::GetInt64(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetInt64();
+					return node->AsInt64();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
 			}
 
-			bool DataContainer::GetBoolean(const std::string& key)
+			bool DataContainer::GetBoolean(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetBoolean();
+					return node->AsBoolean();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
 			}
 
-			const std::string& DataContainer::GetString(const std::string& key)
+			const std::string& DataContainer::GetString(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetString();
+					return node->AsString();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
 			}
 
-			const byte_string& DataContainer::GetByteString(const std::string& key)
+			const byte_string& DataContainer::GetByteString(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetByteString();
+					return node->AsByteString();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
 			}
 
-			float DataContainer::GetFloat(const std::string& key)
+			float DataContainer::GetFloat(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetFloat();
+					return node->AsFloat();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
 			}
 
-			double DataContainer::GetDouble(const std::string& key)
+			double DataContainer::GetDouble(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
-					return node->GetDouble();
+					return node->AsDouble();
 				}
 
 				throw std::out_of_range("Value with name " + key + " wasn't found");
@@ -258,7 +263,7 @@ namespace junjinjen_matrix
 
 			DataContainer& DataContainer::SetContainer(const std::string& key)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					return node->CreateContainer();
@@ -270,7 +275,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetContainer(const std::string& key, const DataContainer& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->CreateContainer(value);
@@ -282,7 +287,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetContainer(const std::string& key, DataContainer&& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->CreateContainer(std::move(value));
@@ -292,9 +297,9 @@ namespace junjinjen_matrix
 				values_.back().second.CreateContainer(std::move(value));
 			}
 
-			DataContainer& DataContainer::GetContainer(const std::string& key)
+			const DataContainer& DataContainer::GetContainer(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					return node->AsContainer();
@@ -303,9 +308,14 @@ namespace junjinjen_matrix
 				throw std::out_of_range("Container with name " + key + " wasn't found");
 			}
 
+			DataContainer& DataContainer::GetContainer(const std::string& key)
+			{
+				return const_cast<DataContainer&>(const_cast<const DataContainer*>(this)->GetContainer(key));
+			}
+
 			std::vector<Value>& DataContainer::SetArray(const std::string& key)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					return node->CreateArray();
@@ -317,7 +327,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetArray(const std::string& key, const std::vector<Value>& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->CreateArray(value);
@@ -329,7 +339,7 @@ namespace junjinjen_matrix
 
 			void DataContainer::SetArray(const std::string& key, std::vector<Value>&& value)
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					node->CreateArray(std::move(value));
@@ -339,9 +349,9 @@ namespace junjinjen_matrix
 				values_.back().second.CreateArray(std::move(value));
 			}
 
-			std::vector<Value>& DataContainer::GetArray(const std::string& key)
+			const std::vector<Value>& DataContainer::GetArray(const std::string& key) const
 			{
-				Value* node = FindValue(key);
+				auto node = FindValue(key);
 				if (node != nullptr)
 				{
 					return node->AsArray();
@@ -350,7 +360,12 @@ namespace junjinjen_matrix
 				throw std::out_of_range("Array with name " + key + " wasn't found");
 			}
 
-			inline Value* DataContainer::FindValue(const std::string& key)
+			std::vector<Value>& DataContainer::GetArray(const std::string& key)
+			{
+				return const_cast<std::vector<Value>&>(const_cast<const DataContainer*>(this)->GetArray(key));
+			}
+
+			inline const Value* DataContainer::FindValue(const std::string& key) const
 			{
 				for (size_t i = 0; i < values_.size(); i++)
 				{
@@ -361,6 +376,11 @@ namespace junjinjen_matrix
 				}
 
 				return nullptr;
+			}
+
+			inline Value* DataContainer::FindValue(const std::string& key)
+			{
+				return const_cast<Value*>(const_cast<const DataContainer*>(this)->FindValue(key));
 			}
 		}
 	}
