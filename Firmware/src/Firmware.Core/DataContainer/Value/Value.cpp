@@ -489,23 +489,23 @@ namespace junjinjen_matrix
 
 			inline void Value::CopyUnion(const junjinjen_matrix::firmware::data_container::Value& other)
 			{
-				switch (other.GetType())
+				if (other.value_ != nullptr)
 				{
-				case ValueType::Array:
-					new (&value_->array_v) std::vector<Value>(other.value_->array_v);
-					break;
-				case ValueType::ByteString:
-					new (&value_->byte_string_v) byte_string(other.value_->byte_string_v);
-					break;
-				case ValueType::Container:
-					new (&value_->container_v) DataContainer(other.value_->container_v);
-					break;
-				case ValueType::String:
-					new (&value_->string_v) std::string(other.value_->string_v);
-					break;
-				default:
-					if (other.value_ != nullptr)
+					switch (other.GetType())
 					{
+					case ValueType::Array:
+						new (&value_->array_v) std::vector<Value>(other.value_->array_v);
+						break;
+					case ValueType::ByteString:
+						new (&value_->byte_string_v) byte_string(other.value_->byte_string_v);
+						break;
+					case ValueType::Container:
+						new (&value_->container_v) DataContainer(other.value_->container_v);
+						break;
+					case ValueType::String:
+						new (&value_->string_v) std::string(other.value_->string_v);
+						break;
+					default:
 						memcpy(value_, other.value_, sizeof(ValueType_t));
 					}
 				}
