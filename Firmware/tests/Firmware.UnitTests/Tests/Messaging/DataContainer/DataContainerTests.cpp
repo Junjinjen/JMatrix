@@ -3,6 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::messaging;
+using namespace junjinjen_matrix::firmware::utilities::assertion;
 
 namespace MessagingUnitTests
 {
@@ -79,14 +80,14 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetString(key));
 		}
 
-		TEST_METHOD(GetValue_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetValue_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetValue(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetValue(key); });
 		}
 
 		TEST_METHOD(GetValue_WhenContainerHasValueWithGivenKey_ReturnsValue)
@@ -104,14 +105,14 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsString());
 		}
 
-		TEST_METHOD(GetValueConst_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetValueConst_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			const DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetValue(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetValue(key); });
 		}
 
 		TEST_METHOD(GetValueConst_WhenContainerHasValueWithGivenKey_ReturnsValue)
@@ -431,17 +432,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetInt32(key));
 		}
 
-		TEST_METHOD(GetInt32_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetInt32_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetInt32(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetInt32(key); });
 		}
 
-		TEST_METHOD(GetInt32_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetInt32_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -450,7 +451,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetInt32(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetInt32(key); });
 		}
 
 		TEST_METHOD(GetInt64_WhenContainerHasValueOfGivenTypeWithGivenKey_ReturnsValue)
@@ -465,17 +466,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetInt64(key));
 		}
 
-		TEST_METHOD(GetInt64_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetInt64_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetInt64(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetInt64(key); });
 		}
 
-		TEST_METHOD(GetInt64_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetInt64_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -484,7 +485,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetInt64(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetInt64(key); });
 		}
 
 		TEST_METHOD(GetBoolean_WhenContainerHasValueOfGivenTypeWithGivenKey_ReturnsValue)
@@ -499,17 +500,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetBoolean(key));
 		}
 
-		TEST_METHOD(GetBoolean_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetBoolean_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetBoolean(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetBoolean(key); });
 		}
 
-		TEST_METHOD(GetBoolean_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetBoolean_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -518,7 +519,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetBoolean(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetBoolean(key); });
 		}
 
 		TEST_METHOD(GetString_WhenContainerHasValueOfGivenTypeWithGivenKey_ReturnsValue)
@@ -533,17 +534,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetString(key));
 		}
 
-		TEST_METHOD(GetString_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetString_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 		}
 
-		TEST_METHOD(GetString_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetString_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -552,7 +553,7 @@ namespace MessagingUnitTests
 			container.SetBoolean(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 		}
 
 		TEST_METHOD(GetByteString_WhenContainerHasValueOfGivenTypeWithGivenKey_ReturnsValue)
@@ -567,17 +568,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(reinterpret_cast<const char*>(&expected[0]), reinterpret_cast<const char*>(&container.GetByteString(key)[0]));
 		}
 
-		TEST_METHOD(GetByteString_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetByteString_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetByteString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetByteString(key); });
 		}
 
-		TEST_METHOD(GetByteString_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetByteString_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -586,7 +587,7 @@ namespace MessagingUnitTests
 			container.SetBoolean(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetByteString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetByteString(key); });
 		}
 
 		TEST_METHOD(GetFloat_WhenContainerHasValueOfGivenTypeWithGivenKey_ReturnsValue)
@@ -601,17 +602,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetFloat(key));
 		}
 
-		TEST_METHOD(GetFloat_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetFloat_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetFloat(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetFloat(key); });
 		}
 
-		TEST_METHOD(GetFloat_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetFloat_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -620,7 +621,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetFloat(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetFloat(key); });
 		}
 
 		TEST_METHOD(GetDouble_WhenContainerHasValueOfGivenTypeWithGivenKey_ReturnsValue)
@@ -635,17 +636,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, container.GetDouble(key));
 		}
 
-		TEST_METHOD(GetDouble_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetDouble_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetDouble(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetDouble(key); });
 		}
 
-		TEST_METHOD(GetDouble_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetDouble_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -654,7 +655,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetDouble(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetDouble(key); });
 		}
 
 		TEST_METHOD(SetContainer_WhenContainerHasValueWithGivenKey_UpdatesValue)
@@ -669,7 +670,7 @@ namespace MessagingUnitTests
 			auto& value = container.SetContainer(key);
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsContainer());
 			Assert::IsTrue(value.Empty());
 		}
@@ -708,7 +709,7 @@ namespace MessagingUnitTests
 			container.SetContainer(key, value);
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsContainer());
 			Assert::AreEqual(testValue, container.GetContainer(key).GetString(testKey));
 		}
@@ -752,7 +753,7 @@ namespace MessagingUnitTests
 			container.SetContainer(key, std::move(value));
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsContainer());
 			Assert::AreEqual(testValue, container.GetContainer(key).GetString(testKey));
 		}
@@ -797,17 +798,17 @@ namespace MessagingUnitTests
 			Assert::AreEqual(testValue, value.GetString(testKey));
 		}
 
-		TEST_METHOD(GetContainer_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetContainer_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetContainer(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetContainer(key); });
 		}
 
-		TEST_METHOD(GetContainer_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetContainer_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -816,7 +817,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetContainer(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetContainer(key); });
 		}
 
 		TEST_METHOD(GetContainerConst_WhenContainerHasContainerWithGivenKey_ReturnsContainer)
@@ -841,7 +842,7 @@ namespace MessagingUnitTests
 			Assert::AreEqual(testValue, value.GetString(testKey));
 		}
 
-		TEST_METHOD(GetContainerConst_WhenContainerHasNotValueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetContainerConst_WhenContainerHasNotValueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -850,10 +851,10 @@ namespace MessagingUnitTests
 			const DataContainer& constContainer = container;
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { constContainer.GetContainer(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { constContainer.GetContainer(key); });
 		}
 
-		TEST_METHOD(GetContainerConst_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetContainerConst_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -864,7 +865,7 @@ namespace MessagingUnitTests
 			const DataContainer& constContainer = container;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { constContainer.GetContainer(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { constContainer.GetContainer(key); });
 		}
 
 		TEST_METHOD(SetArray_WhenContainerHasValueWithGivenKey_UpdatesValue)
@@ -879,7 +880,7 @@ namespace MessagingUnitTests
 			auto& value = container.SetArray(key);
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsArray());
 			Assert::IsTrue(value.empty());
 		}
@@ -919,7 +920,7 @@ namespace MessagingUnitTests
 			container.SetArray(key, value);
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsArray());
 			Assert::AreEqual(expected1, container.GetArray(key)[0].AsString());
 			Assert::AreEqual(expected2, container.GetArray(key)[1].AsString());
@@ -941,7 +942,7 @@ namespace MessagingUnitTests
 			container.SetArray(key, value);
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsArray());
 			Assert::AreEqual(expected1, container.GetArray(key)[0].AsString());
 			Assert::AreEqual(expected2, container.GetArray(key)[1].AsString());
@@ -967,7 +968,7 @@ namespace MessagingUnitTests
 			container.SetArray(key, std::move(value));
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsArray());
 			Assert::AreEqual(expected1, container.GetArray(key)[0].AsString());
 			Assert::AreEqual(expected2, container.GetArray(key)[1].AsString());
@@ -989,7 +990,7 @@ namespace MessagingUnitTests
 			container.SetArray(key, std::move(value));
 
 			// Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetString(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
 			Assert::IsTrue(container[key].IsArray());
 			Assert::AreEqual(expected1, container.GetArray(key)[0].AsString());
 			Assert::AreEqual(expected2, container.GetArray(key)[1].AsString());
@@ -1016,17 +1017,17 @@ namespace MessagingUnitTests
 			Assert::IsTrue(expectedValue == value);
 		}
 
-		TEST_METHOD(GetArray_WhenContainerHasNotVaueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetArray_WhenContainerHasNotVaueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { container.GetArray(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetArray(key); });
 		}
 
-		TEST_METHOD(GetArray_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetArray_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -1035,7 +1036,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { container.GetArray(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { container.GetArray(key); });
 		}
 
 		TEST_METHOD(GetArrayConst_WhenContainerHasArrayWithGivenKey_ReturnsContainer)
@@ -1060,7 +1061,7 @@ namespace MessagingUnitTests
 			Assert::IsTrue(expectedValue == value);
 		}
 
-		TEST_METHOD(GetArrayConst_WhenContainerHasNotVaueWithGivenKey_ThrowsOutOfRange)
+		TEST_METHOD(GetArrayConst_WhenContainerHasNotVaueWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -1068,10 +1069,10 @@ namespace MessagingUnitTests
 			const DataContainer& constContainer = container;
 
 			// Act / Assert
-			Assert::ExpectException<std::out_of_range>([&]() { constContainer.GetArray(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { constContainer.GetArray(key); });
 		}
 
-		TEST_METHOD(GetArrayConst_WhenContainerHasValueOfIncorrectTypeWithGivenKey_ThrowsInvalidType)
+		TEST_METHOD(GetArrayConst_WhenContainerHasValueOfIncorrectTypeWithGivenKey_AssertFailed)
 		{
 			// Arrange
 			DataContainer container;
@@ -1081,7 +1082,7 @@ namespace MessagingUnitTests
 			const DataContainer& constContainer = container;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { constContainer.GetArray(key); });
+			Assert::ExpectException<AssertFailedException>([&]() { constContainer.GetArray(key); });
 		}
 	};
 }

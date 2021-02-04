@@ -3,6 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::messaging;
+using namespace junjinjen_matrix::firmware::utilities::assertion;
 
 namespace MessagingUnitTests
 {
@@ -201,22 +202,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsInt32());
 		}
 
-		TEST_METHOD(AsInt32_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsInt32_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsInt32(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsInt32(); });
 		}
 
-		TEST_METHOD(AsInt32_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsInt32_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsInt32(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsInt32(); });
 		}
 
 		TEST_METHOD(AsInt64_WhenValueContainsInt64_ReturnsTrue)
@@ -229,22 +230,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsInt64());
 		}
 
-		TEST_METHOD(AsInt64_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsInt64_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsInt64(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsInt64(); });
 		}
 
-		TEST_METHOD(AsInt64_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsInt64_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsInt64(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsInt64(); });
 		}
 
 		TEST_METHOD(AsBoolean_WhenValueContainsBoolean_ReturnsTrue)
@@ -257,22 +258,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsBoolean());
 		}
 
-		TEST_METHOD(AsBoolean_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsBoolean_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsBoolean(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsBoolean(); });
 		}
 
-		TEST_METHOD(AsBoolean_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsBoolean_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(14);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsBoolean(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsBoolean(); });
 		}
 
 		TEST_METHOD(AsString_WhenValueContainsString_ReturnsTrue)
@@ -285,22 +286,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsString());
 		}
 
-		TEST_METHOD(AsString_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsString_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsString(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsString(); });
 		}
 
-		TEST_METHOD(AsString_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsString_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsString(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsString(); });
 		}
 
 		TEST_METHOD(AsByteString_WhenValueContainsByteString_ReturnsTrue)
@@ -313,22 +314,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(reinterpret_cast<const char*>(&expected[0]), reinterpret_cast<const char*>(&value.AsByteString()[0]));
 		}
 
-		TEST_METHOD(AsByteString_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsByteString_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsByteString(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsByteString(); });
 		}
 
-		TEST_METHOD(AsByteString_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsByteString_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(14);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsByteString(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsByteString(); });
 		}
 
 		TEST_METHOD(AsFloat_WhenValueContainsFloat_ReturnsTrue)
@@ -341,22 +342,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsFloat());
 		}
 
-		TEST_METHOD(AsFloat_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsFloat_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsFloat(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsFloat(); });
 		}
 
-		TEST_METHOD(AsFloat_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsFloat_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsFloat(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsFloat(); });
 		}
 
 		TEST_METHOD(AsDouble_WhenValueContainsDouble_ReturnsTrue)
@@ -369,22 +370,22 @@ namespace MessagingUnitTests
 			Assert::AreEqual(expected, value.AsDouble());
 		}
 
-		TEST_METHOD(AsDouble_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsDouble_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsDouble(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsDouble(); });
 		}
 
-		TEST_METHOD(AsDouble_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsDouble_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsDouble(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsDouble(); });
 		}
 
 		TEST_METHOD(Clear_WhenValueContainsValue_ClearsValue)
@@ -663,22 +664,22 @@ namespace MessagingUnitTests
 			Assert::IsTrue(expected == value.AsContainer());
 		}
 
-		TEST_METHOD(AsContainer_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsContainer_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsContainer(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsContainer(); });
 		}
 
-		TEST_METHOD(AsContainer_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsContainer_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsContainer(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsContainer(); });
 		}
 
 		TEST_METHOD(AsContainerConst_WhenValueContainsContainer_ReturnsTrue)
@@ -696,24 +697,24 @@ namespace MessagingUnitTests
 			Assert::IsTrue(expected == constValue.AsContainer());
 		}
 
-		TEST_METHOD(AsContainerConst_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsContainerConst_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 			const Value& constValue = value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { constValue.AsContainer(); });
+			Assert::ExpectException<AssertFailedException>([&]() { constValue.AsContainer(); });
 		}
 
-		TEST_METHOD(AsContainerConst_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsContainerConst_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 			const Value& constValue = value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { constValue.AsContainer(); });
+			Assert::ExpectException<AssertFailedException>([&]() { constValue.AsContainer(); });
 		}
 
 		TEST_METHOD(AsArray_WhenValueContainsArray_ReturnsTrue)
@@ -731,22 +732,22 @@ namespace MessagingUnitTests
 			Assert::IsTrue(expected == value.AsArray());
 		}
 
-		TEST_METHOD(AsArray_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsArray_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsArray(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsArray(); });
 		}
 
-		TEST_METHOD(AsArray_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsArray_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { value.AsArray(); });
+			Assert::ExpectException<AssertFailedException>([&]() { value.AsArray(); });
 		}
 
 		TEST_METHOD(AsArrayConst_WhenValueContainsArray_ReturnsTrue)
@@ -765,24 +766,24 @@ namespace MessagingUnitTests
 			Assert::IsTrue(expected == constValue.AsArray());
 		}
 
-		TEST_METHOD(AsArrayConst_WhenValueIsEmpty_ThrowsInvalidType)
+		TEST_METHOD(AsArrayConst_WhenValueIsEmpty_AssertFailed)
 		{
 			// Arrange
 			Value value;
 			const Value& constValue = value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { constValue.AsArray(); });
+			Assert::ExpectException<AssertFailedException>([&]() { constValue.AsArray(); });
 		}
 
-		TEST_METHOD(AsArrayConst_WhenValueContainsInvalidType_ThrowsInvalidType)
+		TEST_METHOD(AsArrayConst_WhenValueContainsInvalidType_AssertFailed)
 		{
 			// Arrange
 			Value value(false);
 			const Value& constValue = value;
 
 			// Act / Assert
-			Assert::ExpectException<InvalidTypeException>([&]() { constValue.AsArray(); });
+			Assert::ExpectException<AssertFailedException>([&]() { constValue.AsArray(); });
 		}
 
 		TEST_METHOD(CreateContainer_WhenValueIsEmpty_ReturnsCreatedContainer)

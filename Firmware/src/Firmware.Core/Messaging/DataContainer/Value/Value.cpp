@@ -255,71 +255,43 @@ namespace junjinjen_matrix
 
 			int32_t Value::AsInt32() const
 			{
-				if (!IsInt32())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsInt32());
 				return value_->int32_v;
 			}
 
 			int64_t Value::AsInt64() const
 			{
-				if (!IsInt64())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsInt64());
 				return value_->int64_v;
 			}
 
 			bool Value::AsBoolean() const
 			{
-				if (!IsBoolean())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsBoolean());
 				return value_->bool_v;
 			}
 
 			const std::string& Value::AsString() const
 			{
-				if (!IsString())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsString());
 				return value_->string_v;
 			}
 
 			const byte_string& Value::AsByteString() const
 			{
-				if (!IsByteString())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsByteString());
 				return value_->byte_string_v;
 			}
 
 			float Value::AsFloat() const
 			{
-				if (!IsFloat())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsFloat());
 				return value_->float_v;
 			}
 
 			double Value::AsDouble() const
 			{
-				if (!IsDouble())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsDouble());
 				return value_->double_v;
 			}
 
@@ -330,11 +302,7 @@ namespace junjinjen_matrix
 
 			const DataContainer& Value::AsContainer() const
 			{
-				if (!IsContainer())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsContainer());
 				return value_->container_v;
 			}
 
@@ -345,11 +313,7 @@ namespace junjinjen_matrix
 
 			const std::vector<Value>& Value::AsArray() const
 			{
-				if (!IsArray())
-				{
-					throw InvalidTypeException();
-				}
-
+				JUNJINJEN_ASSERT(IsArray());
 				return value_->array_v;
 			}
 

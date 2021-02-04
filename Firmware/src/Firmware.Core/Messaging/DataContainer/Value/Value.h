@@ -1,10 +1,7 @@
 #pragma once
-#include "Utilities/ByteDefinitions/ByteDefinitions.h"
+#include "Utilities/Assertion/AssertDefinition.h"
 #include "Messaging/DataContainer/Container/DataContainer.h"
-#include "Messaging/Exceptions/InvalidTypeException.h"
-#include <vector>
 #include <cstdint>
-#include <string>
 
 namespace junjinjen_matrix
 {
@@ -13,7 +10,6 @@ namespace junjinjen_matrix
 		namespace messaging
 		{
 			using utilities::byte_definitions::byte_string;
-			using exceptions::InvalidTypeException;
 
 			enum ValueType
 			{

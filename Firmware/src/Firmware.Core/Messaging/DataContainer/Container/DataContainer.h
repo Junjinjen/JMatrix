@@ -2,7 +2,6 @@
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include <vector>
 #include <utility>
-#include <string>
 
 namespace junjinjen_matrix
 {

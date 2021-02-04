@@ -14,7 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\ContainerProvider\ContainerProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\ContainerSerializer\ContainerSerializer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\Creator.h" />
@@ -24,8 +24,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger\Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\DataContainer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Exceptions\ContainerParseException.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Exceptions\InvalidTypeException.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h" />
@@ -35,6 +33,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskRegistrator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertDefinition.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertFailedException.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteDefinitions\ByteDefinitions.h" />
   </ItemGroup>
   <ItemGroup>

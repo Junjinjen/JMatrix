@@ -28,11 +28,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\SingletonCreator\SingletonCreator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\TypeInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Exceptions\InvalidTypeException.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\ContainerProvider\ContainerProvider.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Exceptions\ContainerParseException.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\DataContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\ContainerSerializer\ContainerSerializer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertDefinition.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertFailedException.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
