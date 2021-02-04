@@ -31,7 +31,6 @@ namespace junjinjen_matrix
 						auto pipePtr = it->get();
 						auto taskName = pipePtr->GetNewMessage();
 						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&taskName[0]), *it);
-						/*StatusCode code;
 
 						if (task)
 						{

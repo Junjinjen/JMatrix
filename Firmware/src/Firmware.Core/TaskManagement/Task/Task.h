@@ -11,7 +11,7 @@ namespace junjinjen_matrix
 		namespace task_management
 		{
 			using logger::Logger;
-			using network_pipeline::pipe_management::Pipe;
+			using network::pipe_management::Pipe;
 			using utilities::byte_definitions::byte_string;
 
 			class Task

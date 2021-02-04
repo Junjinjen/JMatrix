@@ -8,11 +8,34 @@
 #undef SendMessage
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace junjinjen_matrix::firmware::network_pipeline::pipe_management;
+using namespace junjinjen_matrix::firmware::network::pipe_management;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
 namespace PipeManagementUnitTests
 {
+	class TestSerializer : public ContainerSerializer
+	{
+	public:
+		static DataContainer GenerateMessage(const std::string& message)
+		{
+			DataContainer container;
+			container.SetString("message", message);
+			return container;
+		}
+
+		virtual bool Serialize(const DataContainer& container, byte_string& outputBuffer) override
+		{
+			outputBuffer = reinterpret_cast<const uint8_t*>(&container.GetString("message")[0]);
+			return true;
+		}
+
+		virtual bool Deserialize(const byte_string& inputBuffer, DataContainer& container) override
+		{
+			container.SetString("message", reinterpret_cast<const char*>(&inputBuffer[0]));
+			return true;
+		}
+	};
+
 	TEST_CLASS(PipeUnitTests)
 	{
 	public:
@@ -20,10 +43,11 @@ namespace PipeManagementUnitTests
 		{
 			ContainerBuilder builder;
 			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logger::Logger>();
+			builder.AddSingleton<TestSerializer, ContainerSerializer>();
 			builder.Build();
 		}
 
-		TEST_METHOD(IsConnected_WhenClientConnected_ReturnsTrue)
+		TEST_METHOD(Connected_WhenClientConnected_ReturnsTrue)
 		{
 			// Arrange
 			auto [client, pipe] = ConfigureTestPipe();
@@ -33,7 +57,7 @@ namespace PipeManagementUnitTests
 			Assert::IsTrue(pipe->Connected());
 		}
 
-		TEST_METHOD(IsConnected_WhenClientDisconnected_ReturnsFalse)
+		TEST_METHOD(Connected_WhenClientDisconnected_ReturnsFalse)
 		{
 			// Arrange
 			auto [client, pipe] = ConfigureTestPipe();
@@ -73,7 +97,7 @@ namespace PipeManagementUnitTests
 			auto actual = pipe->GetNewMessage();
 
 			// Assert
-			Assert::AreEqual(expected, reinterpret_cast<const char*>(&actual[0]));
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected) == actual);
 		}
 
 		TEST_METHOD(GetNewMessage_WhenClientReturnsMessageByBytes_ReturnsMessage)
@@ -96,8 +120,9 @@ namespace PipeManagementUnitTests
 			}
 
 			auto actual = pipe->GetNewMessage();
+
 			// Assert
-			Assert::AreEqual(expected, reinterpret_cast<const char*>(&actual[0]));
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected) == actual);
 		}
 
 		TEST_METHOD(GetNewMessage_WhenClientReturnsSeveralWholeMessages_ReturnsMessages)
@@ -118,9 +143,9 @@ namespace PipeManagementUnitTests
 			auto actual3 = pipe->GetNewMessage();
 
 			// Assert
-			Assert::AreEqual(expected1, reinterpret_cast<const char*>(&actual1[0]));
-			Assert::AreEqual(expected2, reinterpret_cast<const char*>(&actual2[0]));
-			Assert::AreEqual(expected3, reinterpret_cast<const char*>(&actual3[0]));
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected1) == actual1);
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected2) == actual2);
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected3) == actual3);
 		}
 
 		TEST_METHOD(GetNewMessage_WhenClientReturnsSeveralMessagesByBytes_ReturnsMessages)
@@ -175,9 +200,9 @@ namespace PipeManagementUnitTests
 			auto actual3 = pipe->GetNewMessage();
 
 			// Assert
-			Assert::AreEqual(expected1, reinterpret_cast<const char*>(&actual1[0]));
-			Assert::AreEqual(expected2, reinterpret_cast<const char*>(&actual2[0]));
-			Assert::AreEqual(expected3, reinterpret_cast<const char*>(&actual3[0]));
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected1) == actual1);
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected2) == actual2);
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected3) == actual3);
 		}
 
 		TEST_METHOD(GetNewMessage_WhenClientReturnsMessageByPartions_ReturnsMessage)
@@ -198,7 +223,7 @@ namespace PipeManagementUnitTests
 			auto actual = pipe->GetNewMessage();
 
 			// Assert
-			Assert::AreEqual(expected, reinterpret_cast<const char*>(&actual[0]));
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected) == actual);
 		}
 
 		TEST_METHOD(GetNewMessage_WhenClientReturnsMessagesByPartions_ReturnsMessages)
@@ -245,9 +270,9 @@ namespace PipeManagementUnitTests
 			auto actual3 = pipe->GetNewMessage();
 
 			// Assert
-			Assert::AreEqual(expected1, reinterpret_cast<const char*>(&actual1[0]));
-			Assert::AreEqual(expected2, reinterpret_cast<const char*>(&actual2[0]));
-			Assert::AreEqual(expected3, reinterpret_cast<const char*>(&actual3[0]));
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected1) == actual1);
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected2) == actual2);
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected3) == actual3);
 		}
 
 		TEST_METHOD(SendMessage_WhenClientReceivesWholeMessage_ClientReturnsMessage)
@@ -261,7 +286,7 @@ namespace PipeManagementUnitTests
 			AddToVector(expectedOutputVector, client->GenerateMessage(expected));
 
 			// Act
-			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected)));
+			Assert::IsTrue(pipe->SendMessage(TestSerializer::GenerateMessage(expected)));
 
 			// Assert
 			for (auto& msg : client->GetOutput())
@@ -288,9 +313,9 @@ namespace PipeManagementUnitTests
 			AddToVector(expectedOutputVector, client->GenerateMessage(expected3));
 
 			// Act
-			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected1)));
-			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected2)));
-			Assert::IsTrue(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected3)));
+			Assert::IsTrue(pipe->SendMessage(TestSerializer::GenerateMessage(expected1)));
+			Assert::IsTrue(pipe->SendMessage(TestSerializer::GenerateMessage(expected2)));
+			Assert::IsTrue(pipe->SendMessage(TestSerializer::GenerateMessage(expected3)));
 
 			// Assert
 			for (auto& msg : client->GetOutput())
@@ -309,7 +334,7 @@ namespace PipeManagementUnitTests
 			auto expected = "Message";
 
 			// Act / Assert
-			Assert::IsFalse(pipe->SendMessage(reinterpret_cast<const uint8_t*>(expected)));
+			Assert::IsFalse(pipe->SendMessage(TestSerializer::GenerateMessage(expected)));
 		}
 	private:
 		inline std::tuple<MockClient*, std::unique_ptr<Pipe>> ConfigureTestPipe()

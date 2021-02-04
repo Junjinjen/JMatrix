@@ -1,6 +1,6 @@
 #pragma once
 #include "Utilities/Assertion/AssertDefinition.h"
-#include "Messaging/DataContainer/Container/DataContainer.h"
+#include "Messaging/DataContainer/Container/DataContainerDefinition.h"
 #include <cstdint>
 
 namespace junjinjen_matrix
@@ -24,8 +24,6 @@ namespace junjinjen_matrix
 				Container,
 				Array
 			};
-
-			class DataContainer;
 
 			class Value
 			{

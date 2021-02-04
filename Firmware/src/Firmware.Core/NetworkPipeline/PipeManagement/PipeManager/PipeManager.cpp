@@ -4,7 +4,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace network_pipeline
+		namespace network
 		{
 			namespace pipe_management
 			{

@@ -47,7 +47,7 @@ void MockClient::SetMaxPackageSize(size_t size)
     maxAcceptablePackageSize_ = size;
 }
 
-std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string>& MockClient::GetOutput()
+std::vector<junjinjen_matrix::firmware::network::pipe_management::byte_string>& MockClient::GetOutput()
 {
     return outputMessages_;
 }
@@ -104,7 +104,7 @@ int32_t MockClient::Write(const uint8_t* data, int32_t length)
         length = maxAcceptablePackageSize_;
     }
 
-    outputMessages_.push_back(junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string(data, length));
+    outputMessages_.push_back(junjinjen_matrix::firmware::network::pipe_management::byte_string(data, length));
     return length;
 }
 
@@ -113,8 +113,8 @@ std::string MockClient::GenerateMessage(const char* buffer, size_t size)
     size_t packageSize = size + sizeof(size_t);
     char* msgBuffer = new char[packageSize];
 
-    memcpy(msgBuffer, &size, sizeof(size_t));
-    memcpy(msgBuffer + sizeof(size_t), buffer, size);
+    std::memcpy(msgBuffer, &size, sizeof(size_t));
+    std::memcpy(msgBuffer + sizeof(size_t), buffer, size);
 
     std::string answ(msgBuffer, packageSize);
     delete[] msgBuffer;

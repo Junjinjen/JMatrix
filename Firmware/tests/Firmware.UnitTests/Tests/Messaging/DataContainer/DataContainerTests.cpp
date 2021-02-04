@@ -3,7 +3,6 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::messaging;
-using namespace junjinjen_matrix::firmware::utilities::assertion;
 
 namespace MessagingUnitTests
 {

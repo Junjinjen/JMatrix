@@ -6,7 +6,7 @@
 #include "../../Mocks/Network/Client/MockClient.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace junjinjen_matrix::firmware::network_pipeline::pipe_management;
+using namespace junjinjen_matrix::firmware::network::pipe_management;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
 namespace PipeManagementUnitTests

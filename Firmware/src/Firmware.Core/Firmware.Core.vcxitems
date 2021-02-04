@@ -22,9 +22,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Creator\TransientCreator\TransientCreator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\TypeInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logger\Logger.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainerDefinition.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\DataContainer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\DeserializationFailed.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\SerializationFailed.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\StatusResult.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h" />
@@ -34,13 +37,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\TaskManager\TaskManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TaskManagement\Task\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertDefinition.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertFailedException.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteDefinitions\ByteDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainerDefinition.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />

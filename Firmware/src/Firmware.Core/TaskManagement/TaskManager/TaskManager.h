@@ -12,7 +12,7 @@ namespace junjinjen_matrix
 		namespace task_management
 		{
 			using logger::Logger;
-			using network_pipeline::pipe_management::PipeManager;
+			using network::pipe_management::PipeManager;
 
 			class TaskManager
 			{

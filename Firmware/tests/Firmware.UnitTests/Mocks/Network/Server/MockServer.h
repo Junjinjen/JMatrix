@@ -3,8 +3,8 @@
 #include "NetworkPipeline/Network/NetworkClient.h"
 #include <queue>
 
-using junjinjen_matrix::firmware::network_pipeline::network::NetworkServer;
-using junjinjen_matrix::firmware::network_pipeline::network::NetworkClient;
+using junjinjen_matrix::firmware::network::network::NetworkServer;
+using junjinjen_matrix::firmware::network::network::NetworkClient;
 
 class MockServer : public NetworkServer
 {

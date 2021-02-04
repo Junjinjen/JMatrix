@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-using junjinjen_matrix::firmware::network_pipeline::network::NetworkClient;
+using junjinjen_matrix::firmware::network::network::NetworkClient;
 
 class MockClient : public NetworkClient
 {
@@ -18,7 +18,7 @@ public:
 	std::string GenerateMessage(const std::string& msg);
 
 	void SetMaxPackageSize(size_t size);
-	std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string>& GetOutput();
+	std::vector<junjinjen_matrix::firmware::network::pipe_management::byte_string>& GetOutput();
 
 	virtual bool DataAvaible() override;
 
@@ -30,7 +30,7 @@ public:
 	virtual int32_t Read(uint8_t* buffer, int32_t buffLength) override;
 	virtual int32_t Write(const uint8_t* data, int32_t length) override;
 private:
-	std::vector<junjinjen_matrix::firmware::network_pipeline::pipe_management::byte_string> outputMessages_;
+	std::vector<junjinjen_matrix::firmware::network::pipe_management::byte_string> outputMessages_;
 	std::vector<std::string> messagesBuffer_;
 	bool isClosed_;
 	bool isConnected_;

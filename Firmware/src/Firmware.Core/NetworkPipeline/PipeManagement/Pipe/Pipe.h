@@ -1,22 +1,29 @@
 #pragma once
-#include "DependencyInjection/Container/Container.h"
+#include "Utilities/Assertion/AssertDefinition.h"
 #include "Logger/Logger.h"
+#include "DependencyInjection/Container/Container.h"
+#include "Messaging/ContainerSerializer/ContainerSerializer.h"
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/Network/NetworkServer.h"
+#include "Messaging/SystemMessages/DeserializationFailed.h"
+#include "Messaging/SystemMessages/SerializationFailed.h"
 #include <queue>
-#include <cstring>
 
 namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace network_pipeline
+		namespace network
 		{
 			namespace pipe_management
 			{
 				using logger::Logger;
 				using network::NetworkClient;
 				using utilities::byte_definitions::byte_string;
+				using messaging::ContainerSerializer;
+				using messaging::DataContainer;
+				using messaging::system_messages::DeserializationFailed;
+				using messaging::system_messages::SerializationFailed;
 
 				class Pipe
 				{
@@ -28,16 +35,18 @@ namespace junjinjen_matrix
 					void Close();
 
 					bool HasNewMessage();
-					byte_string GetNewMessage();
-					bool SendMessage(const byte_string& message);
+					DataContainer GetNewMessage();
+					bool SendMessage(const DataContainer& message);
 				private:
 					INJECT_FIELD(Logger, logger_)
+					INJECT_FIELD(ContainerSerializer, serializer_)
 					std::unique_ptr<NetworkClient> client_;
 					bool isClosed_;
 
-					std::queue<byte_string> messages_;
+					std::queue<DataContainer> messages_;
 
 					inline void ReadMessages();
+					inline void SendSerializationFailedError();
 
 					size_t readSize_;
 					int32_t messageSize_;
