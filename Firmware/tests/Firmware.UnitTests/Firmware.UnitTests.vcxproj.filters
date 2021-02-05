@@ -16,7 +16,6 @@
     <ClCompile Include="Tests\PipeManagement\PipeUnitTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\TaskManagement\TaskManagerTests.cpp" />
     <ClCompile Include="Tests\DependencyInjection\DependencyInjectionTests.cpp" />
     <ClCompile Include="Tests\Messaging\DataContainer\ValueTests.cpp" />
     <ClCompile Include="Tests\Messaging\DataContainer\DataContainerTests.cpp" />

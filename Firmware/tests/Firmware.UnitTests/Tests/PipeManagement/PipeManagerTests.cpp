@@ -71,16 +71,13 @@ namespace PipeManagementUnitTests
 			Assert::IsNotNull(pipe.get());
 		}
 
-		TEST_METHOD(GetNewPipe_WhenServerHasNotNewClient_ReturnsNull)
+		TEST_METHOD(GetNewPipe_WhenServerHasNotNewClient_AssertFailed)
 		{
 			// Arrange
 			auto [server, pipeManager] = ConfigureTestPipeManager();
 
-			// Act
-			auto pipe = pipeManager->GetNewPipe();
-
-			// Assert
-			Assert::IsNull(pipe.get());
+			// Act / Assert
+			Assert::ExpectException<AssertFailedException>([&]() { pipeManager->GetNewPipe(); });
 		}
 	private:
 		inline std::tuple<std::shared_ptr<MockServer>, std::unique_ptr<PipeManager>> ConfigureTestPipeManager()

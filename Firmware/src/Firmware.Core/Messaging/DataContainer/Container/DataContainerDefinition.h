@@ -27,6 +27,7 @@ namespace junjinjen_matrix
 				bool Empty() const;
 				bool HasValue(const std::string& key) const;
 
+				void Clear();
 				void SetValue(const std::string& key, const Value& value);
 				Value& GetValue(const std::string& key);
 				const Value& GetValue(const std::string& key) const;

@@ -17,8 +17,9 @@ namespace junjinjen_matrix
 				static bool AddTaskCreator(const std::string& taskName, task_creator_t creator);
 
 				static std::unique_ptr<Task> Create(const std::string& taskName, std::unique_ptr<Pipe>& pipe);
+				static const std::map<std::string, task_creator_t>& GetMap();
 			private:
-				inline static std::map<std::string, task_creator_t>& GetMap();
+				static std::map<std::string, task_creator_t>& Map();
 			};
 		}
 	}

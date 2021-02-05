@@ -8,9 +8,9 @@ namespace junjinjen_matrix
 		{
 			bool TaskFactory::AddTaskCreator(const std::string& taskName, task_creator_t creator)
 			{
-				if (GetMap().find(taskName) == GetMap().end())
+				if (Map().find(taskName) == Map().end())
 				{
-					GetMap().insert(std::make_pair(taskName, creator));
+					Map().insert(std::make_pair(taskName, creator));
 					return true;
 				}
 
@@ -19,8 +19,8 @@ namespace junjinjen_matrix
 
 			std::unique_ptr<Task> TaskFactory::Create(const std::string& taskName, std::unique_ptr<Pipe>& pipe)
 			{
-				auto it = GetMap().find(taskName);
-				if (it != GetMap().end())
+				auto it = Map().find(taskName);
+				if (it != Map().end())
 				{
 					return it->second(pipe);
 				}
@@ -28,7 +28,12 @@ namespace junjinjen_matrix
 				return nullptr;
 			}
 
-			inline std::map<std::string, task_creator_t>& TaskFactory::GetMap()
+			const std::map<std::string, task_creator_t>& TaskFactory::GetMap()
+			{
+				return Map();
+			}
+
+			std::map<std::string, task_creator_t>& TaskFactory::Map()
 			{
 				static std::map<std::string, task_creator_t> factoryMap;
 				return factoryMap;

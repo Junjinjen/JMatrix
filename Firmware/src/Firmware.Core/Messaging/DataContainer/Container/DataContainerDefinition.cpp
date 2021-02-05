@@ -25,6 +25,11 @@ namespace junjinjen_matrix
 				return false;
 			}
 
+			void DataContainer::Clear()
+			{
+				values_.clear();
+			}
+
 			void DataContainer::SetValue(const std::string& key, const Value& value)
 			{
 				for (size_t i = 0; i < values_.size(); i++)

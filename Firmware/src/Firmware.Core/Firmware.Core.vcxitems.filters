@@ -34,6 +34,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Tasking\TaskFactory\TaskFactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Tasking\TaskFactory\TaskRegistrator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\InvalidMessageFormat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.cpp" />
