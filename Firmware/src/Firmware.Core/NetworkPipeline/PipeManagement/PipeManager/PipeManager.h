@@ -9,7 +9,6 @@ namespace junjinjen_matrix
 		{
 			namespace pipe_management
 			{
-				using logger::Logger;
 				using network::NetworkServer;
 
 				class PipeManager

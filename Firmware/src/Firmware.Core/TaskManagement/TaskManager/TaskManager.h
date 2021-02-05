@@ -1,6 +1,6 @@
 #pragma once
 #include "DependencyInjection/Container/Container.h"
-#include "Logger/Logger.h"
+#include "Logging/Logger.h"
 #include "NetworkPipeline/PipeManagement/PipeManager/PipeManager.h"
 #include "TaskManagement/Task/Task.h"
 #include "TaskManagement/TaskFactory/TaskFactory.h"
@@ -11,7 +11,7 @@ namespace junjinjen_matrix
 	{
 		namespace task_management
 		{
-			using logger::Logger;
+			using logging::Logger;
 			using network::pipe_management::PipeManager;
 
 			class TaskManager

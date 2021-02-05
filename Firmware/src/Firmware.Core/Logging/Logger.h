@@ -5,7 +5,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace logger
+		namespace logging
 		{
 			class Logger
 			{

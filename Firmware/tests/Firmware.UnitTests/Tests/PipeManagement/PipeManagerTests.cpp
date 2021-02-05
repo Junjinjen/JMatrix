@@ -17,7 +17,7 @@ namespace PipeManagementUnitTests
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
 			ContainerBuilder builder;
-			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logger::Logger>();
+			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logging::Logger>();
 			builder.Build();
 		}
 

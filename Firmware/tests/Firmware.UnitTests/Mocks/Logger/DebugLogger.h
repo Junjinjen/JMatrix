@@ -1,8 +1,8 @@
 #pragma once
-#include "Logger/Logger.h"
+#include "Logging/Logger.h"
 #include <Windows.h>
 
-class DebugLogger : public junjinjen_matrix::firmware::logger::Logger
+class DebugLogger : public junjinjen_matrix::firmware::logging::Logger
 {
 public:
 	~DebugLogger();

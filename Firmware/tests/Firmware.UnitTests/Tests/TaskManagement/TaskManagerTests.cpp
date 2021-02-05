@@ -30,7 +30,7 @@ namespace TaskManagementUnitTests
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
 			ContainerBuilder builder;
-			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logger::Logger>();
+			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logging::Logger>();
 			builder.Build();
 
 			TaskFactory::AddTaskCreator("Test task name", [](std::unique_ptr<Pipe>& pipe)

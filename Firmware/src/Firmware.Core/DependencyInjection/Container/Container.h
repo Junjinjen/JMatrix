@@ -1,5 +1,5 @@
 #pragma once
-#include "DependencyInjection/TypeInfo.h"
+#include "TypeInfo.h"
 #include "DependencyInjection/Creator/Creator.h"
 #include <unordered_map>
 #include <memory>

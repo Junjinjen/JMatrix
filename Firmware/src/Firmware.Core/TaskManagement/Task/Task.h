@@ -1,6 +1,6 @@
 #pragma once
 #include "DependencyInjection/Container/Container.h"
-#include "Logger/Logger.h"
+#include "Logging/Logger.h"
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
 
@@ -10,7 +10,7 @@ namespace junjinjen_matrix
 	{
 		namespace task_management
 		{
-			using logger::Logger;
+			using logging::Logger;
 			using network::pipe_management::Pipe;
 			using utilities::byte_definitions::byte_string;
 

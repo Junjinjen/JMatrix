@@ -32,7 +32,7 @@ namespace junjinjen_matrix
 						auto taskName = pipePtr->GetNewMessage();
 						auto task = TaskFactory::Create(reinterpret_cast<const char*>(&taskName[0]), *it);
 
-						if (task)
+						/*if (task)
 						{
 							code = StatusCode::Success;
 							newTasks_.push(std::move(task));

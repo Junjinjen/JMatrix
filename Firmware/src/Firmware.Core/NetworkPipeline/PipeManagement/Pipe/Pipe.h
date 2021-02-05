@@ -1,8 +1,8 @@
 #pragma once
 #include "Utilities/Assertion/AssertDefinition.h"
-#include "Logger/Logger.h"
+#include "Logging/Logger.h"
 #include "DependencyInjection/Container/Container.h"
-#include "Messaging/ContainerSerializer/ContainerSerializer.h"
+#include "Messaging/Serialization/ContainerSerializer.h"
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include "NetworkPipeline/Network/NetworkServer.h"
 #include "Messaging/SystemMessages/DeserializationFailed.h"
@@ -17,10 +17,10 @@ namespace junjinjen_matrix
 		{
 			namespace pipe_management
 			{
-				using logger::Logger;
+				using logging::Logger;
 				using network::NetworkClient;
 				using utilities::byte_definitions::byte_string;
-				using messaging::ContainerSerializer;
+				using messaging::serialization::ContainerSerializer;
 				using messaging::DataContainer;
 				using messaging::system_messages::DeserializationFailed;
 				using messaging::system_messages::SerializationFailed;
