@@ -4,7 +4,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace task_management
+		namespace tasking
 		{
 			bool TaskFactory::AddTaskCreator(const std::string& taskName, task_creator_t creator)
 			{

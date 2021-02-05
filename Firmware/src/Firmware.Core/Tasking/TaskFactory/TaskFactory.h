@@ -1,5 +1,5 @@
 #pragma once
-#include "TaskManagement/Task/Task.h"
+#include "Tasking/Task/Task.h"
 #include <map>
 #include <functional>
 
@@ -7,7 +7,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace task_management
+		namespace tasking
 		{
 			using task_creator_t = std::function<std::unique_ptr<Task>(std::unique_ptr<Pipe>& pipe)>;
 

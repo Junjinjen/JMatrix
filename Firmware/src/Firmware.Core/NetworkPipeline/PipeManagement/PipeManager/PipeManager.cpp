@@ -8,8 +8,8 @@ namespace junjinjen_matrix
 		{
 			namespace pipe_management
 			{
-				PipeManager::PipeManager(std::unique_ptr<NetworkServer> server)
-					: server_(std::move(server)), isStopped_(false)
+				PipeManager::PipeManager()
+					: isStopped_(false)
 				{
 				}
 
@@ -40,13 +40,9 @@ namespace junjinjen_matrix
 
 				std::unique_ptr<Pipe> PipeManager::GetNewPipe()
 				{
-					if (HasNewPipe())
-					{
-						logger_->Log("Creating new pipe");
-						return std::unique_ptr<Pipe>(new Pipe(server_->GetNewClient()));
-					}
-
-					return nullptr;
+					JUNJINJEN_ASSERT(HasNewPipe());
+					logger_->Log("Creating new pipe");
+					return std::unique_ptr<Pipe>(new Pipe(server_->GetNewClient()));
 				}
 			}
 		}

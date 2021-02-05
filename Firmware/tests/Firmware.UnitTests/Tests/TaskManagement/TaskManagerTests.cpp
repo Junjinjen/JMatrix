@@ -30,7 +30,10 @@ namespace TaskManagementUnitTests
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
 			ContainerBuilder builder;
+			auto server = new MockServer();
 			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logging::Logger>();
+			builder.AddSingleton<MockServer, NetworkServer>(server);
+			builder.AddSingleton<MockServer>(server);
 			builder.Build();
 
 			TaskFactory::AddTaskCreator("Test task name", [](std::unique_ptr<Pipe>& pipe)
@@ -71,10 +74,10 @@ namespace TaskManagementUnitTests
 			Assert::IsFalse(taskManager->HasNewTask());
 		}
 	private:
-		inline std::tuple<MockServer*, std::unique_ptr<TaskManager>> ConfigureTaskManager()
+		inline std::tuple<std::shared_ptr<MockServer>, std::unique_ptr<TaskManager>> ConfigureTaskManager()
 		{
-			auto server = new MockServer();
-			auto pipeManager = new PipeManager(std::unique_ptr<MockServer>(server));
+			auto server = RESOLVE_INSTANCE(MockServer);
+			auto pipeManager = new PipeManager();
 			auto taskManager = std::make_unique<TaskManager>(std::unique_ptr<PipeManager>(pipeManager));
 
 

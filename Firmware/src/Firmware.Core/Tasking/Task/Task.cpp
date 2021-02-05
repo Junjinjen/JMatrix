@@ -4,7 +4,7 @@ namespace junjinjen_matrix
 {
 	namespace firmware
 	{
-		namespace task_management
+		namespace tasking
 		{
 			Task::Task(std::unique_ptr<Pipe> pipe)
 				: pipe_(std::move(pipe))

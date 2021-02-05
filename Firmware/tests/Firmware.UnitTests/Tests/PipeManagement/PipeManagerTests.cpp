@@ -11,13 +11,31 @@ using namespace junjinjen_matrix::firmware::dependency_injection;
 
 namespace PipeManagementUnitTests
 {
+	class ContainerSerializerStub : public ContainerSerializer
+	{
+	public:
+		virtual bool Serialize(const DataContainer& container, byte_string& outputBuffer) override
+		{
+			return false;
+		}
+
+		virtual bool Deserialize(const byte_string& inputBuffer, DataContainer& container) override
+		{
+			return false;
+		}
+	};
+
 	TEST_CLASS(PipeManagerUnitTests)
 	{
 	public:
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
 			ContainerBuilder builder;
+			auto server = new MockServer();
 			builder.AddSingleton<DebugLogger, junjinjen_matrix::firmware::logging::Logger>();
+			builder.AddSingleton<ContainerSerializerStub, ContainerSerializer>();
+			builder.AddSingleton<MockServer, NetworkServer>(server);
+			builder.AddSingleton<MockServer>(server);
 			builder.Build();
 		}
 
@@ -65,10 +83,10 @@ namespace PipeManagementUnitTests
 			Assert::IsNull(pipe.get());
 		}
 	private:
-		inline std::tuple<MockServer*, std::unique_ptr<PipeManager>> ConfigureTestPipeManager()
+		inline std::tuple<std::shared_ptr<MockServer>, std::unique_ptr<PipeManager>> ConfigureTestPipeManager()
 		{
-			auto server = new MockServer();
-			auto pipe = std::make_unique<PipeManager>(std::unique_ptr<MockServer>(server));
+			auto server = RESOLVE_INSTANCE(MockServer);
+			auto pipe = std::make_unique<PipeManager>();
 
 			return std::make_tuple(server, std::move(pipe));
 		}
