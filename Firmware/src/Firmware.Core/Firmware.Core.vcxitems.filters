@@ -32,9 +32,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\SerializationFailed.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\TypeInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Serialization\ContainerSerializer.h" />
-    <ClInclude Include="D:\source\repos\Junjinjen-Matrix\Firmware\src\Firmware.Core\Logging\Logger.h">
-      <Filter>Logger</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Logging\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)TaskManagement\TaskFactory\TaskFactory.cpp" />
