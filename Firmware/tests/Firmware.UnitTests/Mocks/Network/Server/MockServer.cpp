@@ -39,9 +39,9 @@ bool MockServer::HasNewClient()
     return !clients_.empty();
 }
 
-std::unique_ptr<NetworkClient> MockServer::GetNewClient()
+NetworkClient* MockServer::GetNewClient()
 {
     auto tmp = clients_.front();
     clients_.pop();
-    return std::unique_ptr<NetworkClient>(tmp);
+    return tmp;
 }

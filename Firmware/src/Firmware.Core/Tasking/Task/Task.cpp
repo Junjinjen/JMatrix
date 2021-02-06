@@ -6,7 +6,7 @@ namespace junjinjen_matrix
 	{
 		namespace tasking
 		{
-			Task::Task(std::unique_ptr<Pipe> pipe)
+			Task::Task(Pipe pipe)
 				: pipe_(std::move(pipe))
 			{
 			}
@@ -20,7 +20,7 @@ namespace junjinjen_matrix
 			{
 				if (!completed_)
 				{
-					pipe_->Close();
+					pipe_.Close();
 					completed_ = true;
 					logger_->Log("Task completed");
 				}

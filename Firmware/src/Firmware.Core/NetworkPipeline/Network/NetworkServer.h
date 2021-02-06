@@ -8,20 +8,17 @@ namespace junjinjen_matrix
 	{
 		namespace network
 		{
-			namespace network
+			class NetworkServer
 			{
-				class NetworkServer
-				{
-				public:
-					virtual ~NetworkServer() = default;
+			public:
+				virtual ~NetworkServer() = default;
 
-					virtual bool Initialize(uint16_t port) = 0;
-					virtual void Stop() = 0;
+				virtual bool Initialize(uint16_t port) = 0;
+				virtual void Stop() = 0;
 
-					virtual bool HasNewClient() = 0;
-					virtual std::unique_ptr<NetworkClient> GetNewClient() = 0;
-				};
-			}
+				virtual bool HasNewClient() = 0;
+				virtual NetworkClient* GetNewClient() = 0;
+			};
 		}
 	}
 }

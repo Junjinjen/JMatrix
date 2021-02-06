@@ -20,7 +20,7 @@ namespace junjinjen_matrix
 					void Stop();
 
 					bool HasNewPipe();
-					std::unique_ptr<Pipe> GetNewPipe();
+					Pipe GetNewPipe();
 				private:
 					INJECT_FIELD(Logger, logger_)
 					INJECT_FIELD(NetworkServer, server_)

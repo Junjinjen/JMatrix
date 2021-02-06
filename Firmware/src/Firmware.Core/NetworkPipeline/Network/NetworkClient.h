@@ -7,21 +7,18 @@ namespace junjinjen_matrix
 	{
 		namespace network
 		{
-			namespace network
+			class NetworkClient
 			{
-				class NetworkClient
-				{
-				public:
-					virtual ~NetworkClient() = default;
+			public:
+				virtual ~NetworkClient() = default;
 
-					virtual bool DataAvaible() = 0;
-					virtual bool Connected() = 0;
-					virtual void Close() = 0;
+				virtual bool DataAvaible() = 0;
+				virtual bool Connected() = 0;
+				virtual void Close() = 0;
 
-					virtual int32_t Read(uint8_t* buffer, int32_t buffLength) = 0;
-					virtual int32_t Write(const uint8_t* data, int32_t length) = 0;
-				};
-			}
+				virtual int32_t Read(uint8_t* buffer, int32_t buffLength) = 0;
+				virtual int32_t Write(const uint8_t* data, int32_t length) = 0;
+			};
 		}
 	}
 }

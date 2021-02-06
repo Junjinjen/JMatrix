@@ -8,8 +8,8 @@ namespace junjinjen_matrix
 		{
 			namespace pipe_management
 			{
-				Pipe::Pipe(std::unique_ptr<NetworkClient> client)
-					: isClosed_(false), client_(std::move(client))
+				Pipe::Pipe(NetworkClient* client)
+					: isClosed_(false), client_(client)
 				{
 				}
 
@@ -18,9 +18,22 @@ namespace junjinjen_matrix
 					Close();
 				}
 
+				void Pipe::operator=(Pipe&& other) noexcept
+				{
+					readSize_ = other.readSize_;
+					messageSize_ = other.messageSize_;
+					isClosed_ = other.isClosed_;
+					currentMessage_ = std::move(other.currentMessage_);
+					messages_ = std::move(other.messages_);
+					client_ = other.client_;
+					other.client_ = nullptr;
+					logger_ = std::move(other.logger_);
+					serializer_ = std::move(other.serializer_);
+				}
+
 				bool Pipe::Connected() const
 				{
-					if (client_->Connected() && !isClosed_)
+					if (!isClosed_ && client_->Connected())
 					{
 						return true;
 					}
@@ -33,6 +46,7 @@ namespace junjinjen_matrix
 					if (!isClosed_)
 					{
 						client_->Close();
+						delete client_;
 						isClosed_ = true;
 						logger_->Log("Pipe closed");
 					}
@@ -58,7 +72,7 @@ namespace junjinjen_matrix
 					return message;
 				}
 
-				bool Pipe::SendMessage(const DataContainer& message)
+				bool Pipe::SendMessage(const DataContainer& message) const
 				{
 					if (!Connected())
 					{
@@ -123,7 +137,7 @@ namespace junjinjen_matrix
 					}
 				}
 
-				inline void Pipe::SendSerializationFailedError()
+				inline void Pipe::SendSerializationFailedError() const
 				{
 					byte_string string;
 					if (serializer_->Serialize(SerializationFailed(), string))

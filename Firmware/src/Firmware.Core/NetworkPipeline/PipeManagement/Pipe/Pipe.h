@@ -18,7 +18,6 @@ namespace junjinjen_matrix
 			namespace pipe_management
 			{
 				using logging::Logger;
-				using network::NetworkClient;
 				using utilities::byte_definitions::byte_string;
 				using messaging::serialization::ContainerSerializer;
 				using messaging::DataContainer;
@@ -28,25 +27,30 @@ namespace junjinjen_matrix
 				class Pipe
 				{
 				public:
-					Pipe(std::unique_ptr<NetworkClient> client);
+					Pipe(NetworkClient* client);
+					Pipe(Pipe&& pipe) noexcept = default;
+					Pipe(const Pipe& pipe) = delete;
 					~Pipe();
+
+					void operator=(const Pipe& other) = delete;
+					void operator=(Pipe&& other) noexcept;
 
 					bool Connected() const;
 					void Close();
 
 					bool HasNewMessage();
 					DataContainer GetNewMessage();
-					bool SendMessage(const DataContainer& message);
+					bool SendMessage(const DataContainer& message) const;
 				private:
 					INJECT_FIELD(Logger, logger_)
 					INJECT_FIELD(ContainerSerializer, serializer_)
-					std::unique_ptr<NetworkClient> client_;
+					NetworkClient* client_;
 					bool isClosed_;
 
 					std::queue<DataContainer> messages_;
 
 					inline void ReadMessages();
-					inline void SendSerializationFailedError();
+					inline void SendSerializationFailedError() const;
 
 					size_t readSize_;
 					int32_t messageSize_;

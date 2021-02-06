@@ -21,7 +21,7 @@ namespace junjinjen_matrix
 			public:
 				TaskRegistrator(const std::string& taskName)
 				{
-					TaskFactory::AddTaskCreator(taskName, [](std::unique_ptr<Pipe>& pipe)
+					TaskFactory::AddTaskCreator(taskName, [](Pipe& pipe)
 						{
 							return std::unique_ptr<Task>(new T(std::move(pipe)));
 						});

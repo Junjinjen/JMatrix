@@ -38,11 +38,11 @@ namespace junjinjen_matrix
 					return false;
 				}
 
-				std::unique_ptr<Pipe> PipeManager::GetNewPipe()
+				Pipe PipeManager::GetNewPipe()
 				{
 					JUNJINJEN_ASSERT(HasNewPipe());
 					logger_->Log("Creating new pipe");
-					return std::unique_ptr<Pipe>(new Pipe(server_->GetNewClient()));
+					return Pipe(server_->GetNewClient());
 				}
 			}
 		}

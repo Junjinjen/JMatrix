@@ -3,8 +3,8 @@
 #include "NetworkPipeline/Network/NetworkClient.h"
 #include <queue>
 
-using junjinjen_matrix::firmware::network::network::NetworkServer;
-using junjinjen_matrix::firmware::network::network::NetworkClient;
+using junjinjen_matrix::firmware::network::NetworkServer;
+using junjinjen_matrix::firmware::network::NetworkClient;
 
 class MockServer : public NetworkServer
 {
@@ -19,7 +19,7 @@ public:
 	virtual void Stop() override;
 
 	virtual bool HasNewClient() override;
-	virtual std::unique_ptr<NetworkClient> GetNewClient() override;
+	virtual NetworkClient* GetNewClient() override;
 private:
 	std::queue<NetworkClient*> clients_;
 	bool initResult_;

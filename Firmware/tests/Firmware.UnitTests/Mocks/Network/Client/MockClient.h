@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-using junjinjen_matrix::firmware::network::network::NetworkClient;
+using junjinjen_matrix::firmware::network::NetworkClient;
 
 class MockClient : public NetworkClient
 {

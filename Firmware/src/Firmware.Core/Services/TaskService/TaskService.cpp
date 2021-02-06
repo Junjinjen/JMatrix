@@ -37,17 +37,17 @@ namespace junjinjen_matrix
 				auto it = pipes_.begin();
 				while (it != pipes_.end())
 				{
-					if (!(*it)->Connected())
+					if (!it->Connected())
 					{
-						(*it)->Close();
+						it->Close();
 						it = pipes_.erase(it);
 					}
-					else if ((*it)->HasNewMessage())
+					else if (it->HasNewMessage())
 					{
-						auto message = (*it)->GetNewMessage();
+						auto message = it->GetNewMessage();
 						if (!HandleMessage(message, *it))
 						{
-							(*it)->Close();
+							it->Close();
 						}
 
 						it = pipes_.erase(it);
@@ -59,18 +59,18 @@ namespace junjinjen_matrix
 				}
 			}
 
-			inline bool TaskService::HandleMessage(DataContainer& message, std::unique_ptr<Pipe>& pipe)
+			inline bool TaskService::HandleMessage(DataContainer& message, Pipe& pipe)
 			{
 				if (!message.HasValue("action"))
 				{
-					pipe->SendMessage(InvalidMessageFormat());
+					pipe.SendMessage(InvalidMessageFormat());
 					return false;
 				}
 
 				auto& actionValue = message.GetValue("action");
 				if (!actionValue.IsString())
 				{
-					pipe->SendMessage(InvalidMessageFormat());
+					pipe.SendMessage(InvalidMessageFormat());
 					return false;
 				}
 
@@ -85,23 +85,23 @@ namespace junjinjen_matrix
 				}
 				else
 				{
-					pipe->SendMessage(InvalidMessageFormat("Action not found"));
+					pipe.SendMessage(InvalidMessageFormat("Action not found"));
 					return false;
 				}
 			}
 
-			inline bool TaskService::StartTask(const DataContainer& message, std::unique_ptr<Pipe>& pipe)
+			inline bool TaskService::StartTask(const DataContainer& message, Pipe& pipe)
 			{
 				if (!message.HasValue("task_name"))
 				{
-					pipe->SendMessage(InvalidMessageFormat());
+					pipe.SendMessage(InvalidMessageFormat());
 					return false;
 				}
 
 				auto& taskNameValue = message.GetValue("task_name");
 				if (!taskNameValue.IsString())
 				{
-					pipe->SendMessage(InvalidMessageFormat());
+					pipe.SendMessage(InvalidMessageFormat());
 					return false;
 				}
 
@@ -109,7 +109,7 @@ namespace junjinjen_matrix
 				auto task = TaskFactory::Create(taskName, pipe);
 				if (!task)
 				{
-					pipe->SendMessage(InvalidMessageFormat("Invalid task name"));
+					pipe.SendMessage(InvalidMessageFormat("Invalid task name"));
 					return false;
 				}
 
@@ -117,7 +117,7 @@ namespace junjinjen_matrix
 				return true;
 			}
 
-			inline bool TaskService::ReturnAllTasks(DataContainer& message, std::unique_ptr<Pipe>& pipe)
+			inline bool TaskService::ReturnAllTasks(DataContainer& message, Pipe& pipe)
 			{
 				message.Clear();
 				message.SetBoolean("success", true);
@@ -127,7 +127,7 @@ namespace junjinjen_matrix
 					tasks.push_back(Value(taskPair.first));
 				}
 
-				pipe->SendMessage(message);
+				pipe.SendMessage(message);
 				return true;
 			}
 		}

@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkServer.h">
-      <Filter>NetworkPipeline\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\Network\NetworkClient.h">
-      <Filter>NetworkPipeline\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.h">
-      <Filter>NetworkPipeline\PipeManagement\Pipe</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.h">
-      <Filter>NetworkPipeline\PipeManagement\PipeManager</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteDefinitions\ByteDefinitions.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.h" />
@@ -30,22 +18,34 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Serialization\ContainerSerializer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Logging\Logger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\Service.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\InvalidMessageFormat.h" />
+    <ClInclude Include="D:\source\repos\Junjinjen-Matrix\Firmware\src\Firmware.Core\NetworkPipeline\Network\NetworkClient.h">
+      <Filter>NetworkPipeline\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\source\repos\Junjinjen-Matrix\Firmware\src\Firmware.Core\NetworkPipeline\Network\NetworkServer.h">
+      <Filter>NetworkPipeline\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\source\repos\Junjinjen-Matrix\Firmware\src\Firmware.Core\NetworkPipeline\PipeManagement\Pipe\Pipe.h">
+      <Filter>NetworkPipeline\PipeManagement\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\source\repos\Junjinjen-Matrix\Firmware\src\Firmware.Core\NetworkPipeline\PipeManagement\PipeManager\PipeManager.h">
+      <Filter>NetworkPipeline\PipeManagement\PipeManager</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Tasking\Task\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Tasking\TaskFactory\TaskFactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Tasking\TaskFactory\TaskRegistrator.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\SystemMessages\InvalidMessageFormat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Value\Value.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainerDefinition.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NetworkPipeline\PipeManagement\PipeManager\PipeManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Tasking\Task\Task.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Tasking\TaskFactory\TaskFactory.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

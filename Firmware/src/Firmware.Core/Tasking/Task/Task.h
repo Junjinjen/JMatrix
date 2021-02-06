@@ -17,7 +17,7 @@ namespace junjinjen_matrix
 			class Task
 			{
 			public:
-				Task(std::unique_ptr<Pipe> pipe);
+				Task(Pipe pipe);
 				virtual ~Task() = default;
 
 				bool Completed() const;
@@ -26,7 +26,7 @@ namespace junjinjen_matrix
 				virtual void Execute() = 0;
 			protected:
 				INJECT_FIELD(Logger, logger_)
-				std::unique_ptr<Pipe> pipe_;
+				Pipe pipe_;
 			private:
 				bool completed_;
 			};

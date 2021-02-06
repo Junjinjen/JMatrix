@@ -17,7 +17,7 @@ namespace junjinjen_matrix
 				return false;
 			}
 
-			std::unique_ptr<Task> TaskFactory::Create(const std::string& taskName, std::unique_ptr<Pipe>& pipe)
+			std::unique_ptr<Task> TaskFactory::Create(const std::string& taskName, Pipe& pipe)
 			{
 				auto it = Map().find(taskName);
 				if (it != Map().end())

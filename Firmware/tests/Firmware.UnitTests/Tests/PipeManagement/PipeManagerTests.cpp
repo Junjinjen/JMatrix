@@ -58,17 +58,14 @@ namespace PipeManagementUnitTests
 			Assert::IsFalse(server->HasNewClient());
 		}
 
-		TEST_METHOD(GetNewPipe_WhenServerHasNewClient_ReturnsPipe)
+		TEST_METHOD(GetNewPipe_WhenServerHasNewClient_AssertPassed)
 		{
 			// Arrange
 			auto [server, pipeManager] = ConfigureTestPipeManager();
 			server->AddClient(new MockClient());
 
-			// Act
+			// Act / Assert
 			auto pipe = pipeManager->GetNewPipe();
-
-			// Assert
-			Assert::IsNotNull(pipe.get());
 		}
 
 		TEST_METHOD(GetNewPipe_WhenServerHasNotNewClient_AssertFailed)

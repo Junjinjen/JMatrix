@@ -29,12 +29,12 @@ namespace junjinjen_matrix
 				INJECT_FIELD(Logger, logger_)
 				PipeManager pipeManager_;
 				std::vector<std::unique_ptr<Task>> tasks_;
-				std::vector<std::unique_ptr<Pipe>> pipes_;
+				std::vector<Pipe> pipes_;
 
 				inline void CheckForNewPipes();
-				inline bool HandleMessage(DataContainer& message, std::unique_ptr<Pipe>& pipe);
-				inline bool StartTask(const DataContainer& message, std::unique_ptr<Pipe>& pipe);
-				inline bool ReturnAllTasks(DataContainer& message, std::unique_ptr<Pipe>& pipe);
+				inline bool HandleMessage(DataContainer& message, Pipe& pipe);
+				inline bool StartTask(const DataContainer& message, Pipe& pipe);
+				inline bool ReturnAllTasks(DataContainer& message, Pipe& pipe);
 			};
 		}
 	}

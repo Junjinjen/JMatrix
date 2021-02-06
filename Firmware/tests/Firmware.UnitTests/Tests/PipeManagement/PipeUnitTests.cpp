@@ -340,7 +340,7 @@ namespace PipeManagementUnitTests
 		inline std::tuple<MockClient*, std::unique_ptr<Pipe>> ConfigureTestPipe()
 		{
 			auto client = new MockClient();
-			auto pipe = std::make_unique<Pipe>(std::unique_ptr<MockClient>(client));
+			auto pipe = std::make_unique<Pipe>(client);
 
 			return std::make_tuple(client, std::move(pipe));
 		}
