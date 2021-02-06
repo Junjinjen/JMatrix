@@ -10,7 +10,7 @@ namespace junjinjen_matrix
 			{
 				namespace tasking
 				{
-					Task::Task(Pipe pipe)
+					Task::Task(Pipe& pipe)
 						: pipe_(std::move(pipe)), isStopped_(false)
 					{
 					}

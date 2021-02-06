@@ -1,4 +1,7 @@
 #pragma once
+#ifndef VALUE_H
+#define VALUE_H
+
 #include "Utilities/Assertion/AssertDefinition.h"
 #include "Messaging/DataContainer/Container/DataContainerDefinition.h"
 #include <cstdint>
@@ -126,3 +129,5 @@ namespace junjinjen_matrix
 		}
 	}
 }
+
+#endif

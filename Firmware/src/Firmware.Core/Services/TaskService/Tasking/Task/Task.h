@@ -19,7 +19,7 @@ namespace junjinjen_matrix
 					class Task
 					{
 					public:
-						Task(Pipe pipe);
+						Task(Pipe& pipe);
 						virtual ~Task() = default;
 
 						bool Completed() const;

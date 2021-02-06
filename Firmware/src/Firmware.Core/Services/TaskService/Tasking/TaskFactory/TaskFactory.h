@@ -13,7 +13,7 @@ namespace junjinjen_matrix
 			{
 				namespace tasking
 				{
-					using task_creator_t = std::function<std::unique_ptr<Task>(Pipe&& pipe)>;
+					using task_creator_t = std::function<std::unique_ptr<Task>(Pipe& pipe)>;
 
 					class TaskFactory
 					{

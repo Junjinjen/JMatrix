@@ -26,7 +26,7 @@ namespace junjinjen_matrix
 						auto it = Map().find(taskName);
 						if (it != Map().end())
 						{
-							return it->second(std::move(pipe));
+							return it->second(pipe);
 						}
 
 						return nullptr;

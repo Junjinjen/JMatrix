@@ -1,4 +1,7 @@
 #pragma once
+#ifndef DATA_CONTAINER_DEFINITION_H
+#define DATA_CONTAINER_DEFINITION_H
+
 #include "Utilities/ByteDefinitions/ByteDefinitions.h"
 #include <vector>
 #include <utility>
@@ -80,3 +83,5 @@ namespace junjinjen_matrix
 		}
 	}
 }
+
+#endif
