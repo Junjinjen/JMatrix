@@ -1,0 +1,33 @@
+#pragma once
+#include "NetworkClient.h"
+#include <memory>
+
+namespace junjinjen_matrix
+{
+	namespace firmware
+	{
+		namespace services
+		{
+			namespace task_service
+			{
+				namespace network_pipeline
+				{
+					namespace network
+					{
+						class NetworkServer
+						{
+						public:
+							virtual ~NetworkServer() = default;
+
+							virtual bool Initialize() = 0;
+							virtual void Stop() = 0;
+
+							virtual bool HasNewClient() = 0;
+							virtual NetworkClient* GetNewClient() = 0;
+						};
+					}
+				}
+			}
+		}
+	}
+}

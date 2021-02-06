@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Messaging/DataContainer/DataContainer.h"
 
 namespace junjinjen_matrix

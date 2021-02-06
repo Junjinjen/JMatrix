@@ -2,6 +2,7 @@
 #include "Utilities/Assertion/AssertDefinition.h"
 #include "Messaging/DataContainer/Container/DataContainerDefinition.h"
 #include <cstdint>
+#include <cstring>
 
 namespace junjinjen_matrix
 {

@@ -550,7 +550,7 @@ namespace junjinjen_matrix
 						new (&value_->string_v) std::string(other.value_->string_v);
 						break;
 					default:
-						memcpy(value_, other.value_, sizeof(ValueType_t));
+						std::memcpy(value_, other.value_, sizeof(ValueType_t));
 					}
 				}
 			}
