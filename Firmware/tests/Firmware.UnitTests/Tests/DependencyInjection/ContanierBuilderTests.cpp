@@ -21,7 +21,7 @@ namespace DependencyInjectionUnitTests
 		int secondNumber_;
 	};
 
-	TEST_CLASS(DependencyInjectionUnitTests)
+	TEST_CLASS(ContanierBuilderUnitTests)
 	{
 	public:
 		TEST_METHOD(AddSingleton_WhenBindingServiceByInterfaceWithoutArguments_ContainerReturnsSameServiceForEachCall)

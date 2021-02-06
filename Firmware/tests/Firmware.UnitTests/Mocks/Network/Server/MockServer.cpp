@@ -20,7 +20,7 @@ void MockServer::AddClient(NetworkClient* client)
     clients_.push(client);
 }
 
-bool MockServer::Initialize(uint16_t port)
+bool MockServer::Initialize()
 {
     return initResult_;
 }

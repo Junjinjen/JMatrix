@@ -28,10 +28,10 @@ namespace junjinjen_matrix
 			public:
 				~Container();
 
-				Container(Container&) = delete;
 				Container(const Container&) = delete;
 				Container(Container&&) = delete;
 				void operator=(const Container&) = delete;
+				void operator=(Container&&) = delete;
 
 				static Container* GetInstance();
 

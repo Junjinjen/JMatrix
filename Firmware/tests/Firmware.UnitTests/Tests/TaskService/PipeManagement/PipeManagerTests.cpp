@@ -1,15 +1,15 @@
 #include "CppUnitTest.h"
 #include "DependencyInjection/ContainerBuilder/ContainerBuilder.h"
-#include "NetworkPipeline/PipeManagement/PipeManager/PipeManager.h"
-#include "../../Mocks/Logger/DebugLogger.h"
-#include "../../Mocks/Network/Server/MockServer.h"
-#include "../../Mocks/Network/Client/MockClient.h"
+#include "Services/TaskService/NetworkPipeline/PipeManagement/PipeManager/PipeManager.h"
+#include "../../../Mocks/Logger/DebugLogger.h"
+#include "../../../Mocks/Network/Client/MockClient.h"
+#include "../../../Mocks/Network/Server/MockServer.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace junjinjen_matrix::firmware::network::pipe_management;
+using namespace junjinjen_matrix::firmware::services::task_service::network_pipeline::pipe_management;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace PipeManagementUnitTests
+namespace TaskServiceUnitTests
 {
 	class ContainerSerializerStub : public ContainerSerializer
 	{

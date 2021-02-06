@@ -85,7 +85,7 @@ namespace junjinjen_matrix
 						DataContainer Pipe::GetNewMessage()
 						{
 							JUNJINJEN_ASSERT(!messages_.empty());
-							auto&& message = std::move(messages_.front());
+							DataContainer message = std::move(messages_.front());
 							messages_.pop();
 
 							return message;

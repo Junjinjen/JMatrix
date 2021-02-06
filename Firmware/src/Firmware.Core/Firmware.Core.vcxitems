@@ -38,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\TaskFactory\TaskRegistrator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\Task\Task.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\DefinedTasks\TestTask\TestTask.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\Assertion\AssertDefinition.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteDefinitions\ByteDefinitions.h" />
   </ItemGroup>
@@ -51,5 +52,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\NetworkPipeline\PipeManagement\Pipe\Pipe.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\TaskFactory\TaskFactory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\Task\Task.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.cpp" />
   </ItemGroup>
 </Project>

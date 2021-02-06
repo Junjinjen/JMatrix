@@ -1,17 +1,21 @@
 #include "CppUnitTest.h"
 #include "DependencyInjection/ContainerBuilder/ContainerBuilder.h"
-#include "NetworkPipeline/PipeManagement/Pipe/Pipe.h"
-#include "../../Mocks/Logger/DebugLogger.h"
-#include "../../Mocks/Network/Client/MockClient.h"
+#include "Messaging/Serialization/ContainerSerializer.h"
+#include "Messaging/DataContainer/DataContainer.h"
+#include "Services/TaskService/NetworkPipeline/PipeManagement/Pipe/Pipe.h"
+#include "../../../Mocks/Logger/DebugLogger.h"
+#include "../../../Mocks/Network/Client/MockClient.h"
 #include <tuple>
 
 #undef SendMessage
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace junjinjen_matrix::firmware::network::pipe_management;
+using namespace junjinjen_matrix::firmware::services::task_service::network_pipeline::pipe_management;
+using namespace junjinjen_matrix::firmware::messaging;
+using namespace junjinjen_matrix::firmware::messaging::serialization;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace PipeManagementUnitTests
+namespace TaskServiceUnitTests
 {
 	class TestSerializer : public ContainerSerializer
 	{
@@ -86,6 +90,17 @@ namespace PipeManagementUnitTests
 			Assert::IsFalse(pipe->HasNewMessage());
 		}
 
+		TEST_METHOD(GetNewMessage_WhenMessagesWasNotLoaded_AssertFailed)
+		{
+			// Arrange
+			auto [client, pipe] = ConfigureTestPipe();
+			auto expected = "Test";
+			client->AddMessage(expected);
+
+			// Act / Assert
+			Assert::ExpectException<AssertFailedException>([&]() { pipe->GetNewMessage(); });
+		}
+
 		TEST_METHOD(GetNewMessage_WhenClientReturnsWholeMessage_ReturnsMessage)
 		{
 			// Arrange
@@ -93,11 +108,9 @@ namespace PipeManagementUnitTests
 			auto expected = "Test";
 			client->AddMessage(expected);
 
-			// Act
-			auto actual = pipe->GetNewMessage();
-
-			// Assert
-			Assert::IsTrue(TestSerializer::GenerateMessage(expected) == actual);
+			// Act / Assert
+			Assert::IsTrue(pipe->HasNewMessage());
+			Assert::IsTrue(TestSerializer::GenerateMessage(expected) == pipe->GetNewMessage());
 		}
 
 		TEST_METHOD(GetNewMessage_WhenClientReturnsMessageByBytes_ReturnsMessage)
@@ -119,6 +132,7 @@ namespace PipeManagementUnitTests
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
 
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual = pipe->GetNewMessage();
 
 			// Assert
@@ -138,8 +152,13 @@ namespace PipeManagementUnitTests
 			client->AddMessage(expected3);
 
 			// Act
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual1 = pipe->GetNewMessage();
+
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual2 = pipe->GetNewMessage();
+
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual3 = pipe->GetNewMessage();
 
 			// Assert
@@ -185,18 +204,24 @@ namespace PipeManagementUnitTests
 			{
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
+
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual1 = pipe->GetNewMessage();
 
 			for (size_t i = 0; i < packagesCount2 - 2; i++)
 			{
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
+
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual2 = pipe->GetNewMessage();
 
 			for (size_t i = 0; i < packagesCount3 - 2; i++)
 			{
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
+
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual3 = pipe->GetNewMessage();
 
 			// Assert
@@ -220,6 +245,7 @@ namespace PipeManagementUnitTests
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
 
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual = pipe->GetNewMessage();
 
 			// Assert
@@ -253,6 +279,7 @@ namespace PipeManagementUnitTests
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
 
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual1 = pipe->GetNewMessage();
 
 			for (size_t i = 0; i < packagesCount2 - (oneMorePackage2 ? 1 : 2); i++)
@@ -260,6 +287,7 @@ namespace PipeManagementUnitTests
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
 
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual2 = pipe->GetNewMessage();
 
 			for (size_t i = 0; i < packagesCount3 - (oneMorePackage3 ? 1 : 2); i++)
@@ -267,6 +295,7 @@ namespace PipeManagementUnitTests
 				Assert::IsFalse(pipe->HasNewMessage());
 			}
 
+			Assert::IsTrue(pipe->HasNewMessage());
 			auto actual3 = pipe->GetNewMessage();
 
 			// Assert
