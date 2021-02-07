@@ -21,12 +21,12 @@ namespace junjinjen_matrix
 						return false;
 					}
 
-					std::unique_ptr<Task> TaskFactory::Create(const std::string& taskName, Pipe& pipe)
+					std::unique_ptr<Task> TaskFactory::Create(const std::string& taskName, Pipe& pipe, DataContainer& arguments)
 					{
 						auto it = Map().find(taskName);
 						if (it != Map().end())
 						{
-							return it->second(pipe);
+							return it->second(pipe, arguments);
 						}
 
 						return nullptr;

@@ -63,7 +63,7 @@ namespace junjinjen_matrix
 						else if (it->HasNewMessage())
 						{
 							auto message = it->GetNewMessage();
-							if (!HandleMessage(message, *it))
+							if (!StartTask(message, *it))
 							{
 								it->Close();
 							}
@@ -77,9 +77,9 @@ namespace junjinjen_matrix
 					}
 				}
 
-				inline bool TaskService::HandleMessage(DataContainer& message, Pipe& pipe)
+				inline bool TaskService::StartTask(DataContainer& message, Pipe& pipe)
 				{
-					logger_->LogInfo("Handling new message");
+					logger_->LogInfo("Starting new task");
 
 					if (!message.HasValue("action"))
 					{
@@ -96,8 +96,22 @@ namespace junjinjen_matrix
 						return false;
 					}
 
+					DataContainer arguments;
 					auto& action = actionValue.AsString();
-					auto task = TaskFactory::Create(action, pipe);
+					if (message.HasValue("arguments"))
+					{
+						auto& argsValue = message.GetValue("arguments");
+						if (argsValue.IsContainer())
+						{
+							arguments = std::move(argsValue.AsContainer());
+						}
+						else
+						{
+							logger_->LogWarning("Message contains \"arguments\", but it has wrong format");
+						}
+					}
+
+					auto task = TaskFactory::Create(action, pipe, arguments);
 					if (!task)
 					{
 						logger_->LogError("Action [" + action + "] was not found");
@@ -105,6 +119,7 @@ namespace junjinjen_matrix
 						return false;
 					}
 
+					tasks_.push_back(std::move(task));
 					return true;
 				}
 

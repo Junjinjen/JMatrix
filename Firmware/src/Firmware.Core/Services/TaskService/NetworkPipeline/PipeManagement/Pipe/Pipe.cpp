@@ -146,6 +146,7 @@ namespace junjinjen_matrix
 										{
 											logger_->LogError("Message deserialization failed");
 											SendMessage(DeserializationFailed());
+											Close();
 										}
 									}
 								}

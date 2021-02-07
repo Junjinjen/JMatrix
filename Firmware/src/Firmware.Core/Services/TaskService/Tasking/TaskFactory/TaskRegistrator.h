@@ -18,9 +18,19 @@ namespace junjinjen_matrix
 					class TaskRegistrator
 					{
 					public:
+						template<typename U = T, typename = typename std::enable_if<std::is_constructible<U, Pipe&, DataContainer>::value>::type>
 						TaskRegistrator(const std::string& taskName)
 						{
-							TaskFactory::AddTaskCreator(taskName, [](Pipe& pipe)
+							TaskFactory::AddTaskCreator(taskName, [](Pipe& pipe, DataContainer& arguments)
+								{
+									return std::unique_ptr<Task>(new T(pipe, std::move(arguments)));
+								});
+						}
+
+						template<typename U = T, typename = typename std::enable_if<std::is_constructible<U, Pipe&>::value>::type, typename = U>
+						TaskRegistrator(const std::string& taskName)
+						{
+							TaskFactory::AddTaskCreator(taskName, [](Pipe& pipe, DataContainer& arguments)
 								{
 									return std::unique_ptr<Task>(new T(pipe));
 								});

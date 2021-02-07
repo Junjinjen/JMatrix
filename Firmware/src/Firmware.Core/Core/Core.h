@@ -1,4 +1,5 @@
 #pragma once
+#include "Utilities/Assertion/AssertDefinition.h"
 #include "Services/Service.h"
 #include <vector>
 #include <memory>
@@ -18,6 +19,12 @@ namespace junjinjen_matrix
 			template<typename T>
 			void AddService(std::shared_ptr<T> service)
 			{
+				AddService(service.get());
+			}
+
+			template<typename T>
+			void AddService(T* service)
+			{
 				JUNJINJEN_ASSERT(!isInitialized_);
 				services_.push_back(service);
 			}
@@ -27,7 +34,7 @@ namespace junjinjen_matrix
 
 			void Loop();
 		private:
-			std::vector<std::shared_ptr<Service>> services_;
+			std::vector<Service*> services_;
 			bool isInitialized_;
 			bool isStopped_;
 		};

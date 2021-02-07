@@ -46,3 +46,13 @@ void DebugLogger::LogFatal(const char* buffer, size_t length) const
 {
 	Log(buffer, length);
 }
+
+void DebugLogger::LogWarning(const std::string& msg) const
+{
+	Log(msg);
+}
+
+void DebugLogger::LogWarning(const char* buffer, size_t length) const
+{
+	Log(buffer, length);
+}

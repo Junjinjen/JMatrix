@@ -48,7 +48,7 @@ namespace junjinjen_matrix
 					bool isStopped_;
 
 					inline void CheckForNewPipes();
-					inline bool HandleMessage(DataContainer& message, Pipe& pipe);
+					inline bool StartTask(DataContainer& message, Pipe& pipe);
 				};
 			}
 

@@ -17,4 +17,6 @@ public:
 	virtual void LogError(const char* buffer, size_t length) const override;
 	virtual void LogFatal(const std::string& msg) const override;
 	virtual void LogFatal(const char* buffer, size_t length) const override;
+	virtual void LogWarning(const std::string& msg) const override;
+	virtual void LogWarning(const char* buffer, size_t length) const override;
 };

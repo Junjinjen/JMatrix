@@ -6,6 +6,7 @@
 #include "../../../Mocks/Logger/DebugLogger.h"
 #include "../../../Mocks/Network/Client/MockClient.h"
 #include <tuple>
+#include "Services/TaskService/Tasking/TaskFactory/TaskFactory.h"
 
 #undef SendMessage
 

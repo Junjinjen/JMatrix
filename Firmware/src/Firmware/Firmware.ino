@@ -22,7 +22,7 @@ void setup()
 	// Add services.
 	core.AddService(RESOLVE_INSTANCE(TaskService));
 
-	core.Initialize();
+	JUNJINJEN_ASSERT(core.Initialize());
 }
 
 void loop()

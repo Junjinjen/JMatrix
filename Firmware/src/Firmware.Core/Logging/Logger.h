@@ -20,6 +20,9 @@ namespace junjinjen_matrix
 				virtual void LogError(const std::string& msg) const = 0;
 				virtual void LogError(const char* buffer, size_t length) const = 0;
 
+				virtual void LogWarning(const std::string& msg) const = 0;
+				virtual void LogWarning(const char* buffer, size_t length) const = 0;
+
 				virtual void LogFatal(const std::string& msg) const = 0;
 				virtual void LogFatal(const char* buffer, size_t length) const = 0;
 			};
