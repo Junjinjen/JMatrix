@@ -1,15 +1,31 @@
-/*
- Name:		Firmware.ino
- Created:	1/3/2021 2:42:44 PM
- Author:	Junjinjen
-*/
+#include "DependencyInjection/ContainerBuilder/ContainerBuilder.h"
+#include "Services/TaskService/TaskService.h"
+#include "Core/Core.h"
 
-// the setup function runs once when you press reset or power the board
+using junjinjen_matrix::firmware::logging::Logger;
+using junjinjen_matrix::firmware::services::task_service::network_pipeline::network::NetworkServer;
+using junjinjen_matrix::firmware::dependency_injection::ContainerBuilder;
+using junjinjen_matrix::firmware::services::TaskService;
+
+junjinjen_matrix::firmware::Core core;
+
 void setup()
 {
+	ContainerBuilder builder;
+
+	// Register dependencies.
+	builder.AddSingleton<SomeLogger, Logger>();
+	builder.AddSingleton<SomeNetworkServer, NetworkServer>();
+	builder.AddSingleton<TaskService>();
+	builder.Build();
+
+	// Add services.
+	core.AddService(RESOLVE_INSTANCE(TaskService));
+
+	core.Initialize();
 }
 
-// the loop function runs over and over again until power down or reset
 void loop()
 {
+	core.Loop();
 }

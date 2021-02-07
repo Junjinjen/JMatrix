@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Core.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Messaging\Serialization\ContainerSerializer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Utilities\ByteDefinitions\ByteDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Core.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\ContainerBuilder\ContainerBuilder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Messaging\DataContainer\Container\DataContainerDefinition.cpp" />

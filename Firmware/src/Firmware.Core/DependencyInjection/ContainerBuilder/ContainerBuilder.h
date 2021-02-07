@@ -23,7 +23,8 @@ namespace junjinjen_matrix
 					static_assert(std::is_base_of<Interface, Service>::value, "Service should inherit Interface");
 					auto creator = new SingletonCreator<Service>();
 					creator->Register();
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creator));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creator));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service>
@@ -31,7 +32,8 @@ namespace junjinjen_matrix
 				{
 					auto creator = new SingletonCreator<Service>();
 					creator->Register();
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creator));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creator));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service, typename Interface>
@@ -40,7 +42,8 @@ namespace junjinjen_matrix
 					static_assert(std::is_base_of<Interface, Service>::value, "Service should inherit Interface");
 					auto creator = new SingletonCreator<Service>();
 					creator->Register(item);
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creator));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creator));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service>
@@ -48,7 +51,8 @@ namespace junjinjen_matrix
 				{
 					auto creator = new SingletonCreator<Service>();
 					creator->Register(item);
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creator));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creator));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service, typename Interface>
@@ -57,7 +61,8 @@ namespace junjinjen_matrix
 					static_assert(std::is_base_of<Interface, Service>::value, "Service should inherit Interface");
 					auto creatorObj = new SingletonCreator<Service>();
 					creatorObj->Register(creator);
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creatorObj));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creatorObj));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service>
@@ -65,7 +70,8 @@ namespace junjinjen_matrix
 				{
 					auto creatorObj = new SingletonCreator<Service>();
 					creatorObj->Register(creator);
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creatorObj));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creatorObj));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service, typename Interface>
@@ -74,7 +80,8 @@ namespace junjinjen_matrix
 					static_assert(std::is_base_of<Interface, Service>::value, "Service should inherit Interface");
 					auto creator = new TransientCreator<Service>();
 					creator->Register();
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creator));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creator));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service>
@@ -82,7 +89,8 @@ namespace junjinjen_matrix
 				{
 					auto creator = new TransientCreator<Service>();
 					creator->Register();
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creator));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creator));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service, typename Interface>
@@ -91,7 +99,8 @@ namespace junjinjen_matrix
 					static_assert(std::is_base_of<Interface, Service>::value, "Service should inherit Interface");
 					auto creatorObj = new TransientCreator<Service>();
 					creatorObj->Register(creator);
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creatorObj));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Interface), creatorObj));
+					JUNJINJEN_ASSERT(result.second);
 				}
 
 				template<typename Service>
@@ -99,7 +108,8 @@ namespace junjinjen_matrix
 				{
 					auto creatorObj = new TransientCreator<Service>();
 					creatorObj->Register(creator);
-					creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creatorObj));
+					auto result = creatos_.insert(std::pair<TypeInfo, Creator*>(GET_TYPE_INFO(Service), creatorObj));
+					JUNJINJEN_ASSERT(result.second);
 				}
 			private:
 				std::unordered_map<TypeInfo, Creator*> creatos_;

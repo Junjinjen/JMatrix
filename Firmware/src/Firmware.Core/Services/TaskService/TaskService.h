@@ -33,19 +33,22 @@ namespace junjinjen_matrix
 				class TaskService : public Service
 				{
 				public:
-					virtual bool Initialize() override;
+					TaskService();
+					~TaskService();
 
+					virtual bool Initialize() override;
 					virtual void Update() override;
+
+					virtual void Stop() override;
 				private:
 					INJECT_FIELD(Logger, logger_)
 					PipeManager pipeManager_;
 					std::vector<std::unique_ptr<Task>> tasks_;
 					std::vector<Pipe> pipes_;
+					bool isStopped_;
 
 					inline void CheckForNewPipes();
 					inline bool HandleMessage(DataContainer& message, Pipe& pipe);
-					inline bool StartTask(const DataContainer& message, Pipe& pipe);
-					inline bool ReturnAllTasks(DataContainer& message, Pipe& pipe);
 				};
 			}
 

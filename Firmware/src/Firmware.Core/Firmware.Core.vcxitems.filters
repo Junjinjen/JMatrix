@@ -28,6 +28,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\TaskFactory\TaskRegistrator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\DefinedTasks\TestTask\TestTask.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Core.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)DependencyInjection\Container\Container.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\Task\Task.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\Tasking\DefinedTasks\TestTask\TestTask.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Services\TaskService\TaskService.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Core.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Logger">

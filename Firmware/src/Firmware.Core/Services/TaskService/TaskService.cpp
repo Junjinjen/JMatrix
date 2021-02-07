@@ -8,6 +8,16 @@ namespace junjinjen_matrix
 		{
 			namespace task_service
 			{
+				TaskService::TaskService()
+					: isStopped_(false)
+				{
+				}
+
+				TaskService::~TaskService()
+				{
+					Stop();
+				}
+
 				bool TaskService::Initialize()
 				{
 					if (!pipeManager_.Initialize())
@@ -73,8 +83,8 @@ namespace junjinjen_matrix
 
 					if (!message.HasValue("action"))
 					{
-						logger_->LogError("The message has not \"action\" member");
-						pipe.SendMessage(InvalidMessageFormat());
+						logger_->LogError("The message doesn't have an \"action\" member");
+						pipe.SendMessage(InvalidMessageFormat("The message doesn't have an \"action\" member"));
 						return false;
 					}
 
@@ -82,73 +92,31 @@ namespace junjinjen_matrix
 					if (!actionValue.IsString())
 					{
 						logger_->LogError("Message \"action\" member is not a string");
-						pipe.SendMessage(InvalidMessageFormat());
+						pipe.SendMessage(InvalidMessageFormat("Message \"action\" member is not a string"));
 						return false;
 					}
 
 					auto& action = actionValue.AsString();
-					if (action == "start_task")
-					{
-						return StartTask(message, pipe);
-					}
-					else if (action == "get_all_tasks")
-					{
-						return ReturnAllTasks(message, pipe);
-					}
-					else
+					auto task = TaskFactory::Create(action, pipe);
+					if (!task)
 					{
 						logger_->LogError("Action [" + action + "] was not found");
 						pipe.SendMessage(InvalidMessageFormat("Action [" + action + "] was not found"));
 						return false;
 					}
-				}
 
-				inline bool TaskService::StartTask(const DataContainer& message, Pipe& pipe)
-				{
-					logger_->LogInfo("Starting new task");
-
-					if (!message.HasValue("task_name"))
-					{
-						logger_->LogError("The message has not \"task_name\" member");
-						pipe.SendMessage(InvalidMessageFormat());
-						return false;
-					}
-
-					auto& taskNameValue = message.GetValue("task_name");
-					if (!taskNameValue.IsString())
-					{
-						logger_->LogError("Message \"task_name\" member is not a string");
-						pipe.SendMessage(InvalidMessageFormat());
-						return false;
-					}
-
-					auto& taskName = taskNameValue.AsString();
-					auto task = TaskFactory::Create(taskName, pipe);
-					if (!task)
-					{
-						logger_->LogError("Task [" + taskName + "] was not found");
-						pipe.SendMessage(InvalidMessageFormat("Invalid task name"));
-						return false;
-					}
-
-					tasks_.push_back(std::move(task));
 					return true;
 				}
 
-				inline bool TaskService::ReturnAllTasks(DataContainer& message, Pipe& pipe)
+				void TaskService::Stop()
 				{
-					logger_->LogInfo("Returning all available tasks");
-
-					message.Clear();
-					message.SetBoolean("success", true);
-					auto& tasks = message.SetArray("tasks");
-					for (auto& taskPair : TaskFactory::GetMap())
+					if (!isStopped_)
 					{
-						tasks.push_back(Value(taskPair.first));
-					}
+						pipeManager_.Stop();
+						isStopped_ = true;
 
-					pipe.SendMessage(message);
-					return true;
+						logger_->LogInfo("Task service stopped");
+					}
 				}
 			}
 		}
