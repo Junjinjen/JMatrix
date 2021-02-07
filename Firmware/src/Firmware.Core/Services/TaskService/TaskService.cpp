@@ -8,14 +8,11 @@ namespace junjinjen_matrix
 		{
 			namespace task_service
 			{
-				TaskService::TaskService()
-					: isStopped_(false)
-				{
-				}
-
 				TaskService::~TaskService()
 				{
-					Stop();
+					pipeManager_.Stop();
+
+					logger_->LogInfo("Task service stopped");
 				}
 
 				bool TaskService::Initialize()
@@ -107,7 +104,7 @@ namespace junjinjen_matrix
 						}
 						else
 						{
-							logger_->LogWarning("Message contains \"arguments\", but it has wrong format");
+							logger_->LogWarning("The message contains \"arguments\", but it has the wrong format");
 						}
 					}
 
@@ -121,17 +118,6 @@ namespace junjinjen_matrix
 
 					tasks_.push_back(std::move(task));
 					return true;
-				}
-
-				void TaskService::Stop()
-				{
-					if (!isStopped_)
-					{
-						pipeManager_.Stop();
-						isStopped_ = true;
-
-						logger_->LogInfo("Task service stopped");
-					}
 				}
 			}
 		}

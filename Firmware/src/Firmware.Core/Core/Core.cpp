@@ -5,47 +5,29 @@ namespace junjinjen_matrix
 	namespace firmware
 	{
 		Core::Core()
-			: isStopped_(false), isInitialized_(false)
+			: isInitialized_(false)
 		{
 		}
 
-		Core::~Core()
+		void Core::Initialize()
 		{
-			Stop();
-		}
-
-		bool Core::Initialize()
-		{
+			JUNJINJEN_ASSERT(!isInitialized_);
 			for (auto& service : services_)
 			{
-				if (!service->Initialize())
-				{
-					return false;
-				}
+				JUNJINJEN_ASSERT(service->Initialize());
 			}
 
 			isInitialized_ = true;
-			return true;
-		}
-
-		void Core::Stop()
-		{
-			if (!isStopped_)
-			{
-				for (auto& service : services_)
-				{
-					service->Stop();
-				}
-
-				isStopped_ = true;
-			}
 		}
 
 		void Core::Loop()
 		{
-			for (auto& service : services_)
+			if (isInitialized_)
 			{
-				service->Update();
+				for (auto& service : services_)
+				{
+					service->Update();
+				}
 			}
 		}
 	}

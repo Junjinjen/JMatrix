@@ -14,29 +14,25 @@ namespace junjinjen_matrix
 		{
 		public:
 			Core();
-			~Core();
 
 			template<typename T>
-			void AddService(std::shared_ptr<T> service)
-			{
-				AddService(service.get());
-			}
-
-			template<typename T>
-			void AddService(T* service)
+			void RegisterService(std::shared_ptr<T> service)
 			{
 				JUNJINJEN_ASSERT(!isInitialized_);
 				services_.push_back(service);
 			}
 
-			bool Initialize();
-			void Stop();
+			template<typename T>
+			void RegisterService(T* service)
+			{
+				RegisterService(std::shared_ptr<Service>(service));
+			}
 
+			void Initialize();
 			void Loop();
 		private:
-			std::vector<Service*> services_;
+			std::vector<std::shared_ptr<Service>> services_;
 			bool isInitialized_;
-			bool isStopped_;
 		};
 	}
 }

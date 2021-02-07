@@ -30,22 +30,28 @@ namespace junjinjen_matrix
 				using tasking::Task;
 				using tasking::TaskFactory;
 
+				/// <summary>
+				/// Service that provides executing tasks over the network.
+				/// <para>Incoming <see cref="DataContainer"/> format:</para>
+				/// <para>– Key "action": task name (<see cref="std::string"/>);</para>
+				///	<para>– Key "arguments": an optional argument that contains additional task executing parameters (<see cref="DataContainer"/>).</para>
+				/// <para>Depends on the next interfaces (must be registered in IoC):</para>
+				/// <para>– <see cref="Logger"/>;</para>
+				/// <para>– <see cref="NetworkServer"/>;</para>
+				/// <para>– <see cref="ContainerSerializer"/>.</para>
+				/// </summary>
 				class TaskService : public Service
 				{
 				public:
-					TaskService();
 					~TaskService();
 
-					virtual bool Initialize() override;
 					virtual void Update() override;
-
-					virtual void Stop() override;
+					virtual bool Initialize() override;
 				private:
 					INJECT_FIELD(Logger, logger_)
 					PipeManager pipeManager_;
 					std::vector<std::unique_ptr<Task>> tasks_;
 					std::vector<Pipe> pipes_;
-					bool isStopped_;
 
 					inline void CheckForNewPipes();
 					inline bool StartTask(DataContainer& message, Pipe& pipe);

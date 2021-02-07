@@ -16,13 +16,14 @@ void setup()
 	// Register dependencies.
 	builder.AddSingleton<SomeLogger, Logger>();
 	builder.AddSingleton<SomeNetworkServer, NetworkServer>();
+	builder.AddSingleton<XmlSerializer, ContainerSerializer>();
 	builder.AddSingleton<TaskService>();
 	builder.Build();
 
 	// Add services.
-	core.AddService(RESOLVE_INSTANCE(TaskService));
+	core.RegisterService(RESOLVE_INSTANCE(TaskService));
 
-	JUNJINJEN_ASSERT(core.Initialize());
+	core.Initialize();
 }
 
 void loop()

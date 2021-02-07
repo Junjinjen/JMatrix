@@ -12,8 +12,6 @@ namespace junjinjen_matrix
 			public:
 				virtual ~Logger() = default;
 
-				virtual void Initialize() { }
-
 				virtual void LogInfo(const std::string& msg) const = 0;
 				virtual void LogInfo(const char* buffer, size_t length) const = 0;
 

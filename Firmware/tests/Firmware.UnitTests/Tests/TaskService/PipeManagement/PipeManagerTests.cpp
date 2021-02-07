@@ -14,12 +14,12 @@ namespace TaskServiceUnitTests
 	class ContainerSerializerStub : public ContainerSerializer
 	{
 	public:
-		virtual bool Serialize(const DataContainer& container, byte_string& outputBuffer) override
+		bool Serialize(const DataContainer& container, byte_string& outputBuffer) override
 		{
 			return false;
 		}
 
-		virtual bool Deserialize(const byte_string& inputBuffer, DataContainer& container) override
+		bool Deserialize(const byte_string& inputBuffer, DataContainer& container) override
 		{
 			return false;
 		}
@@ -27,7 +27,6 @@ namespace TaskServiceUnitTests
 
 	TEST_CLASS(PipeManagerUnitTests)
 	{
-	public:
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
 			ContainerBuilder builder;
