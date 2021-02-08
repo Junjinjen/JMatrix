@@ -16,20 +16,25 @@ namespace junjinjen_matrix
 				public:
 					void Register()
 					{
-						creator_ = []() { return new T(); };
+						creator_ = []() { return std::make_shared<T>(); };
 					}
 
 					void Register(std::function<T*()> creator)
+					{
+						creator_ = [=]() { return std::shared_ptr<T>(creator()); };
+					}
+
+					void Register(std::function<std::shared_ptr<T>()> creator)
 					{
 						creator_ = creator;
 					}
 
 					virtual std::shared_ptr<void> Create() override
 					{
-						return std::static_pointer_cast<void>(std::shared_ptr<T>(creator_()));
+						return std::static_pointer_cast<void>(creator_());
 					}
 				private:
-					std::function<T*()> creator_;
+					std::function<std::shared_ptr<T>()> creator_;
 				};
 			}
 		}

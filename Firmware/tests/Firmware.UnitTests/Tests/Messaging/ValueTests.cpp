@@ -4,11 +4,10 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::messaging;
 
-namespace MessagingUnitTests
+namespace MessagingTests
 {
-	TEST_CLASS(ValueUnitTests)
+	TEST_CLASS(ValueTests)
 	{
-	public:
 		TEST_METHOD(Empty_WhenValueIsEmpty_ReturnsTrue)
 		{
 			// Arrange
@@ -120,7 +119,7 @@ namespace MessagingUnitTests
 		TEST_METHOD(IsFloat_WhenValueContainsFloat_ReturnsTrue)
 		{
 			// Arrange
-			Value value(float(14.34f));
+			Value value(float(14.34F));
 
 			// Act / Assert
 			Assert::IsTrue(value.IsFloat());
@@ -334,7 +333,7 @@ namespace MessagingUnitTests
 		TEST_METHOD(AsFloat_WhenValueContainsFloat_ReturnsTrue)
 		{
 			// Arrange
-			float expected = 12.45f;
+			float expected = 12.45F;
 			Value value(expected);
 
 			// Act / Assert
@@ -600,7 +599,7 @@ namespace MessagingUnitTests
 		TEST_METHOD(SetFloat_WhenValueIsEmpty_InsertsValue)
 		{
 			// Arrange
-			float expected = 13.5f;
+			float expected = 13.5F;
 			Value value;
 
 			// Act
@@ -613,7 +612,7 @@ namespace MessagingUnitTests
 		TEST_METHOD(SetFloat_WhenValueIsNotEmpty_UpdatesValue)
 		{
 			// Arrange
-			float expected = 13.5f;
+			float expected = 13.5F;
 			Value value(false);
 
 			// Act
@@ -791,7 +790,7 @@ namespace MessagingUnitTests
 			Value value;
 
 			// Act
-			auto& container = value.CreateContainer();
+			const auto& container = value.CreateContainer();
 
 			// Assert
 			Assert::IsTrue(value.IsContainer());
@@ -804,7 +803,7 @@ namespace MessagingUnitTests
 			Value value(true);
 
 			// Act
-			auto& container = value.CreateContainer();
+			const auto& container = value.CreateContainer();
 
 			// Assert
 			Assert::IsTrue(value.IsContainer());
@@ -822,7 +821,7 @@ namespace MessagingUnitTests
 			container.SetString(key, str);
 
 			// Act
-			auto& node = value.CreateContainer(container);
+			const auto& node = value.CreateContainer(container);
 
 			// Assert
 			Assert::IsTrue(value.IsContainer());
@@ -840,7 +839,7 @@ namespace MessagingUnitTests
 			container.SetString(key, str);
 
 			// Act
-			auto& node = value.CreateContainer(container);
+			const auto& node = value.CreateContainer(container);
 
 			// Assert
 			Assert::IsTrue(value.IsContainer());
@@ -858,7 +857,7 @@ namespace MessagingUnitTests
 			container.SetString(key, str);
 
 			// Act
-			auto& node = value.CreateContainer(std::move(container));
+			const auto& node = value.CreateContainer(std::move(container));
 
 			// Assert
 			Assert::IsTrue(value.IsContainer());
@@ -876,7 +875,7 @@ namespace MessagingUnitTests
 			container.SetString(key, str);
 
 			// Act
-			auto& node = value.CreateContainer(std::move(container));
+			const auto& node = value.CreateContainer(std::move(container));
 
 			// Assert
 			Assert::IsTrue(value.IsContainer());
@@ -889,7 +888,7 @@ namespace MessagingUnitTests
 			Value value;
 
 			// Act
-			auto& arrayValue = value.CreateArray();
+			const auto& arrayValue = value.CreateArray();
 
 			// Assert
 			Assert::IsTrue(value.IsArray());
@@ -902,7 +901,7 @@ namespace MessagingUnitTests
 			Value value(true);
 
 			// Act
-			auto& arrayValue = value.CreateArray();
+			const auto& arrayValue = value.CreateArray();
 
 			// Assert
 			Assert::IsTrue(value.IsArray());
@@ -921,7 +920,7 @@ namespace MessagingUnitTests
 			array.push_back(str2);
 
 			// Act
-			auto& node = value.CreateArray(array);
+			const auto& node = value.CreateArray(array);
 
 			// Assert
 			Assert::IsTrue(value.IsArray());
@@ -940,7 +939,7 @@ namespace MessagingUnitTests
 			array.push_back(str2);
 
 			// Act
-			auto& node = value.CreateArray(array);
+			const auto& node = value.CreateArray(array);
 
 			// Assert
 			Assert::IsTrue(value.IsArray());
@@ -960,7 +959,7 @@ namespace MessagingUnitTests
 
 			// Act
 			std::vector<Value> arrayCopy = array;
-			auto& node = value.CreateArray(std::move(arrayCopy));
+			const auto& node = value.CreateArray(std::move(arrayCopy));
 
 			// Assert
 			Assert::IsTrue(value.IsArray());
@@ -980,7 +979,7 @@ namespace MessagingUnitTests
 
 			// Act
 			std::vector<Value> arrayCopy = array;
-			auto& node = value.CreateArray(std::move(arrayCopy));
+			const auto& node = value.CreateArray(std::move(arrayCopy));
 
 			// Assert
 			Assert::IsTrue(value.IsArray());

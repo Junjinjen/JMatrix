@@ -40,18 +40,20 @@ namespace junjinjen_matrix
 				/// <para>– <see cref="NetworkServer"/>;</para>
 				/// <para>– <see cref="ContainerSerializer"/>.</para>
 				/// </summary>
-				class TaskService : public Service
+				class TaskService : private Service
 				{
 				public:
+					TaskService();
 					~TaskService();
-
+				private:
 					virtual void Update() override;
 					virtual bool Initialize() override;
-				private:
+
 					INJECT_FIELD(Logger, logger_)
 					PipeManager pipeManager_;
 					std::vector<std::unique_ptr<Task>> tasks_;
 					std::vector<Pipe> pipes_;
+					bool isInitialized_;
 
 					inline void CheckForNewPipes();
 					inline bool StartTask(DataContainer& message, Pipe& pipe);

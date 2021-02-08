@@ -9,7 +9,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::services::task_service::network_pipeline::pipe_management;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace TaskServiceUnitTests
+namespace TaskServiceTests
 {
 	class ContainerSerializerStub : public ContainerSerializer
 	{
@@ -25,7 +25,7 @@ namespace TaskServiceUnitTests
 		}
 	};
 
-	TEST_CLASS(PipeManagerUnitTests)
+	TEST_CLASS(PipeManagerTests)
 	{
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
@@ -76,7 +76,7 @@ namespace TaskServiceUnitTests
 			Assert::ExpectException<AssertFailedException>([&]() { pipeManager->GetNewPipe(); });
 		}
 	private:
-		inline std::tuple<std::shared_ptr<MockServer>, std::unique_ptr<PipeManager>> ConfigureTestPipeManager()
+		inline std::tuple<std::shared_ptr<MockServer>, std::unique_ptr<PipeManager>> ConfigureTestPipeManager() const
 		{
 			auto server = RESOLVE_INSTANCE(MockServer);
 			auto pipe = std::make_unique<PipeManager>();

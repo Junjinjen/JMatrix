@@ -23,7 +23,7 @@ namespace junjinjen_matrix
 						{
 							TaskFactory::AddTaskCreator(taskName, [](Pipe& pipe, DataContainer& arguments)
 								{
-									return std::unique_ptr<Task>(new T(pipe, std::move(arguments)));
+									return std::make_unique<T>(pipe, std::move(arguments));
 								});
 						}
 
@@ -32,7 +32,7 @@ namespace junjinjen_matrix
 						{
 							TaskFactory::AddTaskCreator(taskName, [](Pipe& pipe, DataContainer& arguments)
 								{
-									return std::unique_ptr<Task>(new T(pipe));
+									return std::make_unique<T>(pipe);
 								});
 						}
 					};

@@ -11,17 +11,15 @@ junjinjen_matrix::firmware::Core core;
 
 void setup()
 {
-	ContainerBuilder builder;
-
 	// Register dependencies.
+	ContainerBuilder builder;
 	builder.AddSingleton<SomeLogger, Logger>();
 	builder.AddSingleton<SomeNetworkServer, NetworkServer>();
 	builder.AddSingleton<XmlSerializer, ContainerSerializer>();
-	builder.AddSingleton<TaskService>();
 	builder.Build();
 
 	// Add services.
-	core.RegisterService(RESOLVE_INSTANCE(TaskService));
+	core.RegisterService(new TaskService());
 
 	core.Initialize();
 }

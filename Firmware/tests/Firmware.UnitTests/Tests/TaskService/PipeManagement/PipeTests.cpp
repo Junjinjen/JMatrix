@@ -16,7 +16,7 @@ using namespace junjinjen_matrix::firmware::messaging;
 using namespace junjinjen_matrix::firmware::messaging::serialization;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace TaskServiceUnitTests
+namespace TaskServiceTests
 {
 	class TestSerializer : public ContainerSerializer
 	{
@@ -28,22 +28,21 @@ namespace TaskServiceUnitTests
 			return container;
 		}
 
-		virtual bool Serialize(const DataContainer& container, byte_string& outputBuffer) override
+		bool Serialize(const DataContainer& container, byte_string& outputBuffer) override
 		{
 			outputBuffer = reinterpret_cast<const uint8_t*>(&container.GetString("message")[0]);
 			return true;
 		}
 
-		virtual bool Deserialize(const byte_string& inputBuffer, DataContainer& container) override
+		bool Deserialize(const byte_string& inputBuffer, DataContainer& container) override
 		{
 			container.SetString("message", reinterpret_cast<const char*>(&inputBuffer[0]));
 			return true;
 		}
 	};
 
-	TEST_CLASS(PipeUnitTests)
+	TEST_CLASS(PipeTests)
 	{
-	public:
 		TEST_CLASS_INITIALIZE(InitializeIocContainer)
 		{
 			ContainerBuilder builder;
@@ -319,7 +318,7 @@ namespace TaskServiceUnitTests
 			Assert::IsTrue(pipe->SendMessage(TestSerializer::GenerateMessage(expected)));
 
 			// Assert
-			for (auto& msg : client->GetOutput())
+			for (const auto& msg : client->GetOutput())
 			{
 				AddToVector(assertionOutputVector, msg);
 			}
@@ -348,7 +347,7 @@ namespace TaskServiceUnitTests
 			Assert::IsTrue(pipe->SendMessage(TestSerializer::GenerateMessage(expected3)));
 
 			// Assert
-			for (auto& msg : client->GetOutput())
+			for (const auto& msg : client->GetOutput())
 			{
 				AddToVector(assertionOutputVector, msg);
 			}
@@ -367,7 +366,7 @@ namespace TaskServiceUnitTests
 			Assert::IsFalse(pipe->SendMessage(TestSerializer::GenerateMessage(expected)));
 		}
 	private:
-		inline std::tuple<MockClient*, std::unique_ptr<Pipe>> ConfigureTestPipe()
+		[[nodiscard]] inline std::tuple<MockClient*, std::unique_ptr<Pipe>> ConfigureTestPipe() const
 		{
 			auto client = new MockClient();
 			auto pipe = std::make_unique<Pipe>(client);

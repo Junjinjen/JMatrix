@@ -6,25 +6,22 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::dependency_injection;
 
-namespace DependencyInjectionUnitTests
+namespace DependencyInjectionTests
 {
 	class TestClassBase
 	{
 	public:
-		TestClassBase() : number_(0) { }
-		int number_;
+		int number_ = 0;
 	};
 
 	class TestInheritedClass : public TestClassBase
 	{
 	public:
-		TestInheritedClass() : secondNumber_(0) { }
-		int secondNumber_;
+		int secondNumber_ = 0;
 	};
 
-	TEST_CLASS(ContanierUnitTests)
+	TEST_CLASS(ContanierTests)
 	{
-	public:
 		TEST_METHOD(Resolve_WhenContainerContainsRequestedInterfaceAsSelf_ReturnsInstance)
 		{
 			// Arrange

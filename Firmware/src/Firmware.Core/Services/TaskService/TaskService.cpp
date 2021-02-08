@@ -8,6 +8,11 @@ namespace junjinjen_matrix
 		{
 			namespace task_service
 			{
+				TaskService::TaskService()
+					: isInitialized_(false)
+				{
+				}
+
 				TaskService::~TaskService()
 				{
 					pipeManager_.Stop();
@@ -17,18 +22,24 @@ namespace junjinjen_matrix
 
 				bool TaskService::Initialize()
 				{
-					if (!pipeManager_.Initialize())
+					if (!isInitialized_)
 					{
-						logger_->LogFatal("Unable to initialize task service. Pipe manager initialization failed");
-						return false;
-					}
+						if (!pipeManager_.Initialize())
+						{
+							logger_->LogFatal("Unable to initialize task service. Pipe manager initialization failed");
+							return false;
+						}
 
-					logger_->LogInfo("Task service started");
-					return true;
+						logger_->LogInfo("Task service started");
+						isInitialized_ = true;
+						return true;
+					}
+					
 				}
 
 				void TaskService::Update()
 				{
+					JUNJINJEN_ASSERT(isInitialized_);
 					CheckForNewPipes();
 
 					auto it = tasks_.begin();

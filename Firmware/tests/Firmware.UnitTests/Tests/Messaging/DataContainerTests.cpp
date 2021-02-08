@@ -4,11 +4,10 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace junjinjen_matrix::firmware::messaging;
 
-namespace MessagingUnitTests
+namespace MessagingTests
 {
-	TEST_CLASS(DataContainerUnitTests)
+	TEST_CLASS(DataContainerTests)
 	{
-	public:
 		TEST_METHOD(Empty_WhenContainerIsEmpty_ReturnsTrue)
 		{
 			// Arrange
@@ -98,7 +97,7 @@ namespace MessagingUnitTests
 			container.SetValue(key, Value(expected));
 			
 			// Act
-			auto value = container.GetValue(key);
+			const auto& value = container.GetValue(key);
 
 			// Assert 
 			Assert::AreEqual(expected, value.AsString());
@@ -124,7 +123,7 @@ namespace MessagingUnitTests
 			const DataContainer& constInstance = container;
 
 			// Act
-			auto value = constInstance.GetValue(key);
+			const auto& value = constInstance.GetValue(key);
 
 			// Assert 
 			Assert::AreEqual(expected, value.AsString());
@@ -139,7 +138,7 @@ namespace MessagingUnitTests
 			container.SetValue(key, Value(expected));
 
 			// Act
-			auto value = container[key];
+			const auto& value = container[key];
 
 			// Assert 
 			Assert::AreEqual(expected, value.AsString());
@@ -365,7 +364,7 @@ namespace MessagingUnitTests
 			DataContainer container;
 			std::string key = "tmp";
 			std::string oldValue = "Some old value";
-			float expected = 3.57f;
+			float expected = 3.57F;
 			container.SetString(key, oldValue);
 
 			// Act
@@ -380,7 +379,7 @@ namespace MessagingUnitTests
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
-			float expected = 3.57f;
+			float expected = 3.57F;
 
 			// Act
 			container.SetFloat(key, expected);
@@ -594,7 +593,7 @@ namespace MessagingUnitTests
 			// Arrange
 			DataContainer container;
 			std::string key = "tmp";
-			float expected = 13.5f;
+			float expected = 13.5F;
 			container.SetFloat(key, expected);
 
 			// Act / Assert
@@ -666,7 +665,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act
-			auto& value = container.SetContainer(key);
+			const auto& value = container.SetContainer(key);
 
 			// Assert
 			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
@@ -681,7 +680,7 @@ namespace MessagingUnitTests
 			std::string key = "tmp";
 
 			// Act
-			auto& value = container.SetContainer(key);
+			const auto& value = container.SetContainer(key);
 
 			// Assert
 			Assert::IsTrue(container.HasValue(key));
@@ -791,7 +790,7 @@ namespace MessagingUnitTests
 			container.SetContainer(key, oldValue);
 
 			// Act
-			auto& value = container.GetContainer(key);
+			const auto& value = container.GetContainer(key);
 
 			// Assert
 			Assert::AreEqual(testValue, value.GetString(testKey));
@@ -876,7 +875,7 @@ namespace MessagingUnitTests
 			container.SetString(key, oldValue);
 
 			// Act
-			auto& value = container.SetArray(key);
+			const auto& value = container.SetArray(key);
 
 			// Assert
 			Assert::ExpectException<AssertFailedException>([&]() { container.GetString(key); });
@@ -891,7 +890,7 @@ namespace MessagingUnitTests
 			std::string key = "tmp";
 
 			// Act
-			auto& value = container.SetArray(key);
+			const auto& value = container.SetArray(key);
 
 			// Assert
 			Assert::IsTrue(container.HasValue(key));
@@ -1010,7 +1009,7 @@ namespace MessagingUnitTests
 			container.SetArray(key, expectedValue);
 
 			// Act
-			auto& value = container.GetArray(key);
+			const auto& value = container.GetArray(key);
 
 			// Assert
 			Assert::IsTrue(expectedValue == value);
